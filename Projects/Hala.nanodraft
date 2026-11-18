@@ -1,0 +1,2492 @@
+{
+  "version": "1.0",
+  "unit": "m",
+  "layers": [
+    {
+      "id": "0",
+      "name": "0 (Opisy / Strefy)",
+      "color": "#b0bec5",
+      "lineWidth": 1,
+      "visible": true,
+      "locked": false,
+      "lineType": "continuous"
+    },
+    {
+      "id": "columns",
+      "name": "Budynek i Słupy",
+      "color": "#eceff1",
+      "lineWidth": 2,
+      "visible": true,
+      "locked": false,
+      "lineType": "continuous"
+    },
+    {
+      "id": "axes",
+      "name": "Osie konstrukcyjne",
+      "color": "#ff5252",
+      "lineWidth": 1,
+      "visible": true,
+      "locked": false,
+      "lineType": "dashdot"
+    },
+    {
+      "id": "transport",
+      "name": "Drogi transportowe",
+      "color": "#ffd54f",
+      "lineWidth": 1.5,
+      "visible": true,
+      "locked": false,
+      "lineType": "dashed"
+    },
+    {
+      "id": "elements",
+      "name": "Stoły montażowe",
+      "color": "#4fc3f7",
+      "lineWidth": 1.5,
+      "visible": true,
+      "locked": false,
+      "lineType": "continuous"
+    },
+    {
+      "id": "racks_small",
+      "name": "Regały 1m (podręczne)",
+      "color": "#81c784",
+      "lineWidth": 1.5,
+      "visible": true,
+      "locked": false,
+      "lineType": "continuous"
+    },
+    {
+      "id": "racks_warehouse",
+      "name": "Regały magazynowe",
+      "color": "#ffb74d",
+      "lineWidth": 1.5,
+      "visible": true,
+      "locked": false,
+      "lineType": "continuous"
+    },
+    {
+      "id": "dimensions",
+      "name": "Wymiary",
+      "color": "#ffd54f",
+      "lineWidth": 1,
+      "visible": true,
+      "locked": false,
+      "lineType": "continuous"
+    }
+  ],
+  "entities": [
+    {
+      "id": "line_hall_1",
+      "type": "line",
+      "layerId": "columns",
+      "x1": 0,
+      "y1": 0,
+      "x2": 24,
+      "y2": 0
+    },
+    {
+      "id": "line_hall_2",
+      "type": "line",
+      "layerId": "columns",
+      "x1": 24,
+      "y1": 0,
+      "x2": 24,
+      "y2": 16
+    },
+    {
+      "id": "line_hall_3",
+      "type": "line",
+      "layerId": "columns",
+      "x1": 24,
+      "y1": 16,
+      "x2": 0,
+      "y2": 16
+    },
+    {
+      "id": "line_hall_4",
+      "type": "line",
+      "layerId": "columns",
+      "x1": 0,
+      "y1": 0,
+      "x2": 0,
+      "y2": 6.5
+    },
+    {
+      "id": "line_hall_5",
+      "type": "line",
+      "layerId": "columns",
+      "x1": 0,
+      "y1": 9.5,
+      "x2": 0,
+      "y2": 16
+    },
+    {
+      "id": "line_hall_6",
+      "type": "line",
+      "layerId": "transport",
+      "x1": 0,
+      "y1": 6.5,
+      "x2": -0.6,
+      "y2": 7.1,
+      "lineType": "continuous"
+    },
+    {
+      "id": "line_hall_7",
+      "type": "line",
+      "layerId": "transport",
+      "x1": 0,
+      "y1": 9.5,
+      "x2": -0.6,
+      "y2": 8.9,
+      "lineType": "continuous"
+    },
+    {
+      "id": "txt_hall_8",
+      "type": "text",
+      "layerId": "0",
+      "text": "BRAMA 3.0m",
+      "x": -1.8,
+      "y": 7.8,
+      "height": 0.28,
+      "rotation": 90,
+      "align": "left",
+      "baseline": "bottom",
+      "color": "#ffd54f"
+    },
+    {
+      "id": "line_hall_9",
+      "type": "line",
+      "layerId": "axes",
+      "x1": 0,
+      "y1": -0.8,
+      "x2": 0,
+      "y2": 16.8
+    },
+    {
+      "id": "axis_circle_hall_10",
+      "type": "circle",
+      "layerId": "axes",
+      "cx": 0,
+      "cy": 17.25,
+      "radius": 0.35
+    },
+    {
+      "id": "txt_hall_11",
+      "type": "text",
+      "layerId": "axes",
+      "text": "1",
+      "x": -0.1,
+      "y": 17.1,
+      "height": 0.32,
+      "rotation": 0,
+      "align": "left",
+      "baseline": "bottom"
+    },
+    {
+      "id": "line_hall_12",
+      "type": "line",
+      "layerId": "axes",
+      "x1": 8,
+      "y1": -0.8,
+      "x2": 8,
+      "y2": 16.8
+    },
+    {
+      "id": "axis_circle_hall_13",
+      "type": "circle",
+      "layerId": "axes",
+      "cx": 8,
+      "cy": 17.25,
+      "radius": 0.35
+    },
+    {
+      "id": "txt_hall_14",
+      "type": "text",
+      "layerId": "axes",
+      "text": "2",
+      "x": 7.9,
+      "y": 17.1,
+      "height": 0.32,
+      "rotation": 0,
+      "align": "left",
+      "baseline": "bottom"
+    },
+    {
+      "id": "line_hall_15",
+      "type": "line",
+      "layerId": "axes",
+      "x1": 16,
+      "y1": -0.8,
+      "x2": 16,
+      "y2": 16.8
+    },
+    {
+      "id": "axis_circle_hall_16",
+      "type": "circle",
+      "layerId": "axes",
+      "cx": 16,
+      "cy": 17.25,
+      "radius": 0.35
+    },
+    {
+      "id": "txt_hall_17",
+      "type": "text",
+      "layerId": "axes",
+      "text": "3",
+      "x": 15.9,
+      "y": 17.1,
+      "height": 0.32,
+      "rotation": 0,
+      "align": "left",
+      "baseline": "bottom"
+    },
+    {
+      "id": "line_hall_18",
+      "type": "line",
+      "layerId": "axes",
+      "x1": 24,
+      "y1": -0.8,
+      "x2": 24,
+      "y2": 16.8
+    },
+    {
+      "id": "axis_circle_hall_19",
+      "type": "circle",
+      "layerId": "axes",
+      "cx": 24,
+      "cy": 17.25,
+      "radius": 0.35
+    },
+    {
+      "id": "txt_hall_20",
+      "type": "text",
+      "layerId": "axes",
+      "text": "4",
+      "x": 23.9,
+      "y": 17.1,
+      "height": 0.32,
+      "rotation": 0,
+      "align": "left",
+      "baseline": "bottom"
+    },
+    {
+      "id": "line_hall_21",
+      "type": "line",
+      "layerId": "axes",
+      "x1": -0.8,
+      "y1": 0,
+      "x2": 24.8,
+      "y2": 0
+    },
+    {
+      "id": "axis_circle_hall_22",
+      "type": "circle",
+      "layerId": "axes",
+      "cx": -1.25,
+      "cy": 0,
+      "radius": 0.35
+    },
+    {
+      "id": "txt_hall_23",
+      "type": "text",
+      "layerId": "axes",
+      "text": "A",
+      "x": -1.36,
+      "y": -0.14,
+      "height": 0.32,
+      "rotation": 0,
+      "align": "left",
+      "baseline": "bottom"
+    },
+    {
+      "id": "line_hall_24",
+      "type": "line",
+      "layerId": "axes",
+      "x1": -0.8,
+      "y1": 8,
+      "x2": 24.8,
+      "y2": 8
+    },
+    {
+      "id": "axis_circle_hall_25",
+      "type": "circle",
+      "layerId": "axes",
+      "cx": -1.25,
+      "cy": 8,
+      "radius": 0.35
+    },
+    {
+      "id": "txt_hall_26",
+      "type": "text",
+      "layerId": "axes",
+      "text": "B",
+      "x": -1.36,
+      "y": 7.86,
+      "height": 0.32,
+      "rotation": 0,
+      "align": "left",
+      "baseline": "bottom"
+    },
+    {
+      "id": "line_hall_27",
+      "type": "line",
+      "layerId": "axes",
+      "x1": -0.8,
+      "y1": 16,
+      "x2": 24.8,
+      "y2": 16
+    },
+    {
+      "id": "axis_circle_hall_28",
+      "type": "circle",
+      "layerId": "axes",
+      "cx": -1.25,
+      "cy": 16,
+      "radius": 0.35
+    },
+    {
+      "id": "txt_hall_29",
+      "type": "text",
+      "layerId": "axes",
+      "text": "C",
+      "x": -1.36,
+      "y": 15.86,
+      "height": 0.32,
+      "rotation": 0,
+      "align": "left",
+      "baseline": "bottom"
+    },
+    {
+      "id": "rect_hall_30",
+      "type": "polyline",
+      "layerId": "columns",
+      "color": "#ffffff",
+      "closed": true,
+      "points": [
+        {
+          "x": -0.2,
+          "y": -0.2
+        },
+        {
+          "x": 0.2,
+          "y": -0.2
+        },
+        {
+          "x": 0.2,
+          "y": 0.2
+        },
+        {
+          "x": -0.2,
+          "y": 0.2
+        }
+      ]
+    },
+    {
+      "id": "line_hall_31",
+      "type": "line",
+      "layerId": "columns",
+      "x1": -0.2,
+      "y1": -0.2,
+      "x2": 0.2,
+      "y2": 0.2
+    },
+    {
+      "id": "line_hall_32",
+      "type": "line",
+      "layerId": "columns",
+      "x1": -0.2,
+      "y1": 0.2,
+      "x2": 0.2,
+      "y2": -0.2
+    },
+    {
+      "id": "rect_hall_33",
+      "type": "polyline",
+      "layerId": "columns",
+      "color": "#ffffff",
+      "closed": true,
+      "points": [
+        {
+          "x": -0.2,
+          "y": 7.8
+        },
+        {
+          "x": 0.2,
+          "y": 7.8
+        },
+        {
+          "x": 0.2,
+          "y": 8.2
+        },
+        {
+          "x": -0.2,
+          "y": 8.2
+        }
+      ]
+    },
+    {
+      "id": "line_hall_34",
+      "type": "line",
+      "layerId": "columns",
+      "x1": -0.2,
+      "y1": 7.8,
+      "x2": 0.2,
+      "y2": 8.2
+    },
+    {
+      "id": "line_hall_35",
+      "type": "line",
+      "layerId": "columns",
+      "x1": -0.2,
+      "y1": 8.2,
+      "x2": 0.2,
+      "y2": 7.8
+    },
+    {
+      "id": "rect_hall_36",
+      "type": "polyline",
+      "layerId": "columns",
+      "color": "#ffffff",
+      "closed": true,
+      "points": [
+        {
+          "x": -0.2,
+          "y": 15.8
+        },
+        {
+          "x": 0.2,
+          "y": 15.8
+        },
+        {
+          "x": 0.2,
+          "y": 16.2
+        },
+        {
+          "x": -0.2,
+          "y": 16.2
+        }
+      ]
+    },
+    {
+      "id": "line_hall_37",
+      "type": "line",
+      "layerId": "columns",
+      "x1": -0.2,
+      "y1": 15.8,
+      "x2": 0.2,
+      "y2": 16.2
+    },
+    {
+      "id": "line_hall_38",
+      "type": "line",
+      "layerId": "columns",
+      "x1": -0.2,
+      "y1": 16.2,
+      "x2": 0.2,
+      "y2": 15.8
+    },
+    {
+      "id": "rect_hall_39",
+      "type": "polyline",
+      "layerId": "columns",
+      "color": "#ffffff",
+      "closed": true,
+      "points": [
+        {
+          "x": 7.8,
+          "y": -0.2
+        },
+        {
+          "x": 8.2,
+          "y": -0.2
+        },
+        {
+          "x": 8.2,
+          "y": 0.2
+        },
+        {
+          "x": 7.8,
+          "y": 0.2
+        }
+      ]
+    },
+    {
+      "id": "line_hall_40",
+      "type": "line",
+      "layerId": "columns",
+      "x1": 7.8,
+      "y1": -0.2,
+      "x2": 8.2,
+      "y2": 0.2
+    },
+    {
+      "id": "line_hall_41",
+      "type": "line",
+      "layerId": "columns",
+      "x1": 7.8,
+      "y1": 0.2,
+      "x2": 8.2,
+      "y2": -0.2
+    },
+    {
+      "id": "rect_hall_42",
+      "type": "polyline",
+      "layerId": "columns",
+      "color": "#ffffff",
+      "closed": true,
+      "points": [
+        {
+          "x": 7.8,
+          "y": 7.8
+        },
+        {
+          "x": 8.2,
+          "y": 7.8
+        },
+        {
+          "x": 8.2,
+          "y": 8.2
+        },
+        {
+          "x": 7.8,
+          "y": 8.2
+        }
+      ]
+    },
+    {
+      "id": "line_hall_43",
+      "type": "line",
+      "layerId": "columns",
+      "x1": 7.8,
+      "y1": 7.8,
+      "x2": 8.2,
+      "y2": 8.2
+    },
+    {
+      "id": "line_hall_44",
+      "type": "line",
+      "layerId": "columns",
+      "x1": 7.8,
+      "y1": 8.2,
+      "x2": 8.2,
+      "y2": 7.8
+    },
+    {
+      "id": "rect_hall_45",
+      "type": "polyline",
+      "layerId": "columns",
+      "color": "#ffffff",
+      "closed": true,
+      "points": [
+        {
+          "x": 7.8,
+          "y": 15.8
+        },
+        {
+          "x": 8.2,
+          "y": 15.8
+        },
+        {
+          "x": 8.2,
+          "y": 16.2
+        },
+        {
+          "x": 7.8,
+          "y": 16.2
+        }
+      ]
+    },
+    {
+      "id": "line_hall_46",
+      "type": "line",
+      "layerId": "columns",
+      "x1": 7.8,
+      "y1": 15.8,
+      "x2": 8.2,
+      "y2": 16.2
+    },
+    {
+      "id": "line_hall_47",
+      "type": "line",
+      "layerId": "columns",
+      "x1": 7.8,
+      "y1": 16.2,
+      "x2": 8.2,
+      "y2": 15.8
+    },
+    {
+      "id": "rect_hall_48",
+      "type": "polyline",
+      "layerId": "columns",
+      "color": "#ffffff",
+      "closed": true,
+      "points": [
+        {
+          "x": 15.8,
+          "y": -0.2
+        },
+        {
+          "x": 16.2,
+          "y": -0.2
+        },
+        {
+          "x": 16.2,
+          "y": 0.2
+        },
+        {
+          "x": 15.8,
+          "y": 0.2
+        }
+      ]
+    },
+    {
+      "id": "line_hall_49",
+      "type": "line",
+      "layerId": "columns",
+      "x1": 15.8,
+      "y1": -0.2,
+      "x2": 16.2,
+      "y2": 0.2
+    },
+    {
+      "id": "line_hall_50",
+      "type": "line",
+      "layerId": "columns",
+      "x1": 15.8,
+      "y1": 0.2,
+      "x2": 16.2,
+      "y2": -0.2
+    },
+    {
+      "id": "rect_hall_51",
+      "type": "polyline",
+      "layerId": "columns",
+      "color": "#ffffff",
+      "closed": true,
+      "points": [
+        {
+          "x": 15.8,
+          "y": 7.8
+        },
+        {
+          "x": 16.2,
+          "y": 7.8
+        },
+        {
+          "x": 16.2,
+          "y": 8.2
+        },
+        {
+          "x": 15.8,
+          "y": 8.2
+        }
+      ]
+    },
+    {
+      "id": "line_hall_52",
+      "type": "line",
+      "layerId": "columns",
+      "x1": 15.8,
+      "y1": 7.8,
+      "x2": 16.2,
+      "y2": 8.2
+    },
+    {
+      "id": "line_hall_53",
+      "type": "line",
+      "layerId": "columns",
+      "x1": 15.8,
+      "y1": 8.2,
+      "x2": 16.2,
+      "y2": 7.8
+    },
+    {
+      "id": "rect_hall_54",
+      "type": "polyline",
+      "layerId": "columns",
+      "color": "#ffffff",
+      "closed": true,
+      "points": [
+        {
+          "x": 15.8,
+          "y": 15.8
+        },
+        {
+          "x": 16.2,
+          "y": 15.8
+        },
+        {
+          "x": 16.2,
+          "y": 16.2
+        },
+        {
+          "x": 15.8,
+          "y": 16.2
+        }
+      ]
+    },
+    {
+      "id": "line_hall_55",
+      "type": "line",
+      "layerId": "columns",
+      "x1": 15.8,
+      "y1": 15.8,
+      "x2": 16.2,
+      "y2": 16.2
+    },
+    {
+      "id": "line_hall_56",
+      "type": "line",
+      "layerId": "columns",
+      "x1": 15.8,
+      "y1": 16.2,
+      "x2": 16.2,
+      "y2": 15.8
+    },
+    {
+      "id": "rect_hall_57",
+      "type": "polyline",
+      "layerId": "columns",
+      "color": "#ffffff",
+      "closed": true,
+      "points": [
+        {
+          "x": 23.8,
+          "y": -0.2
+        },
+        {
+          "x": 24.2,
+          "y": -0.2
+        },
+        {
+          "x": 24.2,
+          "y": 0.2
+        },
+        {
+          "x": 23.8,
+          "y": 0.2
+        }
+      ]
+    },
+    {
+      "id": "line_hall_58",
+      "type": "line",
+      "layerId": "columns",
+      "x1": 23.8,
+      "y1": -0.2,
+      "x2": 24.2,
+      "y2": 0.2
+    },
+    {
+      "id": "line_hall_59",
+      "type": "line",
+      "layerId": "columns",
+      "x1": 23.8,
+      "y1": 0.2,
+      "x2": 24.2,
+      "y2": -0.2
+    },
+    {
+      "id": "rect_hall_60",
+      "type": "polyline",
+      "layerId": "columns",
+      "color": "#ffffff",
+      "closed": true,
+      "points": [
+        {
+          "x": 23.8,
+          "y": 7.8
+        },
+        {
+          "x": 24.2,
+          "y": 7.8
+        },
+        {
+          "x": 24.2,
+          "y": 8.2
+        },
+        {
+          "x": 23.8,
+          "y": 8.2
+        }
+      ]
+    },
+    {
+      "id": "line_hall_61",
+      "type": "line",
+      "layerId": "columns",
+      "x1": 23.8,
+      "y1": 7.8,
+      "x2": 24.2,
+      "y2": 8.2
+    },
+    {
+      "id": "line_hall_62",
+      "type": "line",
+      "layerId": "columns",
+      "x1": 23.8,
+      "y1": 8.2,
+      "x2": 24.2,
+      "y2": 7.8
+    },
+    {
+      "id": "rect_hall_63",
+      "type": "polyline",
+      "layerId": "columns",
+      "color": "#ffffff",
+      "closed": true,
+      "points": [
+        {
+          "x": 23.8,
+          "y": 15.8
+        },
+        {
+          "x": 24.2,
+          "y": 15.8
+        },
+        {
+          "x": 24.2,
+          "y": 16.2
+        },
+        {
+          "x": 23.8,
+          "y": 16.2
+        }
+      ]
+    },
+    {
+      "id": "line_hall_64",
+      "type": "line",
+      "layerId": "columns",
+      "x1": 23.8,
+      "y1": 15.8,
+      "x2": 24.2,
+      "y2": 16.2
+    },
+    {
+      "id": "line_hall_65",
+      "type": "line",
+      "layerId": "columns",
+      "x1": 23.8,
+      "y1": 16.2,
+      "x2": 24.2,
+      "y2": 15.8
+    },
+    {
+      "id": "txt_hall_66",
+      "type": "text",
+      "layerId": "columns",
+      "text": "SŁUP 0.4x0.4m (SIATKA 8x8m)",
+      "x": 8.3,
+      "y": 8.25,
+      "height": 0.24,
+      "rotation": 0,
+      "align": "left",
+      "baseline": "bottom",
+      "color": "#eceff1"
+    },
+    {
+      "id": "line_hall_67",
+      "type": "line",
+      "layerId": "transport",
+      "x1": 0,
+      "y1": 6.5,
+      "x2": 23.2,
+      "y2": 6.5,
+      "lineType": "dashed"
+    },
+    {
+      "id": "line_hall_68",
+      "type": "line",
+      "layerId": "transport",
+      "x1": 0,
+      "y1": 9.5,
+      "x2": 6.2,
+      "y2": 9.5,
+      "lineType": "dashed"
+    },
+    {
+      "id": "line_hall_69",
+      "type": "line",
+      "layerId": "transport",
+      "x1": 8.6,
+      "y1": 9.5,
+      "x2": 23.2,
+      "y2": 9.5,
+      "lineType": "dashed"
+    },
+    {
+      "id": "line_hall_70",
+      "type": "line",
+      "layerId": "transport",
+      "x1": 23.2,
+      "y1": 6.5,
+      "x2": 23.2,
+      "y2": 9.5,
+      "lineType": "dashed"
+    },
+    {
+      "id": "line_hall_71",
+      "type": "line",
+      "layerId": "transport",
+      "x1": 6.2,
+      "y1": 9.5,
+      "x2": 6.2,
+      "y2": 15.2,
+      "lineType": "dashed"
+    },
+    {
+      "id": "line_hall_72",
+      "type": "line",
+      "layerId": "transport",
+      "x1": 8.6,
+      "y1": 9.5,
+      "x2": 8.6,
+      "y2": 15.2,
+      "lineType": "dashed"
+    },
+    {
+      "id": "line_hall_73",
+      "type": "line",
+      "layerId": "transport",
+      "x1": 6.2,
+      "y1": 15.2,
+      "x2": 8.6,
+      "y2": 15.2,
+      "lineType": "dashed"
+    },
+    {
+      "id": "line_hall_74",
+      "type": "line",
+      "layerId": "axes",
+      "x1": 0,
+      "y1": 8,
+      "x2": 23,
+      "y2": 8,
+      "lineType": "dashdot",
+      "color": "#ffd54f"
+    },
+    {
+      "id": "line_hall_75",
+      "type": "line",
+      "layerId": "axes",
+      "x1": 7.4,
+      "y1": 8,
+      "x2": 7.4,
+      "y2": 15,
+      "lineType": "dashdot",
+      "color": "#ffd54f"
+    },
+    {
+      "id": "txt_hall_76",
+      "type": "text",
+      "layerId": "transport",
+      "text": "DROGA TRANSPORTOWA GŁÓWNA — SZER. 3.00 m (WÓZKI / AGV)",
+      "x": 1.2,
+      "y": 7.35,
+      "height": 0.3,
+      "rotation": 0,
+      "align": "left",
+      "baseline": "bottom"
+    },
+    {
+      "id": "txt_hall_77",
+      "type": "text",
+      "layerId": "transport",
+      "text": "DROGA BOCZNA 2.40 m",
+      "x": 7.6,
+      "y": 10.2,
+      "height": 0.24,
+      "rotation": 90,
+      "align": "left",
+      "baseline": "bottom"
+    },
+    {
+      "id": "rect_hall_78",
+      "type": "polyline",
+      "layerId": "racks_warehouse",
+      "closed": true,
+      "points": [
+        {
+          "x": 1,
+          "y": 10.4
+        },
+        {
+          "x": 5,
+          "y": 10.4
+        },
+        {
+          "x": 5,
+          "y": 11.4
+        },
+        {
+          "x": 1,
+          "y": 11.4
+        }
+      ]
+    },
+    {
+      "id": "line_hall_79",
+      "type": "line",
+      "layerId": "racks_warehouse",
+      "x1": 2,
+      "y1": 10.4,
+      "x2": 2,
+      "y2": 11.4
+    },
+    {
+      "id": "line_hall_80",
+      "type": "line",
+      "layerId": "racks_warehouse",
+      "x1": 3,
+      "y1": 10.4,
+      "x2": 3,
+      "y2": 11.4
+    },
+    {
+      "id": "line_hall_81",
+      "type": "line",
+      "layerId": "racks_warehouse",
+      "x1": 4,
+      "y1": 10.4,
+      "x2": 4,
+      "y2": 11.4
+    },
+    {
+      "id": "line_hall_82",
+      "type": "line",
+      "layerId": "racks_warehouse",
+      "x1": 1,
+      "y1": 10.4,
+      "x2": 5,
+      "y2": 11.4
+    },
+    {
+      "id": "txt_hall_83",
+      "type": "text",
+      "layerId": "racks_warehouse",
+      "text": "REGAŁ MAGAZYNOWY RM-1 (4.0x1.0m)",
+      "x": 1.15,
+      "y": 10.75,
+      "height": 0.22,
+      "rotation": 0,
+      "align": "left",
+      "baseline": "bottom"
+    },
+    {
+      "id": "rect_hall_84",
+      "type": "polyline",
+      "layerId": "racks_warehouse",
+      "closed": true,
+      "points": [
+        {
+          "x": 1,
+          "y": 12.1
+        },
+        {
+          "x": 5,
+          "y": 12.1
+        },
+        {
+          "x": 5,
+          "y": 13.1
+        },
+        {
+          "x": 1,
+          "y": 13.1
+        }
+      ]
+    },
+    {
+      "id": "line_hall_85",
+      "type": "line",
+      "layerId": "racks_warehouse",
+      "x1": 2,
+      "y1": 12.1,
+      "x2": 2,
+      "y2": 13.1
+    },
+    {
+      "id": "line_hall_86",
+      "type": "line",
+      "layerId": "racks_warehouse",
+      "x1": 3,
+      "y1": 12.1,
+      "x2": 3,
+      "y2": 13.1
+    },
+    {
+      "id": "line_hall_87",
+      "type": "line",
+      "layerId": "racks_warehouse",
+      "x1": 4,
+      "y1": 12.1,
+      "x2": 4,
+      "y2": 13.1
+    },
+    {
+      "id": "line_hall_88",
+      "type": "line",
+      "layerId": "racks_warehouse",
+      "x1": 1,
+      "y1": 12.1,
+      "x2": 5,
+      "y2": 13.1
+    },
+    {
+      "id": "txt_hall_89",
+      "type": "text",
+      "layerId": "racks_warehouse",
+      "text": "REGAŁ MAGAZYNOWY RM-2 (4.0x1.0m)",
+      "x": 1.15,
+      "y": 12.45,
+      "height": 0.22,
+      "rotation": 0,
+      "align": "left",
+      "baseline": "bottom"
+    },
+    {
+      "id": "rect_hall_90",
+      "type": "polyline",
+      "layerId": "racks_warehouse",
+      "closed": true,
+      "points": [
+        {
+          "x": 1,
+          "y": 13.8
+        },
+        {
+          "x": 5,
+          "y": 13.8
+        },
+        {
+          "x": 5,
+          "y": 14.8
+        },
+        {
+          "x": 1,
+          "y": 14.8
+        }
+      ]
+    },
+    {
+      "id": "line_hall_91",
+      "type": "line",
+      "layerId": "racks_warehouse",
+      "x1": 2,
+      "y1": 13.8,
+      "x2": 2,
+      "y2": 14.8
+    },
+    {
+      "id": "line_hall_92",
+      "type": "line",
+      "layerId": "racks_warehouse",
+      "x1": 3,
+      "y1": 13.8,
+      "x2": 3,
+      "y2": 14.8
+    },
+    {
+      "id": "line_hall_93",
+      "type": "line",
+      "layerId": "racks_warehouse",
+      "x1": 4,
+      "y1": 13.8,
+      "x2": 4,
+      "y2": 14.8
+    },
+    {
+      "id": "line_hall_94",
+      "type": "line",
+      "layerId": "racks_warehouse",
+      "x1": 1,
+      "y1": 13.8,
+      "x2": 5,
+      "y2": 14.8
+    },
+    {
+      "id": "txt_hall_95",
+      "type": "text",
+      "layerId": "racks_warehouse",
+      "text": "REGAŁ MAGAZYNOWY RM-3 (4.0x1.0m)",
+      "x": 1.15,
+      "y": 14.15,
+      "height": 0.22,
+      "rotation": 0,
+      "align": "left",
+      "baseline": "bottom"
+    },
+    {
+      "id": "txt_hall_96",
+      "type": "text",
+      "layerId": "0",
+      "text": "STREFA MAGAZYNOWA",
+      "x": 1,
+      "y": 15.2,
+      "height": 0.32,
+      "rotation": 0,
+      "align": "left",
+      "baseline": "bottom",
+      "color": "#ffb74d"
+    },
+    {
+      "id": "txt_hall_97",
+      "type": "text",
+      "layerId": "0",
+      "text": "GNIAZDO MONTAŻU GŁÓWNEGO (SM-1 ÷ SM-4)",
+      "x": 1.5,
+      "y": 5.4,
+      "height": 0.32,
+      "rotation": 0,
+      "align": "left",
+      "baseline": "bottom",
+      "color": "#4fc3f7"
+    },
+    {
+      "id": "rect_hall_98",
+      "type": "polyline",
+      "layerId": "elements",
+      "closed": true,
+      "points": [
+        {
+          "x": 1.8,
+          "y": 2.2
+        },
+        {
+          "x": 3.8,
+          "y": 2.2
+        },
+        {
+          "x": 3.8,
+          "y": 3.2
+        },
+        {
+          "x": 1.8,
+          "y": 3.2
+        }
+      ]
+    },
+    {
+      "id": "line_hall_99",
+      "type": "line",
+      "layerId": "elements",
+      "x1": 1.9000000000000001,
+      "y1": 2.45,
+      "x2": 3.6999999999999997,
+      "y2": 2.45
+    },
+    {
+      "id": "txt_hall_100",
+      "type": "text",
+      "layerId": "elements",
+      "text": "STÓŁ SM-1",
+      "x": 2,
+      "y": 2.75,
+      "height": 0.24,
+      "rotation": 0,
+      "align": "left",
+      "baseline": "bottom"
+    },
+    {
+      "id": "txt_hall_101",
+      "type": "text",
+      "layerId": "0",
+      "text": "2.0x1.0m",
+      "x": 2,
+      "y": 2.5,
+      "height": 0.18,
+      "rotation": 0,
+      "align": "left",
+      "baseline": "bottom"
+    },
+    {
+      "id": "rect_hall_102",
+      "type": "polyline",
+      "layerId": "racks_small",
+      "closed": true,
+      "points": [
+        {
+          "x": 2.3,
+          "y": 1.4500000000000002
+        },
+        {
+          "x": 3.3,
+          "y": 1.4500000000000002
+        },
+        {
+          "x": 3.3,
+          "y": 1.9500000000000002
+        },
+        {
+          "x": 2.3,
+          "y": 1.9500000000000002
+        }
+      ]
+    },
+    {
+      "id": "line_hall_103",
+      "type": "line",
+      "layerId": "racks_small",
+      "x1": 2.3,
+      "y1": 1.4500000000000002,
+      "x2": 3.3,
+      "y2": 1.9500000000000002
+    },
+    {
+      "id": "line_hall_104",
+      "type": "line",
+      "layerId": "racks_small",
+      "x1": 2.3,
+      "y1": 1.9500000000000002,
+      "x2": 3.3,
+      "y2": 1.4500000000000002
+    },
+    {
+      "id": "txt_hall_105",
+      "type": "text",
+      "layerId": "racks_small",
+      "text": "Regał 1m",
+      "x": 2.36,
+      "y": 1.6300000000000001,
+      "height": 0.17,
+      "rotation": 0,
+      "align": "left",
+      "baseline": "bottom"
+    },
+    {
+      "id": "op_hall_106",
+      "type": "circle",
+      "layerId": "0",
+      "cx": 2.8,
+      "cy": 3.6500000000000004,
+      "radius": 0.3
+    },
+    {
+      "id": "rect_hall_107",
+      "type": "polyline",
+      "layerId": "elements",
+      "closed": true,
+      "points": [
+        {
+          "x": 6.2,
+          "y": 2.2
+        },
+        {
+          "x": 8.2,
+          "y": 2.2
+        },
+        {
+          "x": 8.2,
+          "y": 3.2
+        },
+        {
+          "x": 6.2,
+          "y": 3.2
+        }
+      ]
+    },
+    {
+      "id": "line_hall_108",
+      "type": "line",
+      "layerId": "elements",
+      "x1": 6.3,
+      "y1": 2.45,
+      "x2": 8.1,
+      "y2": 2.45
+    },
+    {
+      "id": "txt_hall_109",
+      "type": "text",
+      "layerId": "elements",
+      "text": "STÓŁ SM-2",
+      "x": 6.4,
+      "y": 2.75,
+      "height": 0.24,
+      "rotation": 0,
+      "align": "left",
+      "baseline": "bottom"
+    },
+    {
+      "id": "txt_hall_110",
+      "type": "text",
+      "layerId": "0",
+      "text": "2.0x1.0m",
+      "x": 6.4,
+      "y": 2.5,
+      "height": 0.18,
+      "rotation": 0,
+      "align": "left",
+      "baseline": "bottom"
+    },
+    {
+      "id": "rect_hall_111",
+      "type": "polyline",
+      "layerId": "racks_small",
+      "closed": true,
+      "points": [
+        {
+          "x": 6.7,
+          "y": 1.4500000000000002
+        },
+        {
+          "x": 7.7,
+          "y": 1.4500000000000002
+        },
+        {
+          "x": 7.7,
+          "y": 1.9500000000000002
+        },
+        {
+          "x": 6.7,
+          "y": 1.9500000000000002
+        }
+      ]
+    },
+    {
+      "id": "line_hall_112",
+      "type": "line",
+      "layerId": "racks_small",
+      "x1": 6.7,
+      "y1": 1.4500000000000002,
+      "x2": 7.7,
+      "y2": 1.9500000000000002
+    },
+    {
+      "id": "line_hall_113",
+      "type": "line",
+      "layerId": "racks_small",
+      "x1": 6.7,
+      "y1": 1.9500000000000002,
+      "x2": 7.7,
+      "y2": 1.4500000000000002
+    },
+    {
+      "id": "txt_hall_114",
+      "type": "text",
+      "layerId": "racks_small",
+      "text": "Regał 1m",
+      "x": 6.76,
+      "y": 1.6300000000000001,
+      "height": 0.17,
+      "rotation": 0,
+      "align": "left",
+      "baseline": "bottom"
+    },
+    {
+      "id": "op_hall_115",
+      "type": "circle",
+      "layerId": "0",
+      "cx": 7.2,
+      "cy": 3.6500000000000004,
+      "radius": 0.3
+    },
+    {
+      "id": "rect_hall_116",
+      "type": "polyline",
+      "layerId": "elements",
+      "closed": true,
+      "points": [
+        {
+          "x": 11.2,
+          "y": 2.2
+        },
+        {
+          "x": 13.2,
+          "y": 2.2
+        },
+        {
+          "x": 13.2,
+          "y": 3.2
+        },
+        {
+          "x": 11.2,
+          "y": 3.2
+        }
+      ]
+    },
+    {
+      "id": "line_hall_117",
+      "type": "line",
+      "layerId": "elements",
+      "x1": 11.299999999999999,
+      "y1": 2.45,
+      "x2": 13.1,
+      "y2": 2.45
+    },
+    {
+      "id": "txt_hall_118",
+      "type": "text",
+      "layerId": "elements",
+      "text": "STÓŁ SM-3",
+      "x": 11.399999999999999,
+      "y": 2.75,
+      "height": 0.24,
+      "rotation": 0,
+      "align": "left",
+      "baseline": "bottom"
+    },
+    {
+      "id": "txt_hall_119",
+      "type": "text",
+      "layerId": "0",
+      "text": "2.0x1.0m",
+      "x": 11.399999999999999,
+      "y": 2.5,
+      "height": 0.18,
+      "rotation": 0,
+      "align": "left",
+      "baseline": "bottom"
+    },
+    {
+      "id": "rect_hall_120",
+      "type": "polyline",
+      "layerId": "racks_small",
+      "closed": true,
+      "points": [
+        {
+          "x": 11.7,
+          "y": 1.4500000000000002
+        },
+        {
+          "x": 12.7,
+          "y": 1.4500000000000002
+        },
+        {
+          "x": 12.7,
+          "y": 1.9500000000000002
+        },
+        {
+          "x": 11.7,
+          "y": 1.9500000000000002
+        }
+      ]
+    },
+    {
+      "id": "line_hall_121",
+      "type": "line",
+      "layerId": "racks_small",
+      "x1": 11.7,
+      "y1": 1.4500000000000002,
+      "x2": 12.7,
+      "y2": 1.9500000000000002
+    },
+    {
+      "id": "line_hall_122",
+      "type": "line",
+      "layerId": "racks_small",
+      "x1": 11.7,
+      "y1": 1.9500000000000002,
+      "x2": 12.7,
+      "y2": 1.4500000000000002
+    },
+    {
+      "id": "txt_hall_123",
+      "type": "text",
+      "layerId": "racks_small",
+      "text": "Regał 1m",
+      "x": 11.76,
+      "y": 1.6300000000000001,
+      "height": 0.17,
+      "rotation": 0,
+      "align": "left",
+      "baseline": "bottom"
+    },
+    {
+      "id": "op_hall_124",
+      "type": "circle",
+      "layerId": "0",
+      "cx": 12.2,
+      "cy": 3.6500000000000004,
+      "radius": 0.3
+    },
+    {
+      "id": "rect_hall_125",
+      "type": "polyline",
+      "layerId": "elements",
+      "closed": true,
+      "points": [
+        {
+          "x": 16.2,
+          "y": 2.2
+        },
+        {
+          "x": 18.2,
+          "y": 2.2
+        },
+        {
+          "x": 18.2,
+          "y": 3.2
+        },
+        {
+          "x": 16.2,
+          "y": 3.2
+        }
+      ]
+    },
+    {
+      "id": "line_hall_126",
+      "type": "line",
+      "layerId": "elements",
+      "x1": 16.3,
+      "y1": 2.45,
+      "x2": 18.099999999999998,
+      "y2": 2.45
+    },
+    {
+      "id": "txt_hall_127",
+      "type": "text",
+      "layerId": "elements",
+      "text": "STÓŁ SM-4",
+      "x": 16.4,
+      "y": 2.75,
+      "height": 0.24,
+      "rotation": 0,
+      "align": "left",
+      "baseline": "bottom"
+    },
+    {
+      "id": "txt_hall_128",
+      "type": "text",
+      "layerId": "0",
+      "text": "2.0x1.0m",
+      "x": 16.4,
+      "y": 2.5,
+      "height": 0.18,
+      "rotation": 0,
+      "align": "left",
+      "baseline": "bottom"
+    },
+    {
+      "id": "rect_hall_129",
+      "type": "polyline",
+      "layerId": "racks_small",
+      "closed": true,
+      "points": [
+        {
+          "x": 16.7,
+          "y": 1.4500000000000002
+        },
+        {
+          "x": 17.7,
+          "y": 1.4500000000000002
+        },
+        {
+          "x": 17.7,
+          "y": 1.9500000000000002
+        },
+        {
+          "x": 16.7,
+          "y": 1.9500000000000002
+        }
+      ]
+    },
+    {
+      "id": "line_hall_130",
+      "type": "line",
+      "layerId": "racks_small",
+      "x1": 16.7,
+      "y1": 1.4500000000000002,
+      "x2": 17.7,
+      "y2": 1.9500000000000002
+    },
+    {
+      "id": "line_hall_131",
+      "type": "line",
+      "layerId": "racks_small",
+      "x1": 16.7,
+      "y1": 1.9500000000000002,
+      "x2": 17.7,
+      "y2": 1.4500000000000002
+    },
+    {
+      "id": "txt_hall_132",
+      "type": "text",
+      "layerId": "racks_small",
+      "text": "Regał 1m",
+      "x": 16.759999999999998,
+      "y": 1.6300000000000001,
+      "height": 0.17,
+      "rotation": 0,
+      "align": "left",
+      "baseline": "bottom"
+    },
+    {
+      "id": "op_hall_133",
+      "type": "circle",
+      "layerId": "0",
+      "cx": 17.2,
+      "cy": 3.6500000000000004,
+      "radius": 0.3
+    },
+    {
+      "id": "rect_hall_134",
+      "type": "polyline",
+      "layerId": "racks_small",
+      "closed": true,
+      "points": [
+        {
+          "x": 20.5,
+          "y": 1.5
+        },
+        {
+          "x": 21.5,
+          "y": 1.5
+        },
+        {
+          "x": 21.5,
+          "y": 2
+        },
+        {
+          "x": 20.5,
+          "y": 2
+        }
+      ]
+    },
+    {
+      "id": "line_hall_135",
+      "type": "line",
+      "layerId": "racks_small",
+      "x1": 20.5,
+      "y1": 1.5,
+      "x2": 21.5,
+      "y2": 2
+    },
+    {
+      "id": "line_hall_136",
+      "type": "line",
+      "layerId": "racks_small",
+      "x1": 20.5,
+      "y1": 2,
+      "x2": 21.5,
+      "y2": 1.5
+    },
+    {
+      "id": "txt_hall_137",
+      "type": "text",
+      "layerId": "racks_small",
+      "text": "Regał 1m (Bufor)",
+      "x": 20.5,
+      "y": 2.15,
+      "height": 0.18,
+      "rotation": 0,
+      "align": "left",
+      "baseline": "bottom"
+    },
+    {
+      "id": "rect_hall_138",
+      "type": "polyline",
+      "layerId": "racks_small",
+      "closed": true,
+      "points": [
+        {
+          "x": 20.5,
+          "y": 3
+        },
+        {
+          "x": 21.5,
+          "y": 3
+        },
+        {
+          "x": 21.5,
+          "y": 3.5
+        },
+        {
+          "x": 20.5,
+          "y": 3.5
+        }
+      ]
+    },
+    {
+      "id": "line_hall_139",
+      "type": "line",
+      "layerId": "racks_small",
+      "x1": 20.5,
+      "y1": 3,
+      "x2": 21.5,
+      "y2": 3.5
+    },
+    {
+      "id": "line_hall_140",
+      "type": "line",
+      "layerId": "racks_small",
+      "x1": 20.5,
+      "y1": 3.5,
+      "x2": 21.5,
+      "y2": 3
+    },
+    {
+      "id": "txt_hall_141",
+      "type": "text",
+      "layerId": "racks_small",
+      "text": "Regał 1m (Narzędzia)",
+      "x": 20.5,
+      "y": 3.65,
+      "height": 0.18,
+      "rotation": 0,
+      "align": "left",
+      "baseline": "bottom"
+    },
+    {
+      "id": "txt_hall_142",
+      "type": "text",
+      "layerId": "0",
+      "text": "STREFA MONTAŻU KOŃCOWEGO I KONTROLI (SM-5 ÷ SM-7)",
+      "x": 10,
+      "y": 15.1,
+      "height": 0.32,
+      "rotation": 0,
+      "align": "left",
+      "baseline": "bottom",
+      "color": "#4fc3f7"
+    },
+    {
+      "id": "rect_hall_143",
+      "type": "polyline",
+      "layerId": "elements",
+      "closed": true,
+      "points": [
+        {
+          "x": 10.2,
+          "y": 11.4
+        },
+        {
+          "x": 12.2,
+          "y": 11.4
+        },
+        {
+          "x": 12.2,
+          "y": 12.4
+        },
+        {
+          "x": 10.2,
+          "y": 12.4
+        }
+      ]
+    },
+    {
+      "id": "line_hall_144",
+      "type": "line",
+      "layerId": "elements",
+      "x1": 10.299999999999999,
+      "y1": 11.65,
+      "x2": 12.1,
+      "y2": 11.65
+    },
+    {
+      "id": "txt_hall_145",
+      "type": "text",
+      "layerId": "elements",
+      "text": "STÓŁ SM-5",
+      "x": 10.399999999999999,
+      "y": 11.950000000000001,
+      "height": 0.24,
+      "rotation": 0,
+      "align": "left",
+      "baseline": "bottom"
+    },
+    {
+      "id": "txt_hall_146",
+      "type": "text",
+      "layerId": "0",
+      "text": "2.0x1.0m",
+      "x": 10.399999999999999,
+      "y": 11.700000000000001,
+      "height": 0.18,
+      "rotation": 0,
+      "align": "left",
+      "baseline": "bottom"
+    },
+    {
+      "id": "rect_hall_147",
+      "type": "polyline",
+      "layerId": "racks_small",
+      "closed": true,
+      "points": [
+        {
+          "x": 10.7,
+          "y": 12.65
+        },
+        {
+          "x": 11.7,
+          "y": 12.65
+        },
+        {
+          "x": 11.7,
+          "y": 13.15
+        },
+        {
+          "x": 10.7,
+          "y": 13.15
+        }
+      ]
+    },
+    {
+      "id": "line_hall_148",
+      "type": "line",
+      "layerId": "racks_small",
+      "x1": 10.7,
+      "y1": 12.65,
+      "x2": 11.7,
+      "y2": 13.15
+    },
+    {
+      "id": "line_hall_149",
+      "type": "line",
+      "layerId": "racks_small",
+      "x1": 10.7,
+      "y1": 13.15,
+      "x2": 11.7,
+      "y2": 12.65
+    },
+    {
+      "id": "txt_hall_150",
+      "type": "text",
+      "layerId": "racks_small",
+      "text": "Regał 1m",
+      "x": 10.76,
+      "y": 12.83,
+      "height": 0.17,
+      "rotation": 0,
+      "align": "left",
+      "baseline": "bottom"
+    },
+    {
+      "id": "op_hall_151",
+      "type": "circle",
+      "layerId": "0",
+      "cx": 11.2,
+      "cy": 10.950000000000001,
+      "radius": 0.3
+    },
+    {
+      "id": "rect_hall_152",
+      "type": "polyline",
+      "layerId": "elements",
+      "closed": true,
+      "points": [
+        {
+          "x": 14.8,
+          "y": 11.4
+        },
+        {
+          "x": 16.8,
+          "y": 11.4
+        },
+        {
+          "x": 16.8,
+          "y": 12.4
+        },
+        {
+          "x": 14.8,
+          "y": 12.4
+        }
+      ]
+    },
+    {
+      "id": "line_hall_153",
+      "type": "line",
+      "layerId": "elements",
+      "x1": 14.9,
+      "y1": 11.65,
+      "x2": 16.7,
+      "y2": 11.65
+    },
+    {
+      "id": "txt_hall_154",
+      "type": "text",
+      "layerId": "elements",
+      "text": "STÓŁ SM-6",
+      "x": 15,
+      "y": 11.950000000000001,
+      "height": 0.24,
+      "rotation": 0,
+      "align": "left",
+      "baseline": "bottom"
+    },
+    {
+      "id": "txt_hall_155",
+      "type": "text",
+      "layerId": "0",
+      "text": "2.0x1.0m",
+      "x": 15,
+      "y": 11.700000000000001,
+      "height": 0.18,
+      "rotation": 0,
+      "align": "left",
+      "baseline": "bottom"
+    },
+    {
+      "id": "rect_hall_156",
+      "type": "polyline",
+      "layerId": "racks_small",
+      "closed": true,
+      "points": [
+        {
+          "x": 15.3,
+          "y": 12.65
+        },
+        {
+          "x": 16.3,
+          "y": 12.65
+        },
+        {
+          "x": 16.3,
+          "y": 13.15
+        },
+        {
+          "x": 15.3,
+          "y": 13.15
+        }
+      ]
+    },
+    {
+      "id": "line_hall_157",
+      "type": "line",
+      "layerId": "racks_small",
+      "x1": 15.3,
+      "y1": 12.65,
+      "x2": 16.3,
+      "y2": 13.15
+    },
+    {
+      "id": "line_hall_158",
+      "type": "line",
+      "layerId": "racks_small",
+      "x1": 15.3,
+      "y1": 13.15,
+      "x2": 16.3,
+      "y2": 12.65
+    },
+    {
+      "id": "txt_hall_159",
+      "type": "text",
+      "layerId": "racks_small",
+      "text": "Regał 1m",
+      "x": 15.360000000000001,
+      "y": 12.83,
+      "height": 0.17,
+      "rotation": 0,
+      "align": "left",
+      "baseline": "bottom"
+    },
+    {
+      "id": "op_hall_160",
+      "type": "circle",
+      "layerId": "0",
+      "cx": 15.8,
+      "cy": 10.950000000000001,
+      "radius": 0.3
+    },
+    {
+      "id": "rect_hall_161",
+      "type": "polyline",
+      "layerId": "elements",
+      "closed": true,
+      "points": [
+        {
+          "x": 19.4,
+          "y": 11.4
+        },
+        {
+          "x": 21.4,
+          "y": 11.4
+        },
+        {
+          "x": 21.4,
+          "y": 12.4
+        },
+        {
+          "x": 19.4,
+          "y": 12.4
+        }
+      ]
+    },
+    {
+      "id": "line_hall_162",
+      "type": "line",
+      "layerId": "elements",
+      "x1": 19.5,
+      "y1": 11.65,
+      "x2": 21.299999999999997,
+      "y2": 11.65
+    },
+    {
+      "id": "txt_hall_163",
+      "type": "text",
+      "layerId": "elements",
+      "text": "STÓŁ SM-7",
+      "x": 19.599999999999998,
+      "y": 11.950000000000001,
+      "height": 0.24,
+      "rotation": 0,
+      "align": "left",
+      "baseline": "bottom"
+    },
+    {
+      "id": "txt_hall_164",
+      "type": "text",
+      "layerId": "0",
+      "text": "2.0x1.0m",
+      "x": 19.599999999999998,
+      "y": 11.700000000000001,
+      "height": 0.18,
+      "rotation": 0,
+      "align": "left",
+      "baseline": "bottom"
+    },
+    {
+      "id": "rect_hall_165",
+      "type": "polyline",
+      "layerId": "racks_small",
+      "closed": true,
+      "points": [
+        {
+          "x": 19.9,
+          "y": 12.65
+        },
+        {
+          "x": 20.9,
+          "y": 12.65
+        },
+        {
+          "x": 20.9,
+          "y": 13.15
+        },
+        {
+          "x": 19.9,
+          "y": 13.15
+        }
+      ]
+    },
+    {
+      "id": "line_hall_166",
+      "type": "line",
+      "layerId": "racks_small",
+      "x1": 19.9,
+      "y1": 12.65,
+      "x2": 20.9,
+      "y2": 13.15
+    },
+    {
+      "id": "line_hall_167",
+      "type": "line",
+      "layerId": "racks_small",
+      "x1": 19.9,
+      "y1": 13.15,
+      "x2": 20.9,
+      "y2": 12.65
+    },
+    {
+      "id": "txt_hall_168",
+      "type": "text",
+      "layerId": "racks_small",
+      "text": "Regał 1m",
+      "x": 19.959999999999997,
+      "y": 12.83,
+      "height": 0.17,
+      "rotation": 0,
+      "align": "left",
+      "baseline": "bottom"
+    },
+    {
+      "id": "op_hall_169",
+      "type": "circle",
+      "layerId": "0",
+      "cx": 20.4,
+      "cy": 10.950000000000001,
+      "radius": 0.3
+    },
+    {
+      "id": "dim_hall_170",
+      "type": "dimension",
+      "layerId": "dimensions",
+      "dimType": "aligned",
+      "p1": {
+        "x": 0,
+        "y": 0
+      },
+      "p2": {
+        "x": 24,
+        "y": 0
+      },
+      "offset": -2.2,
+      "textHeight": 0.38
+    },
+    {
+      "id": "dim_hall_171",
+      "type": "dimension",
+      "layerId": "dimensions",
+      "dimType": "aligned",
+      "p1": {
+        "x": 24,
+        "y": 0
+      },
+      "p2": {
+        "x": 24,
+        "y": 16
+      },
+      "offset": -2.2,
+      "textHeight": 0.38
+    },
+    {
+      "id": "dim_hall_172",
+      "type": "dimension",
+      "layerId": "dimensions",
+      "dimType": "aligned",
+      "p1": {
+        "x": 0,
+        "y": 0
+      },
+      "p2": {
+        "x": 8,
+        "y": 0
+      },
+      "offset": -1.1,
+      "textHeight": 0.32
+    },
+    {
+      "id": "dim_hall_173",
+      "type": "dimension",
+      "layerId": "dimensions",
+      "dimType": "aligned",
+      "p1": {
+        "x": 8,
+        "y": 0
+      },
+      "p2": {
+        "x": 16,
+        "y": 0
+      },
+      "offset": -1.1,
+      "textHeight": 0.32
+    },
+    {
+      "id": "dim_hall_174",
+      "type": "dimension",
+      "layerId": "dimensions",
+      "dimType": "aligned",
+      "p1": {
+        "x": 16,
+        "y": 0
+      },
+      "p2": {
+        "x": 24,
+        "y": 0
+      },
+      "offset": -1.1,
+      "textHeight": 0.32
+    },
+    {
+      "id": "dim_hall_175",
+      "type": "dimension",
+      "layerId": "dimensions",
+      "dimType": "aligned",
+      "p1": {
+        "x": 24,
+        "y": 0
+      },
+      "p2": {
+        "x": 24,
+        "y": 8
+      },
+      "offset": -1.1,
+      "textHeight": 0.32
+    },
+    {
+      "id": "dim_hall_176",
+      "type": "dimension",
+      "layerId": "dimensions",
+      "dimType": "aligned",
+      "p1": {
+        "x": 24,
+        "y": 8
+      },
+      "p2": {
+        "x": 24,
+        "y": 16
+      },
+      "offset": -1.1,
+      "textHeight": 0.32
+    },
+    {
+      "id": "dim_hall_177",
+      "type": "dimension",
+      "layerId": "dimensions",
+      "dimType": "aligned",
+      "p1": {
+        "x": 21.5,
+        "y": 6.5
+      },
+      "p2": {
+        "x": 21.5,
+        "y": 9.5
+      },
+      "offset": -0.8,
+      "textHeight": 0.28
+    },
+    {
+      "id": "dim_hall_178",
+      "type": "dimension",
+      "layerId": "dimensions",
+      "dimType": "aligned",
+      "p1": {
+        "x": 6.2,
+        "y": 14.5
+      },
+      "p2": {
+        "x": 8.6,
+        "y": 14.5
+      },
+      "offset": 0.5,
+      "textHeight": 0.28
+    },
+    {
+      "id": "dim_hall_179",
+      "type": "dimension",
+      "layerId": "dimensions",
+      "dimType": "aligned",
+      "p1": {
+        "x": 1,
+        "y": 10.4
+      },
+      "p2": {
+        "x": 5,
+        "y": 10.4
+      },
+      "offset": -0.55,
+      "textHeight": 0.26
+    },
+    {
+      "id": "dim_hall_180",
+      "type": "dimension",
+      "layerId": "dimensions",
+      "dimType": "aligned",
+      "p1": {
+        "x": 5,
+        "y": 10.4
+      },
+      "p2": {
+        "x": 5,
+        "y": 11.4
+      },
+      "offset": -0.55,
+      "textHeight": 0.26
+    },
+    {
+      "id": "dim_hall_181",
+      "type": "dimension",
+      "layerId": "dimensions",
+      "dimType": "aligned",
+      "p1": {
+        "x": 1.8,
+        "y": 3.2
+      },
+      "p2": {
+        "x": 3.8,
+        "y": 3.2
+      },
+      "offset": 0.55,
+      "textHeight": 0.26
+    },
+    {
+      "id": "dim_hall_182",
+      "type": "dimension",
+      "layerId": "dimensions",
+      "dimType": "aligned",
+      "p1": {
+        "x": 1.8,
+        "y": 2.2
+      },
+      "p2": {
+        "x": 1.8,
+        "y": 3.2
+      },
+      "offset": 0.55,
+      "textHeight": 0.26
+    },
+    {
+      "id": "dim_hall_183",
+      "type": "dimension",
+      "layerId": "dimensions",
+      "dimType": "aligned",
+      "p1": {
+        "x": 2.3,
+        "y": 1.45
+      },
+      "p2": {
+        "x": 3.3,
+        "y": 1.45
+      },
+      "offset": -0.5,
+      "textHeight": 0.26
+    },
+    {
+      "id": "dim_hall_184",
+      "type": "dimension",
+      "layerId": "dimensions",
+      "dimType": "aligned",
+      "p1": {
+        "x": 6.7,
+        "y": 1.45
+      },
+      "p2": {
+        "x": 7.7,
+        "y": 1.45
+      },
+      "offset": -0.5,
+      "textHeight": 0.26
+    },
+    {
+      "id": "dim_hall_185",
+      "type": "dimension",
+      "layerId": "dimensions",
+      "dimType": "aligned",
+      "p1": {
+        "x": 20.5,
+        "y": 1.5
+      },
+      "p2": {
+        "x": 21.5,
+        "y": 1.5
+      },
+      "offset": -0.5,
+      "textHeight": 0.26
+    },
+    {
+      "id": "dim_rad_hall_186",
+      "type": "dimension",
+      "layerId": "dimensions",
+      "dimType": "diameter",
+      "p1": {
+        "x": 2.8,
+        "y": 3.65
+      },
+      "p2": {
+        "x": 3.25,
+        "y": 4.05
+      },
+      "center": {
+        "x": 2.8,
+        "y": 3.65
+      },
+      "radius": 0.3,
+      "offset": 0.4,
+      "textHeight": 0.24
+    },
+    {
+      "id": "txt_hall_187",
+      "type": "text",
+      "layerId": "0",
+      "text": "PROJEKT TECHNICZNY: LAYOUT HALI MONTAŻOWEJ (24.0 x 16.0 m) — JEDNOSTKA: METRY [m]",
+      "x": 0,
+      "y": -3.3,
+      "height": 0.42,
+      "rotation": 0,
+      "align": "left",
+      "baseline": "bottom",
+      "color": "#00e5ff"
+    }
+  ]
+}

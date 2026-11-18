@@ -1,0 +1,2296 @@
+{
+  "version": "1.0",
+  "timestamp": "2026-11-16T22:21:36.335Z",
+  "unit": "mm",
+  "layers": [
+    {
+      "id": "0",
+      "name": "0 (Szkic)",
+      "color": "#ffffff",
+      "lineWidth": 1,
+      "lineType": "continuous",
+      "visible": true,
+      "locked": false
+    },
+    {
+      "id": "elements",
+      "name": "Elementy (Konstrukcja)",
+      "color": "#4caf50",
+      "lineWidth": 2,
+      "lineType": "continuous",
+      "visible": true,
+      "locked": false
+    },
+    {
+      "id": "hidden",
+      "name": "Linie Ukryte",
+      "color": "#a78bfa",
+      "lineWidth": 1.2,
+      "lineType": "dashed",
+      "visible": true,
+      "locked": false
+    },
+    {
+      "id": "axes",
+      "name": "Osie Symetrii",
+      "color": "#ff9800",
+      "lineWidth": 1,
+      "lineType": "dashdot",
+      "visible": true,
+      "locked": false
+    },
+    {
+      "id": "hatch",
+      "name": "Kreskowanie (Hatch)",
+      "color": "#94a3b8",
+      "lineWidth": 0.7,
+      "lineType": "continuous",
+      "visible": true,
+      "locked": false
+    },
+    {
+      "id": "dimensions",
+      "name": "Wymiary",
+      "color": "#00e5ff",
+      "lineWidth": 1,
+      "lineType": "continuous",
+      "visible": true,
+      "locked": false
+    },
+    {
+      "id": "annotations",
+      "name": "Opisy i Teksty",
+      "color": "#facc15",
+      "lineWidth": 1.2,
+      "lineType": "continuous",
+      "visible": true,
+      "locked": false
+    },
+    {
+      "id": "title_block",
+      "name": "Ramka i Tabliczka",
+      "color": "#f8fafc",
+      "lineWidth": 1.2,
+      "lineType": "continuous",
+      "visible": true,
+      "locked": false
+    }
+  ],
+  "entities": [
+    {
+      "id": "sheet_outer_1",
+      "type": "polyline",
+      "layerId": "title_block",
+      "color": "#64748b",
+      "lineWidth": 0.7,
+      "closed": true,
+      "points": [
+        {
+          "x": 0,
+          "y": 0
+        },
+        {
+          "x": 420,
+          "y": 0
+        },
+        {
+          "x": 420,
+          "y": 297
+        },
+        {
+          "x": 0,
+          "y": 297
+        }
+      ]
+    },
+    {
+      "id": "sheet_inner_2",
+      "type": "polyline",
+      "layerId": "title_block",
+      "color": "#f8fafc",
+      "lineWidth": 1.5,
+      "closed": true,
+      "points": [
+        {
+          "x": 10,
+          "y": 10
+        },
+        {
+          "x": 410,
+          "y": 10
+        },
+        {
+          "x": 410,
+          "y": 287
+        },
+        {
+          "x": 10,
+          "y": 287
+        }
+      ]
+    },
+    {
+      "id": "tb_box_3",
+      "type": "polyline",
+      "layerId": "title_block",
+      "groupId": "grp_title_block_a3",
+      "groupName": "Tabliczka Rysunkowa A3",
+      "closed": true,
+      "points": [
+        {
+          "x": 230,
+          "y": 10
+        },
+        {
+          "x": 410,
+          "y": 10
+        },
+        {
+          "x": 410,
+          "y": 46
+        },
+        {
+          "x": 230,
+          "y": 46
+        }
+      ]
+    },
+    {
+      "id": "tb_row_4",
+      "type": "line",
+      "layerId": "title_block",
+      "groupId": "grp_title_block_a3",
+      "groupName": "Tabliczka Rysunkowa A3",
+      "x1": 230,
+      "y1": 19,
+      "x2": 410,
+      "y2": 19
+    },
+    {
+      "id": "tb_row_5",
+      "type": "line",
+      "layerId": "title_block",
+      "groupId": "grp_title_block_a3",
+      "groupName": "Tabliczka Rysunkowa A3",
+      "x1": 230,
+      "y1": 28,
+      "x2": 410,
+      "y2": 28
+    },
+    {
+      "id": "tb_row_6",
+      "type": "line",
+      "layerId": "title_block",
+      "groupId": "grp_title_block_a3",
+      "groupName": "Tabliczka Rysunkowa A3",
+      "x1": 230,
+      "y1": 37,
+      "x2": 410,
+      "y2": 37
+    },
+    {
+      "id": "tb_c1_7",
+      "type": "line",
+      "layerId": "title_block",
+      "groupId": "grp_title_block_a3",
+      "groupName": "Tabliczka Rysunkowa A3",
+      "x1": 298.4,
+      "y1": 10,
+      "x2": 298.4,
+      "y2": 46
+    },
+    {
+      "id": "tb_c2_8",
+      "type": "line",
+      "layerId": "title_block",
+      "groupId": "grp_title_block_a3",
+      "groupName": "Tabliczka Rysunkowa A3",
+      "x1": 359.6,
+      "y1": 10,
+      "x2": 359.6,
+      "y2": 46
+    },
+    {
+      "id": "tb_logo_div_9",
+      "type": "line",
+      "layerId": "title_block",
+      "groupId": "grp_title_block_a3",
+      "groupName": "Tabliczka Rysunkowa A3",
+      "x1": 248,
+      "y1": 37,
+      "x2": 248,
+      "y2": 46
+    },
+    {
+      "id": "tb_logo_img_10",
+      "type": "image",
+      "layerId": "title_block",
+      "groupId": "grp_title_block_a3",
+      "groupName": "Tabliczka Rysunkowa A3",
+      "x": 231,
+      "y": 38,
+      "width": 16,
+      "height": 7,
+      "dataUrl": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNjAiIGhlaWdodD0iODAiIHZpZXdCb3g9IjAgMCAxNjAgODAiPgogIDxyZWN0IHg9IjIiIHk9IjIiIHdpZHRoPSIxNTYiIGhlaWdodD0iNzYiIHJ4PSI4IiBmaWxsPSIjMGYxNzJhIiBzdHJva2U9IiMwMjg0YzciIHN0cm9rZS13aWR0aD0iMyIvPgogIDxjaXJjbGUgY3g9IjQyIiBjeT0iNDAiIHI9IjIyIiBmaWxsPSJub25lIiBzdHJva2U9IiMzOGJkZjgiIHN0cm9rZS13aWR0aD0iMyIvPgogIDxjaXJjbGUgY3g9IjQyIiBjeT0iNDAiIHI9IjgiIGZpbGw9IiMzOGJkZjgiLz4KICA8bGluZSB4MT0iMTQiIHkxPSI0MCIgeDI9IjcwIiB5Mj0iNDAiIHN0cm9rZT0iIzM4YmRmOCIgc3Ryb2tlLXdpZHRoPSIxLjgiIHN0cm9rZS1kYXNoYXJyYXk9IjQsMiIvPgogIDxsaW5lIHgxPSI0MiIgeTE9IjEyIiB4Mj0iNDIiIHkyPSI2OCIgc3Ryb2tlPSIjMzhiZGY4IiBzdHJva2Utd2lkdGg9IjEuOCIgc3Ryb2tlLWRhc2hhcnJheT0iNCwyIi8+CiAgPHRleHQgeD0iNzQiIHk9IjM2IiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTYiIGZvbnQtd2VpZ2h0PSJib2xkIiBmaWxsPSIjZmZmZmZmIj5NSU5JQ0FEPC90ZXh0PgogIDx0ZXh0IHg9Ijc0IiB5PSI1NCIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjExIiBmb250LXdlaWdodD0iYm9sZCIgZmlsbD0iIzM4YmRmOCI+RU5HSU5FRVJJTkc8L3RleHQ+Cjwvc3ZnPg=="
+    },
+    {
+      "id": "tb_lbl_11",
+      "type": "text",
+      "layerId": "title_block",
+      "color": "#94a3b8",
+      "groupId": "grp_title_block_a3",
+      "groupName": "Tabliczka Rysunkowa A3",
+      "x": 249.6,
+      "y": 42.8,
+      "text": "Firma:",
+      "height": 1.5,
+      "rotation": 0,
+      "align": "left",
+      "baseline": "bottom"
+    },
+    {
+      "id": "tb_val_12",
+      "type": "text",
+      "layerId": "title_block",
+      "groupId": "grp_title_block_a3",
+      "groupName": "Tabliczka Rysunkowa A3",
+      "x": 249.6,
+      "y": 38,
+      "boxWidth": 47.2,
+      "boxHeight": 4.95,
+      "text": "NANODRAFT INŻYNIERIA",
+      "height": 2.6,
+      "rotation": 0,
+      "align": "left",
+      "baseline": "middle"
+    },
+    {
+      "id": "tb_lbl_13",
+      "type": "text",
+      "layerId": "title_block",
+      "color": "#94a3b8",
+      "groupId": "grp_title_block_a3",
+      "groupName": "Tabliczka Rysunkowa A3",
+      "x": 300,
+      "y": 42.8,
+      "text": "Tytuł rysunku:",
+      "height": 1.5,
+      "rotation": 0,
+      "align": "left",
+      "baseline": "bottom"
+    },
+    {
+      "id": "tb_val_14",
+      "type": "text",
+      "layerId": "title_block",
+      "groupId": "grp_title_block_a3",
+      "groupName": "Tabliczka Rysunkowa A3",
+      "x": 300,
+      "y": 38,
+      "boxWidth": 58,
+      "boxHeight": 4.95,
+      "text": "POKAZ MOŻLIWOŚCI CAD 2D",
+      "height": 2.8,
+      "rotation": 0,
+      "align": "left",
+      "baseline": "middle"
+    },
+    {
+      "id": "tb_lbl_15",
+      "type": "text",
+      "layerId": "title_block",
+      "color": "#94a3b8",
+      "groupId": "grp_title_block_a3",
+      "groupName": "Tabliczka Rysunkowa A3",
+      "x": 361.2,
+      "y": 42.8,
+      "text": "Nr rysunku:",
+      "height": 1.5,
+      "rotation": 0,
+      "align": "left",
+      "baseline": "bottom"
+    },
+    {
+      "id": "tb_val_16",
+      "type": "text",
+      "layerId": "title_block",
+      "groupId": "grp_title_block_a3",
+      "groupName": "Tabliczka Rysunkowa A3",
+      "x": 361.2,
+      "y": 38,
+      "boxWidth": 47.2,
+      "boxHeight": 4.95,
+      "text": "MC-2026-POKAZ (Rev. B)",
+      "height": 2.4,
+      "rotation": 0,
+      "align": "left",
+      "baseline": "middle"
+    },
+    {
+      "id": "tb_lbl_17",
+      "type": "text",
+      "layerId": "title_block",
+      "color": "#94a3b8",
+      "groupId": "grp_title_block_a3",
+      "groupName": "Tabliczka Rysunkowa A3",
+      "x": 231.6,
+      "y": 33.8,
+      "text": "Dział:",
+      "height": 1.5,
+      "rotation": 0,
+      "align": "left",
+      "baseline": "bottom"
+    },
+    {
+      "id": "tb_val_18",
+      "type": "text",
+      "layerId": "title_block",
+      "groupId": "grp_title_block_a3",
+      "groupName": "Tabliczka Rysunkowa A3",
+      "x": 231.6,
+      "y": 29,
+      "boxWidth": 65.2,
+      "boxHeight": 4.95,
+      "text": "Biuro Konstrukcyjne R&D",
+      "height": 2.3,
+      "rotation": 0,
+      "align": "left",
+      "baseline": "middle"
+    },
+    {
+      "id": "tb_lbl_19",
+      "type": "text",
+      "layerId": "title_block",
+      "color": "#94a3b8",
+      "groupId": "grp_title_block_a3",
+      "groupName": "Tabliczka Rysunkowa A3",
+      "x": 300,
+      "y": 33.8,
+      "text": "Przedmiot:",
+      "height": 1.5,
+      "rotation": 0,
+      "align": "left",
+      "baseline": "bottom"
+    },
+    {
+      "id": "tb_val_20",
+      "type": "text",
+      "layerId": "title_block",
+      "groupId": "grp_title_block_a3",
+      "groupName": "Tabliczka Rysunkowa A3",
+      "x": 300,
+      "y": 29,
+      "boxWidth": 58,
+      "boxHeight": 4.95,
+      "text": "Głowica Kołnierzowa ze Wspornikiem",
+      "height": 2.3,
+      "rotation": 0,
+      "align": "left",
+      "baseline": "middle"
+    },
+    {
+      "id": "tb_lbl_21",
+      "type": "text",
+      "layerId": "title_block",
+      "color": "#94a3b8",
+      "groupId": "grp_title_block_a3",
+      "groupName": "Tabliczka Rysunkowa A3",
+      "x": 361.2,
+      "y": 33.8,
+      "text": "Materiał:",
+      "height": 1.5,
+      "rotation": 0,
+      "align": "left",
+      "baseline": "bottom"
+    },
+    {
+      "id": "tb_val_22",
+      "type": "text",
+      "layerId": "title_block",
+      "groupId": "grp_title_block_a3",
+      "groupName": "Tabliczka Rysunkowa A3",
+      "x": 361.2,
+      "y": 29,
+      "boxWidth": 47.2,
+      "boxHeight": 4.95,
+      "text": "Stal S355J2 / EN-GJL-250",
+      "height": 2.3,
+      "rotation": 0,
+      "align": "left",
+      "baseline": "middle"
+    },
+    {
+      "id": "tb_lbl_23",
+      "type": "text",
+      "layerId": "title_block",
+      "color": "#94a3b8",
+      "groupId": "grp_title_block_a3",
+      "groupName": "Tabliczka Rysunkowa A3",
+      "x": 231.6,
+      "y": 24.8,
+      "text": "Projektował:",
+      "height": 1.5,
+      "rotation": 0,
+      "align": "left",
+      "baseline": "bottom"
+    },
+    {
+      "id": "tb_val_24",
+      "type": "text",
+      "layerId": "title_block",
+      "groupId": "grp_title_block_a3",
+      "groupName": "Tabliczka Rysunkowa A3",
+      "x": 231.6,
+      "y": 20,
+      "boxWidth": 65.2,
+      "boxHeight": 4.95,
+      "text": "inż. P. Czekaj",
+      "height": 2.3,
+      "rotation": 0,
+      "align": "left",
+      "baseline": "middle"
+    },
+    {
+      "id": "tb_lbl_25",
+      "type": "text",
+      "layerId": "title_block",
+      "color": "#94a3b8",
+      "groupId": "grp_title_block_a3",
+      "groupName": "Tabliczka Rysunkowa A3",
+      "x": 300,
+      "y": 24.8,
+      "text": "Sprawdził:",
+      "height": 1.5,
+      "rotation": 0,
+      "align": "left",
+      "baseline": "bottom"
+    },
+    {
+      "id": "tb_val_26",
+      "type": "text",
+      "layerId": "title_block",
+      "groupId": "grp_title_block_a3",
+      "groupName": "Tabliczka Rysunkowa A3",
+      "x": 300,
+      "y": 20,
+      "boxWidth": 58,
+      "boxHeight": 4.95,
+      "text": "Zespół Kontroli Jakości",
+      "height": 2.3,
+      "rotation": 0,
+      "align": "left",
+      "baseline": "middle"
+    },
+    {
+      "id": "tb_lbl_27",
+      "type": "text",
+      "layerId": "title_block",
+      "color": "#94a3b8",
+      "groupId": "grp_title_block_a3",
+      "groupName": "Tabliczka Rysunkowa A3",
+      "x": 361.2,
+      "y": 24.8,
+      "text": "Norma:",
+      "height": 1.5,
+      "rotation": 0,
+      "align": "left",
+      "baseline": "bottom"
+    },
+    {
+      "id": "tb_val_28",
+      "type": "text",
+      "layerId": "title_block",
+      "groupId": "grp_title_block_a3",
+      "groupName": "Tabliczka Rysunkowa A3",
+      "x": 361.2,
+      "y": 20,
+      "boxWidth": 47.2,
+      "boxHeight": 4.95,
+      "text": "PN-EN ISO 128 / ISO 2768-mK",
+      "height": 2.2,
+      "rotation": 0,
+      "align": "left",
+      "baseline": "middle"
+    },
+    {
+      "id": "tb_lbl_29",
+      "type": "text",
+      "layerId": "title_block",
+      "color": "#94a3b8",
+      "groupId": "grp_title_block_a3",
+      "groupName": "Tabliczka Rysunkowa A3",
+      "x": 231.6,
+      "y": 15.8,
+      "text": "Data:",
+      "height": 1.5,
+      "rotation": 0,
+      "align": "left",
+      "baseline": "bottom"
+    },
+    {
+      "id": "tb_val_30",
+      "type": "text",
+      "layerId": "title_block",
+      "groupId": "grp_title_block_a3",
+      "groupName": "Tabliczka Rysunkowa A3",
+      "x": 231.6,
+      "y": 11,
+      "boxWidth": 65.2,
+      "boxHeight": 4.95,
+      "text": "2026-11-16",
+      "height": 2.3,
+      "rotation": 0,
+      "align": "left",
+      "baseline": "middle"
+    },
+    {
+      "id": "tb_lbl_31",
+      "type": "text",
+      "layerId": "title_block",
+      "color": "#94a3b8",
+      "groupId": "grp_title_block_a3",
+      "groupName": "Tabliczka Rysunkowa A3",
+      "x": 300,
+      "y": 15.8,
+      "text": "Skala / Jedn.:",
+      "height": 1.5,
+      "rotation": 0,
+      "align": "left",
+      "baseline": "bottom"
+    },
+    {
+      "id": "tb_val_32",
+      "type": "text",
+      "layerId": "title_block",
+      "groupId": "grp_title_block_a3",
+      "groupName": "Tabliczka Rysunkowa A3",
+      "x": 300,
+      "y": 11,
+      "boxWidth": 58,
+      "boxHeight": 4.95,
+      "text": "1:1 [mm]",
+      "height": 2.6,
+      "rotation": 0,
+      "align": "left",
+      "baseline": "middle"
+    },
+    {
+      "id": "tb_lbl_33",
+      "type": "text",
+      "layerId": "title_block",
+      "color": "#94a3b8",
+      "groupId": "grp_title_block_a3",
+      "groupName": "Tabliczka Rysunkowa A3",
+      "x": 361.2,
+      "y": 15.8,
+      "text": "Format:",
+      "height": 1.5,
+      "rotation": 0,
+      "align": "left",
+      "baseline": "bottom"
+    },
+    {
+      "id": "tb_val_34",
+      "type": "text",
+      "layerId": "title_block",
+      "groupId": "grp_title_block_a3",
+      "groupName": "Tabliczka Rysunkowa A3",
+      "x": 361.2,
+      "y": 11,
+      "boxWidth": 47.2,
+      "boxHeight": 4.95,
+      "text": "ISO A3 (Poziom)",
+      "height": 2.6,
+      "rotation": 0,
+      "align": "left",
+      "baseline": "middle"
+    },
+    {
+      "id": "ax_h1_35",
+      "type": "line",
+      "layerId": "axes",
+      "x1": 33,
+      "y1": 175,
+      "x2": 197,
+      "y2": 175
+    },
+    {
+      "id": "ax_v1_36",
+      "type": "line",
+      "layerId": "axes",
+      "x1": 115,
+      "y1": 80,
+      "x2": 115,
+      "y2": 263
+    },
+    {
+      "id": "ax_60_37",
+      "type": "line",
+      "layerId": "axes",
+      "x1": 115,
+      "y1": 175,
+      "x2": 146,
+      "y2": 228.694
+    },
+    {
+      "id": "pt_center1_38",
+      "type": "point",
+      "layerId": "axes",
+      "x": 115,
+      "y": 175
+    },
+    {
+      "id": "cir_bore_39",
+      "type": "circle",
+      "layerId": "elements",
+      "cx": 115,
+      "cy": 175,
+      "radius": 20
+    },
+    {
+      "id": "cir_hub_40",
+      "type": "circle",
+      "layerId": "elements",
+      "cx": 115,
+      "cy": 175,
+      "radius": 32
+    },
+    {
+      "id": "cir_pcd_41",
+      "type": "circle",
+      "layerId": "axes",
+      "cx": 115,
+      "cy": 175,
+      "radius": 48
+    },
+    {
+      "id": "cir_outer_42",
+      "type": "circle",
+      "layerId": "elements",
+      "cx": 115,
+      "cy": 175,
+      "radius": 65
+    },
+    {
+      "id": "arc_shield_43",
+      "type": "polyline",
+      "layerId": "elements",
+      "closed": false,
+      "points": [
+        {
+          "x": 180.818,
+          "y": 213
+        },
+        {
+          "x": 179.098,
+          "y": 215.835
+        },
+        {
+          "x": 177.256,
+          "y": 218.592
+        },
+        {
+          "x": 175.295,
+          "y": 221.266
+        },
+        {
+          "x": 173.219,
+          "y": 223.852
+        },
+        {
+          "x": 171.033,
+          "y": 226.345
+        },
+        {
+          "x": 168.74,
+          "y": 228.74
+        },
+        {
+          "x": 166.345,
+          "y": 231.033
+        },
+        {
+          "x": 163.852,
+          "y": 233.219
+        },
+        {
+          "x": 161.266,
+          "y": 235.295
+        },
+        {
+          "x": 158.592,
+          "y": 237.256
+        },
+        {
+          "x": 155.835,
+          "y": 239.098
+        },
+        {
+          "x": 153,
+          "y": 240.818
+        },
+        {
+          "x": 150.093,
+          "y": 242.413
+        },
+        {
+          "x": 147.119,
+          "y": 243.879
+        },
+        {
+          "x": 144.084,
+          "y": 245.215
+        },
+        {
+          "x": 140.994,
+          "y": 246.417
+        },
+        {
+          "x": 137.854,
+          "y": 247.482
+        },
+        {
+          "x": 134.67,
+          "y": 248.41
+        },
+        {
+          "x": 131.449,
+          "y": 249.198
+        },
+        {
+          "x": 128.197,
+          "y": 249.845
+        },
+        {
+          "x": 124.92,
+          "y": 250.35
+        },
+        {
+          "x": 121.624,
+          "y": 250.711
+        },
+        {
+          "x": 118.315,
+          "y": 250.928
+        },
+        {
+          "x": 115,
+          "y": 251
+        }
+      ]
+    },
+    {
+      "id": "arc_cap1_44",
+      "type": "line",
+      "layerId": "elements",
+      "x1": 171.292,
+      "y1": 207.5,
+      "x2": 180.818,
+      "y2": 213
+    },
+    {
+      "id": "arc_cap2_45",
+      "type": "line",
+      "layerId": "elements",
+      "x1": 115,
+      "y1": 240,
+      "x2": 115,
+      "y2": 251
+    },
+    {
+      "id": "polar_hole_46",
+      "type": "circle",
+      "layerId": "elements",
+      "groupId": "grp_arr_polar_holes",
+      "groupName": "Szyk kołowy (6 el.)",
+      "cx": 163,
+      "cy": 175,
+      "radius": 6
+    },
+    {
+      "id": "polar_hole_47",
+      "type": "circle",
+      "layerId": "elements",
+      "groupId": "grp_arr_polar_holes",
+      "groupName": "Szyk kołowy (6 el.)",
+      "cx": 139,
+      "cy": 216.569,
+      "radius": 6
+    },
+    {
+      "id": "polar_hole_48",
+      "type": "circle",
+      "layerId": "elements",
+      "groupId": "grp_arr_polar_holes",
+      "groupName": "Szyk kołowy (6 el.)",
+      "cx": 91,
+      "cy": 216.569,
+      "radius": 6
+    },
+    {
+      "id": "polar_hole_49",
+      "type": "circle",
+      "layerId": "elements",
+      "groupId": "grp_arr_polar_holes",
+      "groupName": "Szyk kołowy (6 el.)",
+      "cx": 67,
+      "cy": 175,
+      "radius": 6
+    },
+    {
+      "id": "polar_hole_50",
+      "type": "circle",
+      "layerId": "elements",
+      "groupId": "grp_arr_polar_holes",
+      "groupName": "Szyk kołowy (6 el.)",
+      "cx": 91,
+      "cy": 133.431,
+      "radius": 6
+    },
+    {
+      "id": "polar_hole_51",
+      "type": "circle",
+      "layerId": "elements",
+      "groupId": "grp_arr_polar_holes",
+      "groupName": "Szyk kołowy (6 el.)",
+      "cx": 139,
+      "cy": 133.431,
+      "radius": 6
+    },
+    {
+      "id": "base_plate_outer_52",
+      "type": "polyline",
+      "layerId": "elements",
+      "closed": true,
+      "points": [
+        {
+          "x": 45,
+          "y": 55
+        },
+        {
+          "x": 185,
+          "y": 55
+        },
+        {
+          "x": 185,
+          "y": 87
+        },
+        {
+          "x": 177,
+          "y": 95
+        },
+        {
+          "x": 55,
+          "y": 95
+        },
+        {
+          "x": 53.695,
+          "y": 94.914
+        },
+        {
+          "x": 52.412,
+          "y": 94.659
+        },
+        {
+          "x": 51.173,
+          "y": 94.239
+        },
+        {
+          "x": 50,
+          "y": 93.66
+        },
+        {
+          "x": 48.912,
+          "y": 92.934
+        },
+        {
+          "x": 47.929,
+          "y": 92.071
+        },
+        {
+          "x": 47.066,
+          "y": 91.088
+        },
+        {
+          "x": 46.34,
+          "y": 90
+        },
+        {
+          "x": 45.761,
+          "y": 88.827
+        },
+        {
+          "x": 45.341,
+          "y": 87.588
+        },
+        {
+          "x": 45.086,
+          "y": 86.305
+        },
+        {
+          "x": 45,
+          "y": 85
+        }
+      ]
+    },
+    {
+      "id": "base_plate_offset_53",
+      "type": "polyline",
+      "layerId": "elements",
+      "closed": true,
+      "points": [
+        {
+          "x": 51,
+          "y": 60
+        },
+        {
+          "x": 179,
+          "y": 60
+        },
+        {
+          "x": 179,
+          "y": 90
+        },
+        {
+          "x": 51,
+          "y": 90
+        }
+      ]
+    },
+    {
+      "id": "rib_left_54",
+      "type": "line",
+      "layerId": "elements",
+      "x1": 70,
+      "y1": 95,
+      "x2": 70,
+      "y2": 128.096
+    },
+    {
+      "id": "rib_right_55",
+      "type": "line",
+      "layerId": "elements",
+      "x1": 160,
+      "y1": 95,
+      "x2": 160,
+      "y2": 128.096
+    },
+    {
+      "id": "rib_slot_56",
+      "type": "polyline",
+      "layerId": "elements",
+      "closed": true,
+      "points": [
+        {
+          "x": 122,
+          "y": 100.5
+        },
+        {
+          "x": 122.906,
+          "y": 100.619
+        },
+        {
+          "x": 123.75,
+          "y": 100.969
+        },
+        {
+          "x": 124.475,
+          "y": 101.525
+        },
+        {
+          "x": 125.031,
+          "y": 102.25
+        },
+        {
+          "x": 125.381,
+          "y": 103.094
+        },
+        {
+          "x": 125.5,
+          "y": 104
+        },
+        {
+          "x": 125.381,
+          "y": 104.906
+        },
+        {
+          "x": 125.031,
+          "y": 105.75
+        },
+        {
+          "x": 124.475,
+          "y": 106.475
+        },
+        {
+          "x": 123.75,
+          "y": 107.031
+        },
+        {
+          "x": 122.906,
+          "y": 107.381
+        },
+        {
+          "x": 122,
+          "y": 107.5
+        },
+        {
+          "x": 108,
+          "y": 107.5
+        },
+        {
+          "x": 107.094,
+          "y": 107.381
+        },
+        {
+          "x": 106.25,
+          "y": 107.031
+        },
+        {
+          "x": 105.525,
+          "y": 106.475
+        },
+        {
+          "x": 104.969,
+          "y": 105.75
+        },
+        {
+          "x": 104.619,
+          "y": 104.906
+        },
+        {
+          "x": 104.5,
+          "y": 104
+        },
+        {
+          "x": 104.619,
+          "y": 103.094
+        },
+        {
+          "x": 104.969,
+          "y": 102.25
+        },
+        {
+          "x": 105.525,
+          "y": 101.525
+        },
+        {
+          "x": 106.25,
+          "y": 100.969
+        },
+        {
+          "x": 107.094,
+          "y": 100.619
+        },
+        {
+          "x": 108,
+          "y": 100.5
+        }
+      ]
+    },
+    {
+      "id": "hex_bolt_head_57",
+      "type": "polyline",
+      "layerId": "elements",
+      "closed": true,
+      "points": [
+        {
+          "x": 101.392,
+          "y": 216.569
+        },
+        {
+          "x": 96.196,
+          "y": 225.569
+        },
+        {
+          "x": 85.804,
+          "y": 225.569
+        },
+        {
+          "x": 80.608,
+          "y": 216.569
+        },
+        {
+          "x": 85.804,
+          "y": 207.569
+        },
+        {
+          "x": 96.196,
+          "y": 207.569
+        }
+      ]
+    },
+    {
+      "id": "ldr_chamfer_58",
+      "type": "dimension",
+      "layerId": "dimensions",
+      "dimType": "leader",
+      "p1": {
+        "x": 181,
+        "y": 91
+      },
+      "p2": {
+        "x": 197,
+        "y": 105
+      },
+      "offset": 28,
+      "customText": "Faza 8x45°",
+      "textHeight": 2.8
+    },
+    {
+      "id": "ldr_hex_59",
+      "type": "dimension",
+      "layerId": "dimensions",
+      "dimType": "leader",
+      "p1": {
+        "x": 83,
+        "y": 221.569
+      },
+      "p2": {
+        "x": 67,
+        "y": 234.569
+      },
+      "offset": -32,
+      "customText": "Śruba M12 (6-kąt)",
+      "textHeight": 2.8
+    },
+    {
+      "id": "rect_bolt_60",
+      "type": "circle",
+      "layerId": "elements",
+      "groupId": "grp_arr_rect_bolts",
+      "groupName": "Szyk prostokątny (4×2)",
+      "cx": 67,
+      "cy": 65,
+      "radius": 3.5
+    },
+    {
+      "id": "rect_bolt_61",
+      "type": "circle",
+      "layerId": "elements",
+      "groupId": "grp_arr_rect_bolts",
+      "groupName": "Szyk prostokątny (4×2)",
+      "cx": 99,
+      "cy": 65,
+      "radius": 3.5
+    },
+    {
+      "id": "rect_bolt_62",
+      "type": "circle",
+      "layerId": "elements",
+      "groupId": "grp_arr_rect_bolts",
+      "groupName": "Szyk prostokątny (4×2)",
+      "cx": 131,
+      "cy": 65,
+      "radius": 3.5
+    },
+    {
+      "id": "rect_bolt_63",
+      "type": "circle",
+      "layerId": "elements",
+      "groupId": "grp_arr_rect_bolts",
+      "groupName": "Szyk prostokątny (4×2)",
+      "cx": 163,
+      "cy": 65,
+      "radius": 3.5
+    },
+    {
+      "id": "rect_bolt_64",
+      "type": "circle",
+      "layerId": "elements",
+      "groupId": "grp_arr_rect_bolts",
+      "groupName": "Szyk prostokątny (4×2)",
+      "cx": 67,
+      "cy": 85,
+      "radius": 3.5
+    },
+    {
+      "id": "rect_bolt_65",
+      "type": "circle",
+      "layerId": "elements",
+      "groupId": "grp_arr_rect_bolts",
+      "groupName": "Szyk prostokątny (4×2)",
+      "cx": 99,
+      "cy": 85,
+      "radius": 3.5
+    },
+    {
+      "id": "rect_bolt_66",
+      "type": "circle",
+      "layerId": "elements",
+      "groupId": "grp_arr_rect_bolts",
+      "groupName": "Szyk prostokątny (4×2)",
+      "cx": 131,
+      "cy": 85,
+      "radius": 3.5
+    },
+    {
+      "id": "rect_bolt_67",
+      "type": "circle",
+      "layerId": "elements",
+      "groupId": "grp_arr_rect_bolts",
+      "groupName": "Szyk prostokątny (4×2)",
+      "cx": 163,
+      "cy": 85,
+      "radius": 3.5
+    },
+    {
+      "id": "sec_axis_68",
+      "type": "line",
+      "layerId": "axes",
+      "x1": 255,
+      "y1": 175,
+      "x2": 319,
+      "y2": 175
+    },
+    {
+      "id": "sec_upper_poly_69",
+      "type": "polyline",
+      "layerId": "elements",
+      "closed": true,
+      "points": [
+        {
+          "x": 265,
+          "y": 195
+        },
+        {
+          "x": 307,
+          "y": 195
+        },
+        {
+          "x": 307,
+          "y": 207
+        },
+        {
+          "x": 287,
+          "y": 207
+        },
+        {
+          "x": 287,
+          "y": 240
+        },
+        {
+          "x": 265,
+          "y": 240
+        }
+      ]
+    },
+    {
+      "id": "sec_lower_poly_70",
+      "type": "polyline",
+      "layerId": "elements",
+      "closed": true,
+      "points": [
+        {
+          "x": 265,
+          "y": 155
+        },
+        {
+          "x": 307,
+          "y": 155
+        },
+        {
+          "x": 307,
+          "y": 143
+        },
+        {
+          "x": 287,
+          "y": 143
+        },
+        {
+          "x": 287,
+          "y": 110
+        },
+        {
+          "x": 265,
+          "y": 110
+        }
+      ]
+    },
+    {
+      "id": "sec_bore_l_71",
+      "type": "line",
+      "layerId": "elements",
+      "x1": 265,
+      "y1": 155,
+      "x2": 265,
+      "y2": 195
+    },
+    {
+      "id": "sec_bore_r_72",
+      "type": "line",
+      "layerId": "elements",
+      "x1": 307,
+      "y1": 155,
+      "x2": 307,
+      "y2": 195
+    },
+    {
+      "id": "sec_hole_edge_73",
+      "type": "line",
+      "layerId": "elements",
+      "lineType": "continuous",
+      "x1": 265,
+      "y1": 217,
+      "x2": 287,
+      "y2": 217
+    },
+    {
+      "id": "sec_hole_edge_74",
+      "type": "line",
+      "layerId": "elements",
+      "lineType": "continuous",
+      "x1": 265,
+      "y1": 229,
+      "x2": 287,
+      "y2": 229
+    },
+    {
+      "id": "sec_hole_ax_75",
+      "type": "line",
+      "layerId": "axes",
+      "lineType": "dashdot",
+      "x1": 261,
+      "y1": 223,
+      "x2": 291,
+      "y2": 223
+    },
+    {
+      "id": "sec_hole_edge_76",
+      "type": "line",
+      "layerId": "elements",
+      "lineType": "continuous",
+      "x1": 265,
+      "y1": 133,
+      "x2": 287,
+      "y2": 133
+    },
+    {
+      "id": "sec_hole_edge_77",
+      "type": "line",
+      "layerId": "elements",
+      "lineType": "continuous",
+      "x1": 265,
+      "y1": 121,
+      "x2": 287,
+      "y2": 121
+    },
+    {
+      "id": "sec_hole_ax_78",
+      "type": "line",
+      "layerId": "axes",
+      "lineType": "dashdot",
+      "x1": 261,
+      "y1": 127,
+      "x2": 291,
+      "y2": 127
+    },
+    {
+      "id": "base_hid_1_79",
+      "type": "line",
+      "layerId": "hidden",
+      "lineType": "dashed",
+      "x1": 45,
+      "y1": 67,
+      "x2": 185,
+      "y2": 67
+    },
+    {
+      "id": "base_hid_2_80",
+      "type": "line",
+      "layerId": "hidden",
+      "lineType": "dashed",
+      "x1": 45,
+      "y1": 83,
+      "x2": 185,
+      "y2": 83
+    },
+    {
+      "id": "hatch_ln_81",
+      "type": "line",
+      "layerId": "hatch",
+      "groupId": "grp_hatch_section_aa",
+      "groupName": "Kreskowanie Przekroju A-A",
+      "lineWidth": 0.6,
+      "x1": 303.098,
+      "y1": 195,
+      "x2": 307,
+      "y2": 198.902
+    },
+    {
+      "id": "hatch_ln_82",
+      "type": "line",
+      "layerId": "hatch",
+      "groupId": "grp_hatch_section_aa",
+      "groupName": "Kreskowanie Przekroju A-A",
+      "lineWidth": 0.6,
+      "x1": 297.441,
+      "y1": 195,
+      "x2": 307,
+      "y2": 204.559
+    },
+    {
+      "id": "hatch_ln_83",
+      "type": "line",
+      "layerId": "hatch",
+      "groupId": "grp_hatch_section_aa",
+      "groupName": "Kreskowanie Przekroju A-A",
+      "lineWidth": 0.6,
+      "x1": 291.784,
+      "y1": 195,
+      "x2": 303.784,
+      "y2": 207
+    },
+    {
+      "id": "hatch_ln_84",
+      "type": "line",
+      "layerId": "hatch",
+      "groupId": "grp_hatch_section_aa",
+      "groupName": "Kreskowanie Przekroju A-A",
+      "lineWidth": 0.6,
+      "x1": 286.127,
+      "y1": 195,
+      "x2": 298.127,
+      "y2": 207
+    },
+    {
+      "id": "hatch_ln_85",
+      "type": "line",
+      "layerId": "hatch",
+      "groupId": "grp_hatch_section_aa",
+      "groupName": "Kreskowanie Przekroju A-A",
+      "lineWidth": 0.6,
+      "x1": 280.471,
+      "y1": 195,
+      "x2": 292.471,
+      "y2": 207
+    },
+    {
+      "id": "hatch_ln_86",
+      "type": "line",
+      "layerId": "hatch",
+      "groupId": "grp_hatch_section_aa",
+      "groupName": "Kreskowanie Przekroju A-A",
+      "lineWidth": 0.6,
+      "x1": 274.814,
+      "y1": 195,
+      "x2": 287,
+      "y2": 207.186
+    },
+    {
+      "id": "hatch_ln_87",
+      "type": "line",
+      "layerId": "hatch",
+      "groupId": "grp_hatch_section_aa",
+      "groupName": "Kreskowanie Przekroju A-A",
+      "lineWidth": 0.6,
+      "x1": 269.157,
+      "y1": 195,
+      "x2": 287,
+      "y2": 212.843
+    },
+    {
+      "id": "hatch_ln_88",
+      "type": "line",
+      "layerId": "hatch",
+      "groupId": "grp_hatch_section_aa",
+      "groupName": "Kreskowanie Przekroju A-A",
+      "lineWidth": 0.6,
+      "x1": 265,
+      "y1": 196.5,
+      "x2": 285.5,
+      "y2": 217
+    },
+    {
+      "id": "hatch_ln_89",
+      "type": "line",
+      "layerId": "hatch",
+      "groupId": "grp_hatch_section_aa",
+      "groupName": "Kreskowanie Przekroju A-A",
+      "lineWidth": 0.6,
+      "x1": 265,
+      "y1": 202.157,
+      "x2": 279.843,
+      "y2": 217
+    },
+    {
+      "id": "hatch_ln_90",
+      "type": "line",
+      "layerId": "hatch",
+      "groupId": "grp_hatch_section_aa",
+      "groupName": "Kreskowanie Przekroju A-A",
+      "lineWidth": 0.6,
+      "x1": 265,
+      "y1": 207.814,
+      "x2": 274.186,
+      "y2": 217
+    },
+    {
+      "id": "hatch_ln_91",
+      "type": "line",
+      "layerId": "hatch",
+      "groupId": "grp_hatch_section_aa",
+      "groupName": "Kreskowanie Przekroju A-A",
+      "lineWidth": 0.6,
+      "x1": 286.186,
+      "y1": 229,
+      "x2": 287,
+      "y2": 229.814
+    },
+    {
+      "id": "hatch_ln_92",
+      "type": "line",
+      "layerId": "hatch",
+      "groupId": "grp_hatch_section_aa",
+      "groupName": "Kreskowanie Przekroju A-A",
+      "lineWidth": 0.6,
+      "x1": 265,
+      "y1": 213.471,
+      "x2": 268.529,
+      "y2": 217
+    },
+    {
+      "id": "hatch_ln_93",
+      "type": "line",
+      "layerId": "hatch",
+      "groupId": "grp_hatch_section_aa",
+      "groupName": "Kreskowanie Przekroju A-A",
+      "lineWidth": 0.6,
+      "x1": 280.529,
+      "y1": 229,
+      "x2": 287,
+      "y2": 235.471
+    },
+    {
+      "id": "hatch_ln_94",
+      "type": "line",
+      "layerId": "hatch",
+      "groupId": "grp_hatch_section_aa",
+      "groupName": "Kreskowanie Przekroju A-A",
+      "lineWidth": 0.6,
+      "x1": 274.873,
+      "y1": 229,
+      "x2": 285.873,
+      "y2": 240
+    },
+    {
+      "id": "hatch_ln_95",
+      "type": "line",
+      "layerId": "hatch",
+      "groupId": "grp_hatch_section_aa",
+      "groupName": "Kreskowanie Przekroju A-A",
+      "lineWidth": 0.6,
+      "x1": 269.216,
+      "y1": 229,
+      "x2": 280.216,
+      "y2": 240
+    },
+    {
+      "id": "hatch_ln_96",
+      "type": "line",
+      "layerId": "hatch",
+      "groupId": "grp_hatch_section_aa",
+      "groupName": "Kreskowanie Przekroju A-A",
+      "lineWidth": 0.6,
+      "x1": 265,
+      "y1": 230.441,
+      "x2": 274.559,
+      "y2": 240
+    },
+    {
+      "id": "hatch_ln_97",
+      "type": "line",
+      "layerId": "hatch",
+      "groupId": "grp_hatch_section_aa",
+      "groupName": "Kreskowanie Przekroju A-A",
+      "lineWidth": 0.6,
+      "x1": 265,
+      "y1": 236.098,
+      "x2": 268.902,
+      "y2": 240
+    },
+    {
+      "id": "hatch_ln_98",
+      "type": "line",
+      "layerId": "hatch",
+      "groupId": "grp_hatch_section_aa",
+      "groupName": "Kreskowanie Przekroju A-A",
+      "lineWidth": 0.6,
+      "x1": 286.127,
+      "y1": 110,
+      "x2": 287,
+      "y2": 110.873
+    },
+    {
+      "id": "hatch_ln_99",
+      "type": "line",
+      "layerId": "hatch",
+      "groupId": "grp_hatch_section_aa",
+      "groupName": "Kreskowanie Przekroju A-A",
+      "lineWidth": 0.6,
+      "x1": 280.471,
+      "y1": 110,
+      "x2": 287,
+      "y2": 116.529
+    },
+    {
+      "id": "hatch_ln_100",
+      "type": "line",
+      "layerId": "hatch",
+      "groupId": "grp_hatch_section_aa",
+      "groupName": "Kreskowanie Przekroju A-A",
+      "lineWidth": 0.6,
+      "x1": 274.814,
+      "y1": 110,
+      "x2": 285.814,
+      "y2": 121
+    },
+    {
+      "id": "hatch_ln_101",
+      "type": "line",
+      "layerId": "hatch",
+      "groupId": "grp_hatch_section_aa",
+      "groupName": "Kreskowanie Przekroju A-A",
+      "lineWidth": 0.6,
+      "x1": 269.157,
+      "y1": 110,
+      "x2": 280.157,
+      "y2": 121
+    },
+    {
+      "id": "hatch_ln_102",
+      "type": "line",
+      "layerId": "hatch",
+      "groupId": "grp_hatch_section_aa",
+      "groupName": "Kreskowanie Przekroju A-A",
+      "lineWidth": 0.6,
+      "x1": 302.157,
+      "y1": 143,
+      "x2": 307,
+      "y2": 147.843
+    },
+    {
+      "id": "hatch_ln_103",
+      "type": "line",
+      "layerId": "hatch",
+      "groupId": "grp_hatch_section_aa",
+      "groupName": "Kreskowanie Przekroju A-A",
+      "lineWidth": 0.6,
+      "x1": 265,
+      "y1": 111.5,
+      "x2": 274.5,
+      "y2": 121
+    },
+    {
+      "id": "hatch_ln_104",
+      "type": "line",
+      "layerId": "hatch",
+      "groupId": "grp_hatch_section_aa",
+      "groupName": "Kreskowanie Przekroju A-A",
+      "lineWidth": 0.6,
+      "x1": 286.5,
+      "y1": 133,
+      "x2": 287,
+      "y2": 133.5
+    },
+    {
+      "id": "hatch_ln_105",
+      "type": "line",
+      "layerId": "hatch",
+      "groupId": "grp_hatch_section_aa",
+      "groupName": "Kreskowanie Przekroju A-A",
+      "lineWidth": 0.6,
+      "x1": 296.5,
+      "y1": 143,
+      "x2": 307,
+      "y2": 153.5
+    },
+    {
+      "id": "hatch_ln_106",
+      "type": "line",
+      "layerId": "hatch",
+      "groupId": "grp_hatch_section_aa",
+      "groupName": "Kreskowanie Przekroju A-A",
+      "lineWidth": 0.6,
+      "x1": 265,
+      "y1": 117.157,
+      "x2": 268.843,
+      "y2": 121
+    },
+    {
+      "id": "hatch_ln_107",
+      "type": "line",
+      "layerId": "hatch",
+      "groupId": "grp_hatch_section_aa",
+      "groupName": "Kreskowanie Przekroju A-A",
+      "lineWidth": 0.6,
+      "x1": 280.843,
+      "y1": 133,
+      "x2": 287,
+      "y2": 139.157
+    },
+    {
+      "id": "hatch_ln_108",
+      "type": "line",
+      "layerId": "hatch",
+      "groupId": "grp_hatch_section_aa",
+      "groupName": "Kreskowanie Przekroju A-A",
+      "lineWidth": 0.6,
+      "x1": 290.843,
+      "y1": 143,
+      "x2": 302.843,
+      "y2": 155
+    },
+    {
+      "id": "hatch_ln_109",
+      "type": "line",
+      "layerId": "hatch",
+      "groupId": "grp_hatch_section_aa",
+      "groupName": "Kreskowanie Przekroju A-A",
+      "lineWidth": 0.6,
+      "x1": 275.186,
+      "y1": 133,
+      "x2": 297.186,
+      "y2": 155
+    },
+    {
+      "id": "hatch_ln_110",
+      "type": "line",
+      "layerId": "hatch",
+      "groupId": "grp_hatch_section_aa",
+      "groupName": "Kreskowanie Przekroju A-A",
+      "lineWidth": 0.6,
+      "x1": 269.529,
+      "y1": 133,
+      "x2": 291.529,
+      "y2": 155
+    },
+    {
+      "id": "hatch_ln_111",
+      "type": "line",
+      "layerId": "hatch",
+      "groupId": "grp_hatch_section_aa",
+      "groupName": "Kreskowanie Przekroju A-A",
+      "lineWidth": 0.6,
+      "x1": 265,
+      "y1": 134.127,
+      "x2": 285.873,
+      "y2": 155
+    },
+    {
+      "id": "hatch_ln_112",
+      "type": "line",
+      "layerId": "hatch",
+      "groupId": "grp_hatch_section_aa",
+      "groupName": "Kreskowanie Przekroju A-A",
+      "lineWidth": 0.6,
+      "x1": 265,
+      "y1": 139.784,
+      "x2": 280.216,
+      "y2": 155
+    },
+    {
+      "id": "hatch_ln_113",
+      "type": "line",
+      "layerId": "hatch",
+      "groupId": "grp_hatch_section_aa",
+      "groupName": "Kreskowanie Przekroju A-A",
+      "lineWidth": 0.6,
+      "x1": 265,
+      "y1": 145.441,
+      "x2": 274.559,
+      "y2": 155
+    },
+    {
+      "id": "hatch_ln_114",
+      "type": "line",
+      "layerId": "hatch",
+      "groupId": "grp_hatch_section_aa",
+      "groupName": "Kreskowanie Przekroju A-A",
+      "lineWidth": 0.6,
+      "x1": 265,
+      "y1": 151.098,
+      "x2": 268.902,
+      "y2": 155
+    },
+    {
+      "id": "dim_arclen_115",
+      "type": "dimension",
+      "layerId": "dimensions",
+      "dimType": "arc-length",
+      "center": {
+        "x": 115,
+        "y": 175
+      },
+      "p1": {
+        "x": 180.818,
+        "y": 213
+      },
+      "p2": {
+        "x": 115,
+        "y": 251
+      },
+      "arcMidPt": {
+        "x": 153,
+        "y": 240.818
+      },
+      "radius": 88,
+      "offset": 12,
+      "textHeight": 3.2,
+      "attachedEntityIds": [
+        "arc_shield_43"
+      ]
+    },
+    {
+      "id": "dim_angle_60_116",
+      "type": "dimension",
+      "layerId": "dimensions",
+      "dimType": "angular",
+      "center": {
+        "x": 115,
+        "y": 175
+      },
+      "p1": {
+        "x": 150,
+        "y": 175
+      },
+      "p2": {
+        "x": 132.5,
+        "y": 205.311
+      },
+      "radius": 38,
+      "offset": 38,
+      "textHeight": 3.2
+    },
+    {
+      "id": "dim_dia_130_117",
+      "type": "dimension",
+      "layerId": "dimensions",
+      "dimType": "diameter",
+      "center": {
+        "x": 115,
+        "y": 175
+      },
+      "p1": {
+        "x": 115,
+        "y": 175
+      },
+      "p2": {
+        "x": 69.038,
+        "y": 220.962
+      },
+      "radius": 65,
+      "offset": 65,
+      "textHeight": 3.2
+    },
+    {
+      "id": "dim_dia_40_118",
+      "type": "dimension",
+      "layerId": "dimensions",
+      "dimType": "diameter",
+      "center": {
+        "x": 115,
+        "y": 175
+      },
+      "p1": {
+        "x": 115,
+        "y": 175
+      },
+      "p2": {
+        "x": 97.679,
+        "y": 165
+      },
+      "radius": 20,
+      "offset": 20,
+      "textHeight": 3
+    },
+    {
+      "id": "dim_rad_48_119",
+      "type": "dimension",
+      "layerId": "dimensions",
+      "dimType": "radius",
+      "center": {
+        "x": 115,
+        "y": 175
+      },
+      "p1": {
+        "x": 115,
+        "y": 175
+      },
+      "p2": {
+        "x": 148.941,
+        "y": 141.059
+      },
+      "radius": 48,
+      "offset": 48,
+      "textHeight": 3
+    },
+    {
+      "id": "dim_rad_fillet10_120",
+      "type": "dimension",
+      "layerId": "dimensions",
+      "dimType": "radius",
+      "center": {
+        "x": 55,
+        "y": 85
+      },
+      "p1": {
+        "x": 55,
+        "y": 85
+      },
+      "p2": {
+        "x": 37,
+        "y": 103
+      },
+      "radius": 10,
+      "offset": 25,
+      "textHeight": 3
+    },
+    {
+      "id": "dim_lin_base_w_121",
+      "type": "dimension",
+      "layerId": "dimensions",
+      "dimType": "aligned",
+      "p1": {
+        "x": 45,
+        "y": 55
+      },
+      "p2": {
+        "x": 185,
+        "y": 55
+      },
+      "offset": -14,
+      "textHeight": 3.2
+    },
+    {
+      "id": "dim_lin_base_h_122",
+      "type": "dimension",
+      "layerId": "dimensions",
+      "dimType": "aligned",
+      "p1": {
+        "x": 45,
+        "y": 55
+      },
+      "p2": {
+        "x": 45,
+        "y": 95
+      },
+      "offset": 14,
+      "textHeight": 3.2
+    },
+    {
+      "id": "dim_lin_bolt_dx_123",
+      "type": "dimension",
+      "layerId": "dimensions",
+      "dimType": "aligned",
+      "p1": {
+        "x": 67,
+        "y": 65
+      },
+      "p2": {
+        "x": 99,
+        "y": 65
+      },
+      "offset": -16,
+      "textHeight": 2.8
+    },
+    {
+      "id": "dim_lin_sec_hub_124",
+      "type": "dimension",
+      "layerId": "dimensions",
+      "dimType": "aligned",
+      "p1": {
+        "x": 265,
+        "y": 240
+      },
+      "p2": {
+        "x": 307,
+        "y": 240
+      },
+      "offset": 12,
+      "textHeight": 3.2
+    },
+    {
+      "id": "dim_lin_sec_flange_125",
+      "type": "dimension",
+      "layerId": "dimensions",
+      "dimType": "aligned",
+      "p1": {
+        "x": 265,
+        "y": 110
+      },
+      "p2": {
+        "x": 287,
+        "y": 110
+      },
+      "offset": -12,
+      "textHeight": 3.2
+    },
+    {
+      "id": "dim_lin_sec_h_126",
+      "type": "dimension",
+      "layerId": "dimensions",
+      "dimType": "aligned",
+      "p1": {
+        "x": 287,
+        "y": 110
+      },
+      "p2": {
+        "x": 287,
+        "y": 240
+      },
+      "offset": -34,
+      "textHeight": 3.2
+    },
+    {
+      "id": "txt_view1_127",
+      "type": "text",
+      "layerId": "annotations",
+      "x": 40,
+      "y": 270,
+      "boxWidth": 150,
+      "boxHeight": 10,
+      "text": "WIDOK GŁÓWNY — KOŁNIERZ I WSPORNIK",
+      "height": 3.8,
+      "rotation": 0,
+      "align": "center",
+      "baseline": "middle"
+    },
+    {
+      "id": "txt_view2_128",
+      "type": "text",
+      "layerId": "annotations",
+      "x": 235,
+      "y": 270,
+      "boxWidth": 105,
+      "boxHeight": 10,
+      "text": "PRZEKRÓJ A-A (KRESKOWANIE 45°)",
+      "height": 3.8,
+      "rotation": 0,
+      "align": "center",
+      "baseline": "middle"
+    },
+    {
+      "id": "spec_frame_129",
+      "type": "polyline",
+      "layerId": "annotations",
+      "groupId": "grp_spec_legend",
+      "groupName": "Tabela Cech Pokazowych",
+      "closed": true,
+      "points": [
+        {
+          "x": 335,
+          "y": 125
+        },
+        {
+          "x": 403,
+          "y": 125
+        },
+        {
+          "x": 403,
+          "y": 255
+        },
+        {
+          "x": 335,
+          "y": 255
+        }
+      ]
+    },
+    {
+      "id": "spec_hdr_line_130",
+      "type": "line",
+      "layerId": "annotations",
+      "groupId": "grp_spec_legend",
+      "groupName": "Tabela Cech Pokazowych",
+      "x1": 335,
+      "y1": 243,
+      "x2": 403,
+      "y2": 243
+    },
+    {
+      "id": "spec_hdr_txt_131",
+      "type": "text",
+      "layerId": "annotations",
+      "groupId": "grp_spec_legend",
+      "groupName": "Tabela Cech Pokazowych",
+      "x": 337,
+      "y": 244,
+      "boxWidth": 64,
+      "boxHeight": 10,
+      "text": "WYKORZYSTANE FUNKCJE CAD",
+      "height": 3,
+      "rotation": 0,
+      "align": "center",
+      "baseline": "middle"
+    },
+    {
+      "id": "spec_item_132",
+      "type": "text",
+      "layerId": "annotations",
+      "color": "#e2e8f0",
+      "groupId": "grp_spec_legend",
+      "groupName": "Tabela Cech Pokazowych",
+      "x": 338,
+      "y": 233,
+      "boxWidth": 62,
+      "boxHeight": 8,
+      "text": "1. Okręgi, Łuki i Przycinanie (Trim)",
+      "height": 2.3,
+      "rotation": 0,
+      "align": "left",
+      "baseline": "middle"
+    },
+    {
+      "id": "spec_item_133",
+      "type": "text",
+      "layerId": "annotations",
+      "color": "#e2e8f0",
+      "groupId": "grp_spec_legend",
+      "groupName": "Tabela Cech Pokazowych",
+      "x": 338,
+      "y": 222.5,
+      "boxWidth": 62,
+      "boxHeight": 8,
+      "text": "2. Zaokrąglenie R10 i Faza 8x45°",
+      "height": 2.3,
+      "rotation": 0,
+      "align": "left",
+      "baseline": "middle"
+    },
+    {
+      "id": "spec_item_134",
+      "type": "text",
+      "layerId": "annotations",
+      "color": "#e2e8f0",
+      "groupId": "grp_spec_legend",
+      "groupName": "Tabela Cech Pokazowych",
+      "x": 338,
+      "y": 212,
+      "boxWidth": 62,
+      "boxHeight": 8,
+      "text": "3. Odsunięcie (Offset = 5 mm)",
+      "height": 2.3,
+      "rotation": 0,
+      "align": "left",
+      "baseline": "middle"
+    },
+    {
+      "id": "spec_item_135",
+      "type": "text",
+      "layerId": "annotations",
+      "color": "#e2e8f0",
+      "groupId": "grp_spec_legend",
+      "groupName": "Tabela Cech Pokazowych",
+      "x": 338,
+      "y": 201.5,
+      "boxWidth": 62,
+      "boxHeight": 8,
+      "text": "4. Szyk Kołowy (6x Ø12 co 60°)",
+      "height": 2.3,
+      "rotation": 0,
+      "align": "left",
+      "baseline": "middle"
+    },
+    {
+      "id": "spec_item_136",
+      "type": "text",
+      "layerId": "annotations",
+      "color": "#e2e8f0",
+      "groupId": "grp_spec_legend",
+      "groupName": "Tabela Cech Pokazowych",
+      "x": 338,
+      "y": 191,
+      "boxWidth": 62,
+      "boxHeight": 8,
+      "text": "5. Szyk Prostokątny (4x2 Ø7)",
+      "height": 2.3,
+      "rotation": 0,
+      "align": "left",
+      "baseline": "middle"
+    },
+    {
+      "id": "spec_item_137",
+      "type": "text",
+      "layerId": "annotations",
+      "color": "#e2e8f0",
+      "groupId": "grp_spec_legend",
+      "groupName": "Tabela Cech Pokazowych",
+      "x": 338,
+      "y": 180.5,
+      "boxWidth": 62,
+      "boxHeight": 8,
+      "text": "6. Kreskowanie Przekroju 45°",
+      "height": 2.3,
+      "rotation": 0,
+      "align": "left",
+      "baseline": "middle"
+    },
+    {
+      "id": "spec_item_138",
+      "type": "text",
+      "layerId": "annotations",
+      "color": "#e2e8f0",
+      "groupId": "grp_spec_legend",
+      "groupName": "Tabela Cech Pokazowych",
+      "x": 338,
+      "y": 170,
+      "boxWidth": 62,
+      "boxHeight": 8,
+      "text": "7. Lustro (Mirror) w Przekroju A-A",
+      "height": 2.3,
+      "rotation": 0,
+      "align": "left",
+      "baseline": "middle"
+    },
+    {
+      "id": "spec_item_139",
+      "type": "text",
+      "layerId": "annotations",
+      "color": "#e2e8f0",
+      "groupId": "grp_spec_legend",
+      "groupName": "Tabela Cech Pokazowych",
+      "x": 338,
+      "y": 159.5,
+      "boxWidth": 62,
+      "boxHeight": 8,
+      "text": "8. Wymiar Długości Łuku (⌒ 79.59)",
+      "height": 2.3,
+      "rotation": 0,
+      "align": "left",
+      "baseline": "middle"
+    },
+    {
+      "id": "spec_item_140",
+      "type": "text",
+      "layerId": "annotations",
+      "color": "#e2e8f0",
+      "groupId": "grp_spec_legend",
+      "groupName": "Tabela Cech Pokazowych",
+      "x": 338,
+      "y": 149,
+      "boxWidth": 62,
+      "boxHeight": 8,
+      "text": "9. Wymiary: Liniowe, Ø, R, Kąt °",
+      "height": 2.3,
+      "rotation": 0,
+      "align": "left",
+      "baseline": "middle"
+    },
+    {
+      "id": "spec_item_141",
+      "type": "text",
+      "layerId": "annotations",
+      "color": "#e2e8f0",
+      "groupId": "grp_spec_legend",
+      "groupName": "Tabela Cech Pokazowych",
+      "x": 338,
+      "y": 138.5,
+      "boxWidth": 62,
+      "boxHeight": 8,
+      "text": "10. Grupowanie i Tabliczka z Logo",
+      "height": 2.3,
+      "rotation": 0,
+      "align": "left",
+      "baseline": "middle"
+    }
+  ]
+}

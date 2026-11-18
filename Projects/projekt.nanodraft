@@ -1,0 +1,270 @@
+{
+  "version": "1.0",
+  "unit": "mm",
+  "layers": [
+    {
+      "id": "0",
+      "name": "0 (Szkic)",
+      "color": "#ffffff",
+      "lineWidth": 1,
+      "lineType": "continuous",
+      "visible": true,
+      "locked": false
+    },
+    {
+      "id": "elements",
+      "name": "Elementy",
+      "color": "#4caf50",
+      "lineWidth": 2,
+      "lineType": "continuous",
+      "visible": true,
+      "locked": false
+    },
+    {
+      "id": "dimensions",
+      "name": "Wymiary",
+      "color": "#00e5ff",
+      "lineWidth": 1,
+      "lineType": "continuous",
+      "visible": true,
+      "locked": false
+    },
+    {
+      "id": "axes",
+      "name": "Osie",
+      "color": "#ff9800",
+      "lineWidth": 1,
+      "lineType": "dashdot",
+      "visible": true,
+      "locked": false
+    }
+  ],
+  "entities": [
+    {
+      "id": "rect_1794356407028_q9v4",
+      "type": "polyline",
+      "layerId": "elements",
+      "points": [
+        {
+          "x": -2068,
+          "y": 1335.75
+        },
+        {
+          "x": -268,
+          "y": 1335.75
+        },
+        {
+          "x": -268,
+          "y": 2235.75
+        },
+        {
+          "x": -2068,
+          "y": 2235.75
+        }
+      ],
+      "closed": true,
+      "selected": false
+    },
+    {
+      "id": "dim_1794356419224_h7kn",
+      "type": "dimension",
+      "layerId": "dimensions",
+      "dimType": "aligned",
+      "p1": {
+        "x": -2068,
+        "y": 2235.75
+      },
+      "p2": {
+        "x": -268,
+        "y": 2235.75
+      },
+      "offset": 64.80855084344103,
+      "textHeight": 3.5,
+      "selected": false
+    },
+    {
+      "id": "dim_1794356424736_oatl",
+      "type": "dimension",
+      "layerId": "dimensions",
+      "dimType": "aligned",
+      "p1": {
+        "x": -2068,
+        "y": 2235.75
+      },
+      "p2": {
+        "x": -2068,
+        "y": 1335.75
+      },
+      "offset": -126.75022804430661,
+      "textHeight": 3.5,
+      "selected": false
+    },
+    {
+      "id": "txt_1794356447256_q1oa",
+      "type": "text",
+      "layerId": "dimensions",
+      "text": "Stół montażowy",
+      "x": -2068,
+      "y": 1335.75,
+      "height": 200,
+      "boxWidth": 1800,
+      "boxHeight": 900,
+      "rotation": 0,
+      "align": "center",
+      "baseline": "middle",
+      "selected": false
+    },
+    {
+      "id": "polyline_1794356506184_t7xx",
+      "type": "polyline",
+      "layerId": "elements",
+      "points": [
+        {
+          "x": -268,
+          "y": -164.25
+        },
+        {
+          "x": 2132,
+          "y": -164.25
+        },
+        {
+          "x": 2132,
+          "y": 1335.75
+        },
+        {
+          "x": -268,
+          "y": 1335.75
+        }
+      ],
+      "closed": true,
+      "selected": false,
+      "lineType": "dashed",
+      "color": "#454bf2"
+    },
+    {
+      "id": "circle_1794356616685_2u37",
+      "type": "circle",
+      "layerId": "elements",
+      "cx": -268,
+      "cy": -164.24999999999997,
+      "radius": 450,
+      "selected": false
+    },
+    {
+      "id": "polyline_1794356666040_v0yb",
+      "type": "polyline",
+      "layerId": "elements",
+      "points": [
+        {
+          "x": 473.25682475892745,
+          "y": 1345.1720957869902
+        },
+        {
+          "x": 2273.2568247589275,
+          "y": 1345.1720957869902
+        },
+        {
+          "x": 2273.2568247589275,
+          "y": 2245.17209578699
+        },
+        {
+          "x": 473.25682475892745,
+          "y": 2245.17209578699
+        }
+      ],
+      "closed": true,
+      "selected": false
+    },
+    {
+      "id": "text_1794356666040_o7qa",
+      "type": "text",
+      "layerId": "dimensions",
+      "text": "Stół montażowy",
+      "x": 473.25682475892745,
+      "y": 1345.1720957869902,
+      "height": 200,
+      "boxWidth": 1800,
+      "boxHeight": 900,
+      "rotation": 0,
+      "align": "center",
+      "baseline": "middle",
+      "selected": false
+    },
+    {
+      "id": "circle_1794356800585_jxqi",
+      "type": "circle",
+      "layerId": "elements",
+      "cx": -2562.6207098379414,
+      "cy": 829.6721128490448,
+      "radius": 521.2063037493573,
+      "selected": false
+    },
+    {
+      "id": "circle_1794356802666_f24s",
+      "type": "circle",
+      "layerId": "elements",
+      "cx": -1338.5236125813492,
+      "cy": 681.0822917947763,
+      "radius": 226.45022225251586,
+      "selected": false
+    },
+    {
+      "id": "circle_1794356804291_ey17",
+      "type": "circle",
+      "layerId": "elements",
+      "cx": 352.57006513151555,
+      "cy": 861.5127887892452,
+      "radius": 97.59601782595783,
+      "selected": false
+    },
+    {
+      "id": "dim_1794356810899_vbpb",
+      "type": "dimension",
+      "layerId": "dimensions",
+      "dimType": "diameter",
+      "p1": {
+        "x": -2562.6207098379414,
+        "y": 829.6721128490448
+      },
+      "p2": {
+        "x": -1882.5265684328908,
+        "y": 203.1434051106911
+      },
+      "center": {
+        "x": -2562.6207098379414,
+        "y": 829.6721128490448
+      },
+      "radius": 521.2063037493573,
+      "offset": 936.2685521029658,
+      "textHeight": 50,
+      "attachedEntityIds": [
+        "circle_1794356800585_jxqi"
+      ],
+      "selected": true
+    },
+    {
+      "id": "dim_1794356840884_sq64",
+      "type": "dimension",
+      "layerId": "dimensions",
+      "dimType": "diameter",
+      "p1": {
+        "x": -1338.5236125813492,
+        "y": 681.0822917947763
+      },
+      "p2": {
+        "x": -911.3412633899352,
+        "y": 778.8895389496589
+      },
+      "center": {
+        "x": -1338.5236125813492,
+        "y": 681.0822917947763
+      },
+      "radius": 226.45022225251586,
+      "offset": 438.2362571224698,
+      "textHeight": 3.5,
+      "attachedEntityIds": [
+        "circle_1794356802666_f24s"
+      ]
+    }
+  ]
+}

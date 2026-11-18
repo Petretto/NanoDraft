@@ -1,0 +1,8 @@
+node_modules/
+dist/
+public/NanoDraft_Portable.html
+POSTEP_PROJEKTU.md
+.vite/
+*.local
+.DS_Store
+Thumbs.db

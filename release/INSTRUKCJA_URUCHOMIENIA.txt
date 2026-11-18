@@ -1,0 +1,14 @@
+================================================================
+  NanoDraft 2D (v1.4) — Paczka Przenośna (Offline Portable)
+================================================================
+
+JAK URUCHOMIĆ APLIKACJĘ:
+1. Kliknij dwukrotnie plik "NanoDraft_Portable.html".
+2. Program otworzy się natychmiast w Twojej przeglądarce (Chrome, Edge, Brave, Firefox).
+3. Nie wymaga instalacji, serwera ani połączenia z internetem!
+4. Wszystkie narzędzia, przykładowe projekty (przycisk "Projekty"),
+   auto-zapis, eksport DXF/CSV oraz wydruk PDF działają w 100% lokalnie.
+
+ZAWARTOŚĆ PACZKI:
+- NanoDraft_Portable.html  -> Kompletna aplikacja NanoDraft 2D w jednym pliku
+- Projects/                -> Przykładowe projekty (.nanodraft, .dxf, .pdf)
