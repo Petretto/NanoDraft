@@ -58,8 +58,8 @@ export class CadGrid {
     ctx.save();
     ctx.lineWidth = 1;
 
-    // 1. Draw Minor Grid Lines
-    ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
+    // 1. Draw Minor Grid Lines (#1F232B)
+    ctx.strokeStyle = 'rgba(31, 35, 43, 0.85)';
     ctx.beginPath();
     for (let x = startX; x <= endX; x += minor) {
       const sx = Math.round(transform.worldToScreen({ x, y: 0 }).x) + 0.5;
@@ -73,8 +73,8 @@ export class CadGrid {
     }
     ctx.stroke();
 
-    // 2. Draw Major Grid Lines
-    ctx.strokeStyle = 'rgba(255, 255, 255, 0.12)';
+    // 2. Draw Major Grid Lines (#2A303C)
+    ctx.strokeStyle = 'rgba(42, 48, 60, 0.95)';
     ctx.beginPath();
     const startMajorX = Math.floor(minX / major) * major;
     const endMajorX = Math.ceil(maxX / major) * major;
@@ -139,12 +139,19 @@ export class CadGrid {
       ctx.fillText(`${valY} ${unit}`, labelX, screenPt.y + 3);
     }
 
-    // Origin indicator marker
-    ctx.strokeStyle = '#ffca28';
+    // Origin indicator marker (NanoDraft Studio Cyan #00E5FF)
+    ctx.strokeStyle = '#00E5FF';
     ctx.lineWidth = 1.5;
     ctx.beginPath();
     ctx.arc(originScreen.x, originScreen.y, 4, 0, Math.PI * 2);
+    ctx.moveTo(originScreen.x - 10, originScreen.y);
+    ctx.lineTo(originScreen.x + 10, originScreen.y);
+    ctx.moveTo(originScreen.x, originScreen.y - 10);
+    ctx.lineTo(originScreen.x, originScreen.y + 10);
     ctx.stroke();
+    ctx.fillStyle = '#00E5FF';
+    ctx.font = '10px "Geist Mono", monospace';
+    ctx.fillText('UCS 0,0', originScreen.x + 6, originScreen.y - 14);
 
     ctx.restore();
   }

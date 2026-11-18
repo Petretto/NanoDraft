@@ -20,8 +20,8 @@ export class CadRenderer {
   public fullScreenCrosshair: boolean = true;
   public pickboxSize: number = 6;
 
-  /** Canvas background (dark for screen, white for printing) */
-  public backgroundColor: string = '#1e1f22';
+  /** Canvas background (dark slate #0B0D10 for screen, white for printing) */
+  public backgroundColor: string = '#0B0D10';
   /** Draw the UCS axis icon */
   public drawUCS: boolean = true;
   /** Draw center crosshair marks on circles (true on screen, false on print/PDF) */

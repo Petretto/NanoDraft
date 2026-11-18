@@ -2,6 +2,7 @@ node_modules/
 dist/
 public/NanoDraft_Portable.html
 POSTEP_PROJEKTU.md
+UI/
 .vite/
 *.local
 .DS_Store

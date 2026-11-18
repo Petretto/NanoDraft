@@ -9,12 +9,16 @@ export interface HudField {
 }
 
 export class DynamicHud {
+  public enabled: boolean = true;
+
   private container: HTMLDivElement;
   private input1: HTMLInputElement;
   private input2: HTMLInputElement;
   private label1: HTMLSpanElement;
   private label2: HTMLSpanElement;
   private field2Container: HTMLDivElement;
+  private dividerEl: HTMLDivElement;
+  private tabBadgeEl: HTMLSpanElement;
   private commitCallback: ((val1: number, val2?: number) => void) | null = null;
   private cancelCallback: (() => void) | null = null;
   private active: boolean = false;
@@ -36,6 +40,10 @@ export class DynamicHud {
     field1Container.appendChild(this.label1);
     field1Container.appendChild(this.input1);
 
+    // Vertical divider
+    this.dividerEl = document.createElement('div');
+    this.dividerEl.style.cssText = 'width:1px; height:14px; background:var(--border-subtle);';
+
     // Field 2
     this.field2Container = document.createElement('div');
     this.field2Container.className = 'hud-field';
@@ -47,8 +55,16 @@ export class DynamicHud {
     this.field2Container.appendChild(this.label2);
     this.field2Container.appendChild(this.input2);
 
+    // Tab ⇥ hint badge
+    this.tabBadgeEl = document.createElement('span');
+    this.tabBadgeEl.className = 'hud-tab-badge';
+    this.tabBadgeEl.textContent = 'Tab ⇥';
+    this.tabBadgeEl.title = 'Klawisz Tab przełącza pole (Enter zatwierdza)';
+
     this.container.appendChild(field1Container);
+    this.container.appendChild(this.dividerEl);
     this.container.appendChild(this.field2Container);
+    this.container.appendChild(this.tabBadgeEl);
     parent.appendChild(this.container);
 
     this.setupListeners();
@@ -95,11 +111,13 @@ export class DynamicHud {
     this.hasTwoFields = false;
     this.label1.textContent = label;
     this.input1.value = initialVal ? initialVal.toFixed(2) : '0';
+    this.dividerEl.style.display = 'none';
     this.field2Container.style.display = 'none';
+    this.tabBadgeEl.textContent = 'Enter ↵';
     this.commitCallback = (v1) => onCommit(v1);
     this.cancelCallback = onCancel || null;
     this.updatePosition(screenPos);
-    this.container.style.display = 'flex';
+    this.container.style.display = this.enabled ? 'flex' : 'none';
   }
 
   showDoubleFields(
@@ -117,16 +135,26 @@ export class DynamicHud {
     this.input1.value = val1.toFixed(2);
     this.label2.textContent = label2;
     this.input2.value = val2.toFixed(2);
+    this.dividerEl.style.display = 'block';
     this.field2Container.style.display = 'flex';
+    this.tabBadgeEl.textContent = 'Tab ⇥';
     this.commitCallback = (v1, v2) => onCommit(v1, v2 ?? 0);
     this.cancelCallback = onCancel || null;
     this.updatePosition(screenPos);
-    this.container.style.display = 'flex';
+    this.container.style.display = this.enabled ? 'flex' : 'none';
+  }
+
+  setEnabled(enabled: boolean) {
+    this.enabled = enabled;
+    if (!this.enabled) {
+      this.container.style.display = 'none';
+    } else if (this.active) {
+      this.container.style.display = 'flex';
+    }
   }
 
   updateLiveValues(val1: number, val2?: number) {
     if (!this.active) return;
-    // Only update if input is not manually focused by user typing
     if (document.activeElement !== this.input1) {
       this.input1.value = val1.toFixed(2);
     }
@@ -137,13 +165,16 @@ export class DynamicHud {
 
   updatePosition(screenPos: Point2D) {
     if (!this.active) return;
-    const offsetX = 25;
-    const offsetY = 25;
+    const offsetX = 24;
+    const offsetY = 24;
     this.container.style.left = `${screenPos.x + offsetX}px`;
     this.container.style.top = `${screenPos.y + offsetY}px`;
   }
 
   focus() {
+    if (!this.enabled) {
+      this.setEnabled(true);
+    }
     this.input1.focus();
     this.input1.select();
   }
@@ -171,4 +202,3 @@ export class DynamicHud {
     return this.active;
   }
 }
-

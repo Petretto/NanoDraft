@@ -16,6 +16,12 @@ import { TopBar } from './ui/top-bar';
 import { JsonIO } from './io/json-io';
 import { AutoSaveManager } from './io/auto-save';
 import { PrintManager } from './io/print-pdf';
+import { LispIntegration } from './io/lisp-gen';
+import { LayersModal } from './ui/layers-modal';
+import { BomManager } from './ui/bom-modal';
+import { UnderlayManager } from './ui/underlay-modal';
+import { svgIcon } from './ui/icons';
+import { i18n, tr } from './i18n/lang';
 import { Point2D, SnapPoint } from './types/cad';
 import { Geometry } from './math/geometry';
 
@@ -69,7 +75,10 @@ class NanoDraftApp {
       () => this.requestRender()
     );
 
-    // Viewport Container & Canvas
+    // Viewport Wrapper (Canvas + Overlays + Dockable Command Line)
+    const viewportWrapper = document.createElement('div');
+    viewportWrapper.className = 'cad-viewport-wrapper';
+
     const viewportContainer = document.createElement('div');
     viewportContainer.className = 'cad-viewport-container';
 
@@ -80,6 +89,7 @@ class NanoDraftApp {
 
     // Dynamic HUD
     this.hud = new DynamicHud(viewportContainer);
+    this.statusBar.attachHud(this.hud);
 
     // Context for tools
     const toolContext: ToolContext = {
@@ -97,6 +107,15 @@ class NanoDraftApp {
 
     this.toolManager = new ToolManager(toolContext);
 
+    // Top-Left & Top-Right Floating Viewport Overlays
+    this.setupViewportOverlays(viewportContainer);
+
+    // Dockable AutoCAD-style Command Bar at bottom of Viewport
+    const commandDock = this.createCommandDock(toolContext);
+
+    viewportWrapper.appendChild(viewportContainer);
+    viewportWrapper.appendChild(commandDock);
+
     // Left Toolbar
     new Toolbar(
       this.toolManager,
@@ -108,10 +127,10 @@ class NanoDraftApp {
     );
 
     // Viewport appended in center
-    workspace.appendChild(viewportContainer);
+    workspace.appendChild(viewportWrapper);
 
     // Right Property Inspector
-    new PropertyInspector(this.doc, this.history, workspace, () => this.requestRender(), this.transform);
+    new PropertyInspector(this.doc, this.history, workspace, () => this.requestRender(), this.transform, this.toolManager);
 
     // 4. Command Dispatcher (Shortcuts & Stream Deck)
     new CommandDispatcher(
@@ -163,6 +182,223 @@ class NanoDraftApp {
     }
 
     this.requestRender();
+  }
+
+  private setupViewportOverlays(viewportContainer: HTMLElement) {
+    // 1. Top-Left UCS / Fit / Origin Overlay
+    const topLeft = document.createElement('div');
+    topLeft.className = 'viewport-top-left-overlay';
+    topLeft.addEventListener('mousedown', e => e.stopPropagation());
+
+    const renderTopLeft = () => {
+      topLeft.innerHTML = `
+        <button type="button" id="vp-fit-btn" class="vp-overlay-btn" title="${tr('Dopasuj wszystko (Zoom Extents) [Z / 2x ŚPM]', 'Zoom Extents [Z / Double MMB]')}">
+          ${svgIcon('zoom_out_map', 14)}
+          <span>${tr('Dopasuj [Z]', 'Fit [Z]')}</span>
+        </button>
+        <div class="vp-overlay-sep"></div>
+        <button type="button" id="vp-origin-btn" class="vp-overlay-btn" title="${tr('Początek układu współrzędnych (0,0) [Home]', 'Origin (0,0) [Home]')}">
+          ${svgIcon('my_location', 14)}
+          <span>(0, 0)</span>
+        </button>
+        <div class="vp-overlay-sep"></div>
+        <span class="vp-overlay-btn cyan" style="cursor:default;">
+          ${tr('Widok: Z Góry (2D)', 'View: Top (2D)')}
+        </span>
+      `;
+
+      topLeft.querySelector('#vp-fit-btn')?.addEventListener('click', () => {
+        const bounds = Geometry.unionBounds(this.doc.entities);
+        if (bounds) {
+          this.transform.zoomToFit(bounds);
+        } else {
+          this.transform.resetView();
+        }
+        this.requestRender();
+      });
+
+      topLeft.querySelector('#vp-origin-btn')?.addEventListener('click', () => {
+        this.transform.resetView();
+        this.requestRender();
+      });
+    };
+
+    renderTopLeft();
+    viewportContainer.appendChild(topLeft);
+
+    // 2. Top-Right Quick Stats Strip
+    const topRight = document.createElement('div');
+    topRight.className = 'viewport-top-right-overlay';
+    topRight.addEventListener('mousedown', e => e.stopPropagation());
+
+    const renderTopRight = () => {
+      topRight.innerHTML = `
+        <div style="display:flex; align-items:center; gap:5px;">
+          <span style="color:#94A3B8;">${tr('Skala:', 'Scale:')}</span>
+          <strong style="color:#ffffff;">1:1</strong>
+        </div>
+        <div class="vp-overlay-sep"></div>
+        <div style="display:flex; align-items:center; gap:5px;">
+          <span style="color:#94A3B8;">${tr('Elementów:', 'Entities:')}</span>
+          <strong style="color:#00E5FF;">${this.doc.entities.length}</strong>
+        </div>
+      `;
+    };
+
+    renderTopRight();
+    viewportContainer.appendChild(topRight);
+
+    this.doc.addChangeListener(() => renderTopRight());
+    i18n.onChange(() => {
+      renderTopLeft();
+      renderTopRight();
+    });
+  }
+
+  private createCommandDock(toolContext: ToolContext): HTMLElement {
+    const dock = document.createElement('div');
+    dock.className = 'cad-command-dock';
+
+    const renderDock = () => {
+      dock.innerHTML = `
+        <span class="cmd-dock-label">${tr('POLECENIE:', 'COMMAND:')}</span>
+        <input
+          id="cad-cmd-line-input"
+          type="text"
+          class="cmd-dock-input"
+          placeholder="${tr(
+            'Wpisz komendę CAD (np. LINE, TRIM, OFFSET, DIST, BOM, X,Y lub @dx,dy) i naciśnij Enter...',
+            'Type CAD command (e.g. LINE, TRIM, OFFSET, DIST, BOM, X,Y or @dx,dy) and press Enter...'
+          )}"
+        />
+        <div class="cmd-dock-hints">
+          <span class="cmd-kbd">Enter ↵</span>
+          <span>${tr('zatwierdza', 'execute')}</span>
+          <span class="cmd-kbd" style="margin-left:4px;">Esc</span>
+          <span>${tr('anuluje', 'cancel')}</span>
+        </div>
+      `;
+
+      const inp = dock.querySelector('#cad-cmd-line-input') as HTMLInputElement;
+      inp?.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          e.preventDefault();
+          inp.value = '';
+          inp.blur();
+          this.toolManager.cancelActive();
+          this.doc.clearSelection();
+          this.toolManager.setActiveTool('select');
+          this.requestRender();
+          return;
+        }
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          e.stopPropagation();
+          const raw = inp.value.trim();
+          inp.value = '';
+          if (!raw) return;
+          this.handleCommandLineInput(raw, toolContext);
+        }
+      });
+    };
+
+    renderDock();
+    i18n.onChange(() => renderDock());
+    return dock;
+  }
+
+  private handleCommandLineInput(raw: string, toolContext: ToolContext) {
+    // 1. AutoLISP expression
+    if (raw.startsWith('(')) {
+      const msg = LispIntegration.runLisp(raw, this.doc);
+      this.statusBar.setHint(msg);
+      this.requestRender();
+      return;
+    }
+
+    // 2. Relative coordinate @dx,dy or absolute coordinate X,Y
+    const relMatch = raw.match(/^@([+-]?\d+(?:\.\d+)?)\s*,\s*([+-]?\d+(?:\.\d+)?)$/);
+    if (relMatch) {
+      const base = this.toolManager.getActiveTool().getBasePoint() || { x: 0, y: 0 };
+      const pt: Point2D = {
+        x: base.x + parseFloat(relMatch[1]),
+        y: base.y + parseFloat(relMatch[2]),
+      };
+      this.toolManager.onMouseDown(new MouseEvent('mousedown', { button: 0 }), pt, null);
+      this.requestRender();
+      return;
+    }
+
+    const absMatch = raw.match(/^([+-]?\d+(?:\.\d+)?)\s*,\s*([+-]?\d+(?:\.\d+)?)$/);
+    if (absMatch) {
+      const pt: Point2D = {
+        x: parseFloat(absMatch[1]),
+        y: parseFloat(absMatch[2]),
+      };
+      this.toolManager.onMouseDown(new MouseEvent('mousedown', { button: 0 }), pt, null);
+      this.requestRender();
+      return;
+    }
+
+    // 3. Named CAD command
+    const cmd = raw.toUpperCase().replace(/^_/, '');
+    const map: Record<string, string> = {
+      S: 'select', SELECT: 'select',
+      Q: 'measure', DIST: 'measure', MEASURE: 'measure', AREA: 'measure',
+      L: 'line', LINE: 'line',
+      W: 'polyline', PL: 'polyline', PLINE: 'polyline', POLYLINE: 'polyline',
+      R: 'rect', REC: 'rect', RECT: 'rect', RECTANGLE: 'rect',
+      C: 'circle', CIRCLE: 'circle',
+      A: 'arc', ARC: 'arc',
+      U: 'polygon', SLOT: 'polygon', POLYGON: 'polygon', POLY: 'polygon',
+      P: 'point', POINT: 'point',
+      H: 'hatch', HATCH: 'hatch',
+      M: 'move', MOVE: 'move',
+      K: 'copy', CO: 'copy', COPY: 'copy',
+      O: 'rotate', RO: 'rotate', ROTATE: 'rotate',
+      I: 'mirror', MI: 'mirror', MIRROR: 'mirror',
+      V: 'scale', SC: 'scale', SCALE: 'scale',
+      F: 'offset', OFFSET: 'offset',
+      Y: 'array', AR: 'array', ARRAY: 'array',
+      G: 'fillet', FILLET: 'fillet', CHAMFER: 'fillet',
+      X: 'trim', TR: 'trim', TRIM: 'trim', EX: 'trim', EXTEND: 'trim',
+      J: 'match-props', MA: 'match-props', MATCHPROP: 'match-props',
+      D: 'dimension', DIM: 'dimension',
+      N: 'leader', LE: 'leader', LEADER: 'leader',
+      T: 'text', TEXT: 'text', MTEXT: 'text',
+    };
+
+    if (map[cmd]) {
+      this.toolManager.setActiveTool(map[cmd]);
+      this.requestRender();
+      return;
+    }
+
+    if (cmd === 'E' || cmd === 'EXPLODE') {
+      this.doc.explodeSelected(this.history);
+      this.requestRender();
+    } else if (cmd === 'Z' || cmd === 'ZOOM' || cmd === 'FIT') {
+      const bounds = Geometry.unionBounds(this.doc.entities);
+      if (bounds) this.transform.zoomToFit(bounds);
+      else this.transform.resetView();
+      this.requestRender();
+    } else if (cmd === 'UNDO') {
+      this.history.undo();
+      this.requestRender();
+    } else if (cmd === 'REDO') {
+      this.history.redo();
+      this.requestRender();
+    } else if (cmd === 'BOM') {
+      BomManager.openModal(this.doc, this.history, this.transform, () => this.requestRender());
+    } else if (cmd === 'LA' || cmd === 'LAYER' || cmd === 'LAYERS') {
+      LayersModal.open(this.doc, () => this.requestRender());
+    } else if (cmd === 'UNDERLAY' || cmd === 'IMAGE') {
+      UnderlayManager.openModal(this.doc, this.history, this.transform, () => this.requestRender());
+    } else if (cmd === 'PRINT' || cmd === 'PLOT' || cmd === 'PDF') {
+      PrintManager.openModal(this.doc, this.transform, this.history, () => this.requestRender());
+    } else {
+      toolContext.setHint(tr(`Nieznane polecenie: ${raw}`, `Unknown command: ${raw}`));
+    }
   }
 
   private async checkUrlPrintSheet() {
@@ -234,6 +470,13 @@ class NanoDraftApp {
 
   private setupShiftOrtho() {
     window.addEventListener('keydown', (e) => {
+      if (e.key === 'F12') {
+        e.preventDefault();
+        this.hud.setEnabled(!this.hud.enabled);
+        this.statusBar?.updateToggles();
+        this.requestRender();
+        return;
+      }
       if (e.key === 'Shift' && !this.snapEngine.isShiftOrthoActive) {
         this.snapEngine.isShiftOrthoActive = true;
         this.statusBar?.updateToggles();

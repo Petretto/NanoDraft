@@ -12,10 +12,12 @@ import { TitleBlockManager } from './title-block-modal';
 import { ProjectsModal } from './projects-modal';
 import { UnderlayManager } from './underlay-modal';
 import { BomManager } from './bom-modal';
+import { svgIcon } from './icons';
 import { i18n, tr } from '../i18n/lang';
 
 export class TopBar {
   private element: HTMLDivElement;
+  private currentFileName: string = 'Projekt_CAD.nanodraft';
 
   constructor(
     private doc: CadDocument,
@@ -30,68 +32,170 @@ export class TopBar {
     this.render();
     parent.appendChild(this.element);
 
-    this.doc.addChangeListener(() => this.updateActiveLayerSelect());
+    this.doc.addChangeListener(() => {
+      this.updateActiveLayerSelect();
+      this.updateSaveStatusDot();
+    });
     i18n.onChange(() => this.render());
+
+    // Close file dropdown on outside click
+    window.addEventListener('click', (e) => {
+      const wrapper = this.element.querySelector('.file-menu-wrapper');
+      const menu = this.element.querySelector('#file-dropdown-menu');
+      if (menu && wrapper && !wrapper.contains(e.target as Node)) {
+        menu.classList.remove('open');
+      }
+    });
+  }
+
+  private getActiveLayerColor(): string {
+    const layer = this.doc.layers.find(l => l.id === this.doc.activeLayerId);
+    return layer?.color || '#00E5FF';
   }
 
   private render() {
+    const activeColor = this.getActiveLayerColor();
+    const isDirty = this.doc.isDirty && this.doc.entities.length > 0;
+
     this.element.innerHTML = `
+      <!-- LEFT SECTION: Brand, Document Menu & Quick Layer Selector -->
       <div class="top-left">
-        <span class="logo-icon">📐</span>
-        <span class="logo-title">NanoDraft 2D</span>
-        <span class="logo-badge">v1.4</span>
+        <div style="display:flex; align-items:center; gap:6px;">
+          <span class="brand-mark">📐</span>
+          <span class="logo-title">NanoDraft <span class="logo-title-sub">2D</span></span>
+          <span class="logo-badge">v2.0</span>
+        </div>
 
         <div class="top-separator"></div>
 
-        <!-- Aktywna warstwa -->
-        <span style="font-size:11px; color:var(--text-muted);">${tr('Warstwa:', 'Layer:')}</span>
-        <select id="active-layer-select" class="status-select" style="max-width:140px;">
-          ${this.doc.layers.map(l => `<option value="${l.id}" ${l.id === this.doc.activeLayerId ? 'selected' : ''}>${l.name}</option>`).join('')}
-        </select>
-        <button id="btn-layers" class="top-btn" title="${tr('Otwórz Menedżer Warstw (tworzenie, kolory, rodzaje linii)', 'Open Layer Manager (create, colors, linetypes)')}">🎨 ${tr('Warstwy', 'Layers')}</button>
-      </div>
+        <!-- File Name Dropdown & Save Status Dot -->
+        <div class="file-menu-wrapper">
+          <button id="btn-file-menu" type="button" class="file-menu-trigger" title="${tr('Menu pliku (Nowy, Zapisz, Otwórz, AutoLISP)', 'File menu (New, Save, Open, AutoLISP)')}">
+            <span id="current-file-label">${this.currentFileName}</span>
+            ${svgIcon('expand_more', 14)}
+          </button>
+          <span id="save-status-dot" class="save-status-dot ${isDirty ? 'dirty' : ''}" title="${
+            isDirty
+              ? tr('Zmiany robocze (chronione przez Auto-Zapis)', 'Unsaved changes (protected by Auto-Save)')
+              : tr('Zapisano automatycznie lokalnie', 'Saved locally')
+          }"></span>
 
-      <div class="top-actions">
-        <!-- Nowy rysunek (Wyczyść wszystko) -->
-        <button id="btn-new" class="top-btn" title="${tr('Utwórz nowy, pusty rysunek (wyczyść obecny)', 'Create a new empty drawing (clear current)')}">📄 ${tr('Nowy', 'New')}</button>
+          <!-- Quick File Action Icons -->
+          <button id="btn-new" class="top-icon-btn" title="${tr('Nowy rysunek (Wyczyść arkusz)', 'New drawing (Clear canvas)')}">
+            ${svgIcon('note_add', 15)}
+          </button>
+          <button id="btn-save" class="top-icon-btn" title="${tr('Zapisz projekt (.nanodraft)', 'Save project (.nanodraft)')}">
+            ${svgIcon('save', 15)}
+          </button>
+          <button id="btn-load" class="top-icon-btn" title="${tr('Otwórz projekt (.nanodraft, .json, .dxf)', 'Open project (.nanodraft, .json, .dxf)')}">
+            ${svgIcon('folder_open', 15)}
+          </button>
 
-        <!-- Katalog Projektów (/Projects) -->
-        <button id="btn-projects" class="top-btn highlight" title="${tr('Wczytaj projekt z katalogu Projects/', 'Load a project from the Projects/ directory')}">📁 ${tr('Projekty', 'Projects')}</button>
+          <!-- Dropdown Menu -->
+          <div id="file-dropdown-menu" class="file-dropdown-menu">
+            <button id="menu-new" class="file-dropdown-item">
+              <span style="display:flex; align-items:center; gap:7px;">${svgIcon('note_add', 15)} ${tr('Nowy rysunek', 'New Drawing')}</span>
+              <span style="font-family:var(--font-mono); font-size:10px; color:var(--text-muted);">Clean</span>
+            </button>
+            <button id="menu-save" class="file-dropdown-item">
+              <span style="display:flex; align-items:center; gap:7px;">${svgIcon('save', 15)} ${tr('Zapisz projekt (.nanodraft)', 'Save Project (.nanodraft)')}</span>
+              <span style="font-family:var(--font-mono); font-size:10px; color:var(--text-muted);">JSON</span>
+            </button>
+            <button id="menu-load" class="file-dropdown-item">
+              <span style="display:flex; align-items:center; gap:7px;">${svgIcon('folder_open', 15)} ${tr('Otwórz / Importuj (.dxf)', 'Open / Import (.dxf)')}</span>
+              <span style="font-family:var(--font-mono); font-size:10px; color:var(--text-muted);">DXF</span>
+            </button>
+            <div class="file-dropdown-divider"></div>
+            <button id="btn-lisp" class="file-dropdown-item">
+              <span style="display:flex; align-items:center; gap:7px;">${svgIcon('terminal', 15)} ${tr('Generuj skrypt AutoLISP (.lsp)', 'Generate AutoLISP Script (.lsp)')}</span>
+              <span style="font-family:var(--font-mono); font-size:10px; color:var(--text-muted);">.LSP</span>
+            </button>
+          </div>
+        </div>
 
-        <div class="top-separator"></div>
-
-        <!-- Zapis / Wczytanie (JSON / DXF) -->
-        <button id="btn-save" class="top-btn" title="${tr('Zapisz projekt do pliku .nanodraft', 'Save project to .nanodraft file')}">💾 ${tr('Zapisz', 'Save')}</button>
-        <button id="btn-load" class="top-btn" title="${tr('Otwórz projekt (.nanodraft, .json lub importuj .dxf)', 'Open project (.nanodraft, .json or import .dxf)')}">📂 ${tr('Otwórz / Import', 'Open / Import')}</button>
         <input type="file" id="file-input" accept=".nanodraft,.minicad,.json,.dxf" style="display:none" />
 
         <div class="top-separator"></div>
 
-        <!-- Eksport AutoCAD -->
-        <button id="btn-dxf" class="top-btn highlight" title="${tr('Eksportuj do DXF zgodnego z AutoCAD', 'Export to AutoCAD-compatible DXF')}">⚡ ${tr('Eksport DXF', 'Export DXF')}</button>
-        <button id="btn-lisp" class="top-btn" title="${tr('Generuj skrypt AutoLISP (.lsp) dla AutoCAD', 'Generate AutoLISP (.lsp) script for AutoCAD')}">📜 ${tr('Skrypt LISP', 'LISP Script')}</button>
+        <!-- Quick Layer Selector with Color Dot -->
+        <div style="display:flex; align-items:center; gap:6px;">
+          <span style="font-size:11px; color:var(--text-muted);">${tr('Warstwa:', 'Layer:')}</span>
+          <div class="header-layer-picker">
+            <span id="header-layer-dot" class="header-layer-dot" style="background:${activeColor};"></span>
+            <select id="active-layer-select" class="header-layer-select">
+              ${this.doc.layers.map(l => `<option value="${l.id}" ${l.id === this.doc.activeLayerId ? 'selected' : ''}>${l.name}</option>`).join('')}
+            </select>
+          </div>
+          <button id="btn-layers" class="top-btn" title="${tr('Menedżer warstw (kolory, grubości, blokady, ukrywanie)', 'Layer Manager (colors, lineweights, locks, visibility)')}">
+            <span style="color:#00E5FF; display:inline-flex;">${svgIcon('layers', 15)}</span>
+            <span>${tr('Warstwy', 'Layers')}</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- CENTER SECTION: Operational CAD Modules (Projekty, Podkład, BOM, Tabliczka ISO) -->
+      <div class="top-center">
+        <button id="btn-projects" class="top-btn" title="${tr('Wczytaj projekt z katalogu Projects/', 'Load a project from the Projects/ directory')}">
+          <span style="color:#FBBF24; display:inline-flex;">${svgIcon('folder_open', 15)}</span>
+          <span>${tr('Projekty', 'Projects')}</span>
+        </button>
+
+        <button id="btn-underlay" class="top-btn" title="${tr('Wczytaj podkład rastrowy (PNG/JPG) i skalibruj go 2 punktami do skali 1:1', 'Load raster underlay (PNG/JPG) and calibrate scale with 2 points')}">
+          <span style="color:#38BDF8; display:inline-flex;">${svgIcon('image', 15)}</span>
+          <span>${tr('Podkład', 'Underlay')}</span>
+        </button>
+
+        <button id="btn-bom" class="top-btn" title="${tr('Automatyczne zestawienie bloków, grup i długości warstw (BOM / Excel CSV)', 'Automatic Bill of Materials for blocks, groups & layers (BOM / CSV)')}">
+          <span style="color:#818CF8; display:inline-flex;">${svgIcon('table_chart', 15)}</span>
+          <span>BOM</span>
+        </button>
+
+        <button id="btn-titleblock" class="top-btn" title="${tr('Konfigurator tabliczki rysunkowej PN-ISO 7200 i arkusza (A4–A0)', 'ISO Title Block Configurator (A4–A0)')}">
+          <span style="color:#2DD4BF; display:inline-flex;">${svgIcon('article', 15)}</span>
+          <span>${tr('Tabliczka', 'Title Block')}</span>
+        </button>
+      </div>
+
+      <!-- RIGHT SECTION: Export DXF, Print PDF, Offline Portable, LISP, Stream Deck, Lang -->
+      <div class="top-actions">
+        <button id="btn-dxf" class="top-btn cta-dxf" title="${tr('Eksportuj do pliku DXF zgodnego z AutoCAD / ZWCAD', 'Export to AutoCAD / ZWCAD compatible DXF')}">
+          ${svgIcon('download', 15)}
+          <span>DXF</span>
+        </button>
+
+        <button id="btn-print" class="top-btn" title="${tr('Drukuj lub generuj wektorowy PDF w wybranym formacie ISO i skali', 'Print or generate scaled ISO PDF')}">
+          <span style="color:#CBD5E1; display:inline-flex;">${svgIcon('print', 15)}</span>
+          <span>PDF</span>
+        </button>
+
+        <button id="btn-download-app" class="top-btn btn-portable" title="${tr('Pobierz samowystarczalny plik NanoDraft_Portable.html i pracuj w 100% offline bez instalacji', 'Download standalone NanoDraft_Portable.html for 100% offline use')}">
+          ${svgIcon('package_2', 15)}
+          <span>Portable</span>
+        </button>
 
         <div class="top-separator"></div>
 
-        <!-- Podkład rastrowy, Zestawienie BOM, Tabliczka rysunkowa oraz Druk i PDF -->
-        <button id="btn-underlay" class="top-btn" title="${tr('Wczytaj podkład rastrowy (PNG/JPG) i skalibruj go 2 punktami do skali 1:1', 'Load raster underlay (PNG/JPG) and calibrate scale with 2 points')}">🖼️ ${tr('Podkład', 'Underlay')}</button>
-        <button id="btn-bom" class="top-btn" title="${tr('Automatyczne zestawienie bloków, grup i długości warstw (BOM / Excel CSV)', 'Automatic Bill of Materials for blocks, groups & layers (BOM / CSV)')}">📊 ${tr('BOM', 'BOM')}</button>
-        <button id="btn-titleblock" class="top-btn" title="${tr('Konfiguruj firmową tabliczkę rysunkową i wstaw ją do rysunku (poziomo lub pionowo)', 'Configure company title block and insert into drawing (landscape or portrait)')}">📋 ${tr('Tabliczka', 'Title Block')}</button>
-        <button id="btn-print" class="top-btn" title="${tr('Wydrukuj na drukarce lub zapisz jako PDF w wybranym formacie ISO i skali', 'Print or save as PDF in chosen ISO format and scale')}">🖨️ ${tr('Drukuj / PDF', 'Print / PDF')}</button>
+        <button id="btn-lisp-console" class="top-icon-btn" title="${tr('Konsola poleceń AutoLISP', 'AutoLISP Command Console')}">
+          ${svgIcon('terminal', 17)}
+        </button>
 
-        <div class="top-separator"></div>
+        <button id="btn-streamdeck" class="top-icon-btn" title="${tr('Skróty klawiszowe i konfiguracja Elgato Stream Deck', 'Keyboard Shortcuts & Elgato Stream Deck')}">
+          ${svgIcon('sports_esports', 17)}
+        </button>
 
-        <!-- Konsola LISP & Stream Deck Info & Pobierz Offline -->
-        <button id="btn-lisp-console" class="top-btn" title="${tr('Otwórz konsolę poleceń AutoLISP', 'Open AutoLISP command console')}">💻 ${tr('Konsola LISP', 'LISP Console')}</button>
-        <button id="btn-streamdeck" class="top-btn" title="${tr('Podgląd skrótów do konfiguracji Stream Deck', 'View keyboard shortcuts for Stream Deck')}">🎮 Stream Deck</button>
-        <button id="btn-download-app" class="top-btn" title="${tr('Pobierz samowystarczalną paczkę NanoDraft_Portable.html do pracy offline na komputerze (bez instalacji)', 'Download standalone NanoDraft_Portable.html package for offline desktop use (no installation needed)')}">📦 ${tr('Pobierz apkę', 'Download App')}</button>
-
-        <div class="top-separator"></div>
-
-        <!-- Przełącznik języka PL / EN -->
-        <button id="btn-lang" class="top-btn highlight" title="${tr('Przełącz język na Angielski (Switch to English)', 'Przełącz język na Polski (Switch to Polish)')}">🌐 ${i18n.lang === 'pl' ? 'PL 🇵🇱' : 'EN 🇬🇧'}</button>
+        <button id="btn-lang" class="top-btn" style="font-family:var(--font-mono); font-size:10px; padding:4px 8px;" title="${tr('Przełącz język na Angielski (Switch to English)', 'Przełącz język na Polski (Switch to Polish)')}">
+          ${i18n.lang === 'pl' ? 'PL' : 'EN'}
+        </button>
       </div>
     `;
+
+    // File Dropdown Toggle
+    const fileMenuBtn = this.element.querySelector('#btn-file-menu');
+    const fileDropdown = this.element.querySelector('#file-dropdown-menu');
+    fileMenuBtn?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      fileDropdown?.classList.toggle('open');
+    });
 
     // Active layer select
     const layerSelect = this.element.querySelector('#active-layer-select') as HTMLSelectElement;
@@ -109,8 +213,8 @@ export class TopBar {
       });
     });
 
-    // New Drawing (Clear All) button
-    this.element.querySelector('#btn-new')?.addEventListener('click', () => {
+    const handleNew = () => {
+      fileDropdown?.classList.remove('open');
       if (this.doc.entities.length > 0) {
         const ok = confirm(
           tr(
@@ -123,10 +227,33 @@ export class TopBar {
       this.doc.resetToNew('mm');
       this.history.clear();
       AutoSaveManager.clear();
+      this.currentFileName = 'Nowy_Projekt.nanodraft';
       this.transform.resetView();
-      this.updateActiveLayerSelect();
+      this.render();
       this.requestRender();
-    });
+    };
+
+    this.element.querySelector('#btn-new')?.addEventListener('click', handleNew);
+    this.element.querySelector('#menu-new')?.addEventListener('click', handleNew);
+
+    const handleSave = () => {
+      fileDropdown?.classList.remove('open');
+      JsonIO.downloadProject(this.doc, this.currentFileName);
+      this.doc.markClean();
+      this.updateSaveStatusDot();
+    };
+
+    this.element.querySelector('#btn-save')?.addEventListener('click', handleSave);
+    this.element.querySelector('#menu-save')?.addEventListener('click', handleSave);
+
+    const fileInput = this.element.querySelector('#file-input') as HTMLInputElement;
+    const handleLoadClick = () => {
+      fileDropdown?.classList.remove('open');
+      fileInput?.click();
+    };
+
+    this.element.querySelector('#btn-load')?.addEventListener('click', handleLoadClick);
+    this.element.querySelector('#menu-load')?.addEventListener('click', handleLoadClick);
 
     // Projects Directory (/Projects) button
     this.element.querySelector('#btn-projects')?.addEventListener('click', () => {
@@ -134,8 +261,9 @@ export class TopBar {
         this.doc,
         this.history,
         this.transform,
-        () => {
-          this.updateActiveLayerSelect();
+        (loadedName?: string) => {
+          if (loadedName) this.currentFileName = loadedName;
+          this.render();
           this.requestRender();
         },
         () => {
@@ -144,20 +272,10 @@ export class TopBar {
       );
     });
 
-    // Event listeners
-    this.element.querySelector('#btn-save')?.addEventListener('click', () => {
-      JsonIO.downloadProject(this.doc);
-      this.doc.markClean();
-    });
-
-    const fileInput = this.element.querySelector('#file-input') as HTMLInputElement;
-    this.element.querySelector('#btn-load')?.addEventListener('click', () => {
-      fileInput.click();
-    });
-
     fileInput?.addEventListener('change', (e) => {
       const file = (e.target as HTMLInputElement).files?.[0];
       if (file) {
+        this.currentFileName = file.name;
         const isDxf = file.name.toLowerCase().endsWith('.dxf');
         const reader = new FileReader();
         reader.onload = (event) => {
@@ -168,17 +286,13 @@ export class TopBar {
               if (res.error) {
                 alert(tr('Błąd importu DXF: ', 'DXF import error: ') + res.error);
               } else {
-                alert(
-                  tr(
-                    `Pomyślnie zaimportowano ${res.count} obiektów z pliku DXF!`,
-                    `Successfully imported ${res.count} entities from DXF file!`
-                  )
-                );
+                this.render();
                 this.requestRender();
               }
             } else {
               if (JsonIO.loadFromJson(content, this.doc)) {
                 this.doc.markClean();
+                this.render();
                 this.requestRender();
               }
             }
@@ -193,6 +307,7 @@ export class TopBar {
     });
 
     this.element.querySelector('#btn-lisp')?.addEventListener('click', () => {
+      fileDropdown?.classList.remove('open');
       LispIntegration.downloadLispScript(this.doc);
     });
 
@@ -266,12 +381,24 @@ export class TopBar {
     });
   }
 
+  private updateSaveStatusDot() {
+    const dot = this.element.querySelector('#save-status-dot') as HTMLElement | null;
+    if (!dot) return;
+    const isDirty = this.doc.isDirty && this.doc.entities.length > 0;
+    dot.classList.toggle('dirty', isDirty);
+  }
+
   private updateActiveLayerSelect() {
     const select = this.element.querySelector('#active-layer-select') as HTMLSelectElement;
-    if (!select) return;
-    select.innerHTML = this.doc.layers
-      .map(l => `<option value="${l.id}" ${l.id === this.doc.activeLayerId ? 'selected' : ''}>${l.name}</option>`)
-      .join('');
+    if (select) {
+      select.innerHTML = this.doc.layers
+        .map(l => `<option value="${l.id}" ${l.id === this.doc.activeLayerId ? 'selected' : ''}>${l.name}</option>`)
+        .join('');
+    }
+    const dot = this.element.querySelector('#header-layer-dot') as HTMLElement | null;
+    if (dot) {
+      dot.style.background = this.getActiveLayerColor();
+    }
   }
 
   private openLispConsoleModal() {
@@ -293,63 +420,34 @@ export class TopBar {
   private openStreamDeckModal() {
     alert(
       tr(
-        'Konfiguracja klawiszy dla Elgato Stream Deck:\n\n' +
+        'Konfiguracja klawiszy dla Elgato Stream Deck (NanoDraft Studio v2.0):\n\n' +
           'Skróty klawiszowe (Hotkeys):\n' +
-          '• S -> Zaznacz (Select)\n' +
-          '• L -> Linia (Line)\n' +
-          '• W -> Polilinia (Polyline)\n' +
-          '• R -> Prostokąt (Rectangle)\n' +
-          '• C -> Okrąg (Circle)\n' +
-          '• P -> Punkt (Point)\n' +
-          '• M -> Przesuń (Move)\n' +
-          '• K -> Kopiuj (Copy)\n' +
-          '• O -> Obróć (Rotate)\n' +
-          '• I -> Lustro (Mirror)\n' +
-          '• F -> Odsunięcie (Offset)\n' +
-          '• G -> Zaokrąglij / Fazuj (Fillet / Chamfer)\n' +
-          '• X -> Przytnij / Wydłuż (Trim / Extend)\n' +
-          '• J -> Pędzel właściwości (Match Properties)\n' +
-          '• A -> Łuk (Arc) | U -> Fasolka / Wielokąt\n' +
-          '• Y -> Szyk (Array) | H -> Kreskuj (Hatch) | V -> Skaluj | E -> Rozbij\n' +
-          '• B -> Biblioteka Bloków (Blocks) | N -> Odnośnik (Leader)\n' +
-          '• D -> Wymiarowanie (Dimension: 1-Auto, 2-Lin, 3-Ø, 4-R, 5-∠, 6-⌒)\n' +
-          '• Q -> Zmierz (Measure)\n' +
-          '• T -> Tekst (Text)\n' +
-          '• Z / 2x ŚPM -> Dopasuj widok (Zoom to Fit)\n' +
-          '• Esc / PPM -> Anuluj / Wyczyść zaznaczenie\n' +
-          '• Ctrl+C / Ctrl+V -> Kopiuj / Wklej\n' +
-          '• Ctrl+Z / Ctrl+Y -> Cofnij / Ponów\n' +
-          '• F3 -> Przełącz OSNAP (Przyciąganie)\n' +
-          '• F8 / Shift -> Tryb ORTHO (Kąty proste)\n' +
-          '• F7 -> Przełącz Siatkę (Grid)',
-        'Elgato Stream Deck Hotkey Reference:\n\n' +
+          '• S -> Zaznacz (Select) | Q -> Zmierz (Odległość / Pole m²)\n' +
+          '• L -> Linia | W -> Polilinia | R -> Prostokąt\n' +
+          '• C -> Okrąg | A -> Łuk | U -> Fasolka / Wielokąt\n' +
+          '• P -> Punkt | H -> Kreskuj (Hatch)\n' +
+          '• M -> Przesuń | K -> Kopiuj | O -> Obróć | I -> Lustro\n' +
+          '• V -> Skaluj | F -> Odsuń (Offset) | Y -> Szyk (Array)\n' +
+          '• G -> Zaokrąglij / Fazuj | X -> Przytnij / Wydłuż\n' +
+          '• J -> Pędzel właściwości | E -> Rozbij (Explode)\n' +
+          '• D -> Wymiarowanie (1-Auto, 2-Lin, 3-Ø, 4-R, 5-∠, 6-⌒)\n' +
+          '• N -> Odnośnik (Leader) | T -> Tekst | B -> Biblioteka Bloków\n' +
+          '• Z / 2x ŚPM -> Dopasuj widok | Home -> Punkt (0,0)\n' +
+          '• F3 -> OSNAP | F8 / Shift -> ORTHO | F7 -> GRID | F12 -> HUD',
+        'Elgato Stream Deck Hotkey Reference (NanoDraft Studio v2.0):\n\n' +
           'Keyboard Shortcuts:\n' +
-          '• S -> Select\n' +
-          '• L -> Line\n' +
-          '• W -> Polyline\n' +
-          '• R -> Rectangle\n' +
-          '• C -> Circle\n' +
-          '• P -> Point\n' +
-          '• M -> Move\n' +
-          '• K -> Copy\n' +
-          '• O -> Rotate\n' +
-          '• I -> Mirror\n' +
-          '• F -> Offset\n' +
+          '• S -> Select | Q -> Measure (Distance / Area m²)\n' +
+          '• L -> Line | W -> Polyline | R -> Rectangle\n' +
+          '• C -> Circle | A -> Arc | U -> Slot / Polygon\n' +
+          '• P -> Point | H -> Hatch\n' +
+          '• M -> Move | K -> Copy | O -> Rotate | I -> Mirror\n' +
+          '• V -> Scale | F -> Offset | Y -> Array\n' +
           '• G -> Fillet / Chamfer | X -> Trim / Extend\n' +
-          '• J -> Match Properties\n' +
-          '• A -> Arc | U -> Slot / Polygon\n' +
-          '• Y -> Array | H -> Hatch | V -> Scale | E -> Explode\n' +
-          '• B -> Blocks Library | N -> Leader Callout\n' +
+          '• J -> Match Properties | E -> Explode\n' +
           '• D -> Dimension (1-Smart, 2-Linear, 3-Ø, 4-R, 5-∠, 6-⌒)\n' +
-          '• Q -> Measure\n' +
-          '• T -> Text\n' +
-          '• Z / Double MMB -> Zoom to Fit\n' +
-          '• Esc / RMB -> Cancel / Clear Selection\n' +
-          '• Ctrl+C / Ctrl+V -> Copy / Paste\n' +
-          '• Ctrl+Z / Ctrl+Y -> Undo / Redo\n' +
-          '• F3 -> Toggle OSNAP\n' +
-          '• F8 / Shift -> Toggle ORTHO\n' +
-          '• F7 -> Toggle Grid'
+          '• N -> Leader Callout | T -> Text | B -> Blocks Library\n' +
+          '• Z / Double MMB -> Zoom to Fit | Home -> Origin (0,0)\n' +
+          '• F3 -> OSNAP | F8 / Shift -> ORTHO | F7 -> GRID | F12 -> HUD'
       )
     );
   }

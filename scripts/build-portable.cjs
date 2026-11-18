@@ -33,7 +33,10 @@ function buildPortable() {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>NanoDraft 2D — Wersja Przenośna (Offline Portable)</title>
+    <title>NanoDraft 2D v2.0 — Studio CAD (Offline Portable)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <style>
 ${cssContent}
     </style>
@@ -61,7 +64,7 @@ ${jsContent}
   fs.writeFileSync(releasePortablePath, portableHtml, 'utf8');
 
   const readmeTxt = `================================================================
-  NanoDraft 2D (v1.4) — Paczka Przenośna (Offline Portable)
+  NanoDraft 2D (v2.0 Studio UI) — Paczka Przenośna (Offline Portable)
 ================================================================
 
 JAK URUCHOMIĆ APLIKACJĘ:

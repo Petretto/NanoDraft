@@ -294,94 +294,154 @@ export class BomManager {
     if (existing) existing.remove();
 
     const { groupRows, layerRows } = this.computeBom(doc);
+    const totalLengthAll = layerRows.reduce((acc, r) => acc + r.totalLength, 0);
+    const totalEntitiesAll = layerRows.reduce((acc, r) => acc + r.entityCount, 0);
 
     const overlay = document.createElement('div');
     overlay.id = 'cad-bom-modal-overlay';
     overlay.className = 'cad-modal-overlay';
 
-    overlay.innerHTML = `
-      <div class="cad-modal" style="width: 620px; max-width: 96vw;">
-        <div class="modal-header">
-          <h3>📊 ${tr('Automatyczne Zestawienie Elementów (BOM)', 'Automatic Bill of Materials (BOM)')}</h3>
-          <button class="modal-close-btn" id="bom-close">&times;</button>
-        </div>
-        <div class="modal-body" style="display:flex; flex-direction:column; gap:14px; max-height:74vh; overflow-y:auto;">
+    let filterQuery = '';
 
-          <div>
-            <div style="font-weight:600; font-size:12px; color:var(--accent-color); margin-bottom:6px;">
-              📦 ${tr('Zliczone Bloki, Szyki i Grupy obiektów:', 'Counted Blocks, Arrays & Object Groups:')}
-            </div>
-            ${
-              groupRows.length === 0
-                ? `<div style="padding:10px; font-size:12px; color:var(--text-muted); border:1px dashed var(--border-color); border-radius:6px;">
-                    ${tr('Brak nazwanych bloków lub grup na rysunku (użyj Ctrl+G lub Biblioteki Bloków B, aby zgrupować powtarzalne elementy).', 'No named blocks or groups found (use Ctrl+G or Blocks Library B to group repeating items).')}
-                  </div>`
-                : `<table class="layers-table">
-                    <thead>
+    const renderModalBody = () => {
+      const q = filterQuery.trim().toLowerCase();
+      const filteredGroups = q
+        ? groupRows.filter(r => r.name.toLowerCase().includes(q) || r.layerName.toLowerCase().includes(q))
+        : groupRows;
+      const filteredLayers = q
+        ? layerRows.filter(r => r.layerName.toLowerCase().includes(q))
+        : layerRows;
+
+      const bodyEl = overlay.querySelector('#bom-tables-container') as HTMLElement | null;
+      if (!bodyEl) return;
+
+      bodyEl.innerHTML = `
+        <div>
+          <div style="font-weight:600; font-size:12px; color:var(--accent-color); margin-bottom:6px;">
+            📦 ${tr('Zliczone Bloki, Szyki i Grupy obiektów:', 'Counted Blocks, Arrays & Object Groups:')} (${filteredGroups.length})
+          </div>
+          ${
+            filteredGroups.length === 0
+              ? `<div style="padding:10px; font-size:12px; color:var(--text-muted); border:1px dashed var(--border-color); border-radius:6px;">
+                  ${tr('Brak pasujących bloków lub grup na rysunku (użyj Ctrl+G lub Biblioteki Bloków B, aby zgrupować powtarzalne elementy).', 'No matching blocks or groups found (use Ctrl+G or Blocks Library B to group repeating items).')}
+                </div>`
+              : `<table class="layers-table">
+                  <thead>
+                    <tr>
+                      <th style="width:52px; text-align:center;">${tr('Poz.', 'No.')}</th>
+                      <th>${tr('Element / Oznaczenie techniczne', 'Element / Technical Designation')}</th>
+                      <th>${tr('Warstwa CAD', 'CAD Layer')}</th>
+                      <th style="text-align:right;">${tr('Ilość', 'Qty')}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    ${filteredGroups
+                      .map(
+                        (r, i) => `
                       <tr>
-                        <th>${tr('Lp.', 'No.')}</th>
-                        <th>${tr('Nazwa bloku / grupy', 'Block / Group Name')}</th>
-                        <th>${tr('Warstwa', 'Layer')}</th>
-                        <th style="text-align:right;">${tr('Ilość', 'Qty')}</th>
+                        <td style="text-align:center; color:var(--text-muted); font-family:var(--font-mono);">${i + 1}</td>
+                        <td style="font-weight:600; color:#fff;">${r.name}</td>
+                        <td style="color:#38BDF8; font-family:var(--font-mono);">${r.layerName}</td>
+                        <td style="text-align:right; font-weight:700; font-family:var(--font-mono); color:var(--accent-color);">${r.count} ${tr('szt.', 'pcs')}</td>
                       </tr>
-                    </thead>
-                    <tbody>
-                      ${groupRows
-                        .map(
-                          (r, i) => `
-                        <tr>
-                          <td>${i + 1}</td>
-                          <td style="font-weight:600; color:#fff;">${r.name}</td>
-                          <td style="color:var(--text-muted);">${r.layerName}</td>
-                          <td style="text-align:right; font-weight:700; color:var(--accent-color);">${r.count} ${tr('szt.', 'pcs')}</td>
-                        </tr>
-                      `
-                        )
-                        .join('')}
-                    </tbody>
-                  </table>`
-            }
+                    `
+                      )
+                      .join('')}
+                  </tbody>
+                </table>`
+          }
+        </div>
+
+        <div>
+          <div style="font-weight:600; font-size:12px; color:var(--text-main); margin-bottom:6px;">
+            🎨 ${tr('Podsumowanie geometrii według warstw (z łączną długością konturów):', 'Geometry Summary by Layer (with total contour length):')}
+          </div>
+          <table class="layers-table">
+            <thead>
+              <tr>
+                <th>${tr('Warstwa CAD', 'CAD Layer')}</th>
+                <th style="text-align:right;">${tr('Liczba obiektów', 'Object Count')}</th>
+                <th style="text-align:right;">${tr(`Łączna długość [${doc.unit}]`, `Total Length [${doc.unit}]`)}</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${filteredLayers
+                .map(
+                  r => `
+                <tr>
+                  <td style="font-weight:500; color:#fff;">${r.layerName}</td>
+                  <td style="text-align:right; font-family:var(--font-mono);">${r.entityCount}</td>
+                  <td style="text-align:right; font-family:var(--font-mono); font-weight:600; color:var(--accent-color);">${VectorMath.round(r.totalLength, 2)} ${doc.unit}</td>
+                </tr>
+              `
+                )
+                .join('')}
+            </tbody>
+          </table>
+        </div>
+      `;
+    };
+
+    overlay.innerHTML = `
+      <div class="cad-modal" style="width: 780px; max-width: 96vw;">
+        <div class="modal-header">
+          <div style="display:flex; align-items:center; gap:10px;">
+            <div style="width:32px; height:32px; border-radius:6px; background:rgba(129,140,248,0.18); border:1px solid rgba(129,140,248,0.45); color:#818CF8; display:flex; align-items:center; justify-content:center; font-size:16px;">
+              📊
+            </div>
+            <div>
+              <h3 style="margin:0;">${tr('Zestawienie Materiałowe (BOM / Bill of Materials)', 'Bill of Materials (BOM)')}</h3>
+              <div style="font-size:11px; color:var(--text-muted); margin-top:2px;">
+                ${tr('Automatyczny audyt bloków przemysłowych, szyków, grup i długości konturów', 'Automatic audit of industrial blocks, arrays, groups & contour lengths')}
+              </div>
+            </div>
           </div>
 
-          <div>
-            <div style="font-weight:600; font-size:12px; color:var(--text-main); margin-bottom:6px;">
-              🎨 ${tr('Podsumowanie geometrii według warstw (z łączną długością konturów):', 'Geometry Summary by Layer (with total contour length):')}
+          <div style="display:flex; align-items:center; gap:10px;">
+            <div style="padding:4px 10px; border-radius:5px; background:#16181D; border:1px solid var(--border-subtle); font-family:var(--font-mono); font-size:11px; color:#CBD5E1;">
+              ${tr('Elementów:', 'Entities:')} <strong style="color:#fff;">${totalEntitiesAll}</strong>
+              <span style="margin:0 6px; color:#64748B;">|</span>
+              ${tr('Długość łączna:', 'Total length:')} <strong style="color:var(--accent-color);">${VectorMath.round(totalLengthAll, 1)} ${doc.unit}</strong>
             </div>
-            <table class="layers-table">
-              <thead>
-                <tr>
-                  <th>${tr('Warstwa', 'Layer')}</th>
-                  <th style="text-align:right;">${tr('Liczba obiektów', 'Objects')}</th>
-                  <th style="text-align:right;">${tr(`Łączna długość [${doc.unit}]`, `Total Length [${doc.unit}]`)}</th>
-                </tr>
-              </thead>
-              <tbody>
-                ${layerRows
-                  .map(
-                    r => `
-                  <tr>
-                    <td>${r.layerName}</td>
-                    <td style="text-align:right;">${r.entityCount}</td>
-                    <td style="text-align:right; font-family:var(--font-mono);">${VectorMath.round(r.totalLength, 2)} ${doc.unit}</td>
-                  </tr>
-                `
-                  )
-                  .join('')}
-              </tbody>
-            </table>
+            <button class="modal-close-btn" id="bom-close">&times;</button>
           </div>
         </div>
-        <div class="modal-footer" style="justify-content:space-between; gap:8px;">
-          <button type="button" class="top-btn" id="bom-csv-btn">📥 ${tr('Eksportuj CSV (Excel)', 'Export CSV (Excel)')}</button>
+
+        <!-- Filter Toolbar -->
+        <div style="padding:9px 20px; background:rgba(17,19,23,0.75); border-bottom:1px solid var(--border-subtle); display:flex; justify-content:space-between; align-items:center; gap:10px;">
+          <div style="font-size:11px; color:var(--text-muted);">
+            ${tr('Zestawienie gotowe do eksportu CSV (Excel / ERP) oraz wstawienia na arkusz CAD.', 'Summary ready for CSV (Excel / ERP) export and CAD drawing insertion.')}
+          </div>
+          <div style="display:flex; align-items:center; gap:6px;">
+            <span style="font-size:11px; color:var(--text-muted);">${tr('Szukaj:', 'Filter:')}</span>
+            <input type="text" id="bom-filter-input" placeholder="${tr('Filtruj tabelę...', 'Filter table...')}" class="prop-input" style="width:175px; text-align:left;" />
+          </div>
+        </div>
+
+        <div id="bom-tables-container" class="modal-body" style="display:flex; flex-direction:column; gap:14px; max-height:64vh; overflow-y:auto;"></div>
+
+        <div class="modal-footer">
+          <div style="font-family:var(--font-mono); font-size:11px; color:#10B981;">
+            ✓ ${tr('Kodowanie UTF-8 z BOM (zgodne z polskim Excelem)', 'UTF-8 with BOM encoding (Excel compatible)')}
+          </div>
           <div style="display:flex; gap:8px;">
             <button type="button" class="top-btn" id="bom-cancel-btn">${tr('Zamknij', 'Close')}</button>
-            <button type="button" class="top-btn highlight" id="bom-insert-btn">📋 ${tr('Wstaw Tabelę BOM na rysunek', 'Insert BOM Table into Drawing')}</button>
+            <button type="button" class="top-btn highlight" id="bom-insert-btn">📋 ${tr('Wstaw tabelę na rysunek', 'Insert Table into Drawing')}</button>
+            <button type="button" class="top-btn btn-portable" id="bom-csv-btn">📥 ${tr('Eksportuj CSV (Excel)', 'Export CSV (Excel)')}</button>
           </div>
         </div>
       </div>
     `;
 
     document.body.appendChild(overlay);
+    renderModalBody();
+
+    const filterInp = overlay.querySelector('#bom-filter-input') as HTMLInputElement | null;
+    filterInp?.addEventListener('keydown', e => e.stopPropagation());
+    filterInp?.addEventListener('input', () => {
+      filterQuery = filterInp.value;
+      renderModalBody();
+    });
 
     const close = () => overlay.remove();
     overlay.querySelector('#bom-close')?.addEventListener('click', close);

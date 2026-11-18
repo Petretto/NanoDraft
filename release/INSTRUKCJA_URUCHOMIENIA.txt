@@ -1,5 +1,5 @@
 ================================================================
-  NanoDraft 2D (v1.4) — Paczka Przenośna (Offline Portable)
+  NanoDraft 2D (v2.0 Studio UI) — Paczka Przenośna (Offline Portable)
 ================================================================
 
 JAK URUCHOMIĆ APLIKACJĘ:

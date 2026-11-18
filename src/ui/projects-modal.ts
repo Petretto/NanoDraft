@@ -19,7 +19,7 @@ export class ProjectsModal {
     doc: CadDocument,
     history: HistoryManager,
     transform: ViewportTransform,
-    onLoaded: () => void,
+    onLoaded: (loadedName?: string) => void,
     triggerDiskFilePicker: () => void
   ) {
     const existing = document.getElementById('cad-projects-modal-overlay');
@@ -127,7 +127,7 @@ export class ProjectsModal {
             transform.resetView();
           }
           close();
-          onLoaded();
+          onLoaded(path.split('/').pop() || path);
         } catch (err) {
           console.error('Failed to load project file:', err);
         }

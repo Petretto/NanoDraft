@@ -2,9 +2,9 @@ import { CadDocument } from '../model/document';
 import { ViewportTransform } from '../math/transform';
 import { SnapEngine } from '../engine/snap';
 import { CadGrid } from '../engine/grid';
+import { DynamicHud } from './hud';
 import { Point2D, UnitType } from '../types/cad';
 import { VectorMath } from '../math/vector';
-import { Geometry } from '../math/geometry';
 import { AutoSaveManager, AutoSaveStatusInfo } from '../io/auto-save';
 import { i18n, tr } from '../i18n/lang';
 
@@ -19,9 +19,9 @@ export class StatusBar {
   private snapBtn: HTMLButtonElement;
   private orthoBtn: HTMLButtonElement;
   private gridBtn: HTMLButtonElement;
-  private fitBtn: HTMLButtonElement;
-  private resetBtn: HTMLButtonElement;
+  private hudBtn: HTMLButtonElement;
   private lastAutoSaveInfo: AutoSaveStatusInfo | null = null;
+  private hud?: DynamicHud;
 
   constructor(
     private doc: CadDocument,
@@ -29,16 +29,27 @@ export class StatusBar {
     private snapEngine: SnapEngine,
     private grid: CadGrid,
     parent: HTMLElement,
-    private requestRender: () => void
+    private requestRender: () => void,
+    hud?: DynamicHud
   ) {
+    this.hud = hud;
     this.element = document.createElement('div');
     this.element.className = 'cad-status-bar';
 
-    // Left side: hint
+    // Left side: status dot + hint
+    const leftSide = document.createElement('div');
+    leftSide.className = 'status-left';
+
+    const dot = document.createElement('span');
+    dot.className = 'status-ready-dot';
+    leftSide.appendChild(dot);
+
     this.hintSpan = document.createElement('span');
     this.hintSpan.className = 'status-hint';
-    this.hintSpan.textContent = tr('Gotowy.', 'Ready.');
-    this.element.appendChild(this.hintSpan);
+    this.hintSpan.textContent = tr('Gotowy. Wskaż obiekt lub wybierz narzędzie kreślarskie.', 'Ready. Click an object or select a drafting tool.');
+    leftSide.appendChild(this.hintSpan);
+
+    this.element.appendChild(leftSide);
 
     // Right side: controls & coords
     const rightSide = document.createElement('div');
@@ -47,26 +58,25 @@ export class StatusBar {
     // Auto-Save subtle indicator
     this.autoSaveSpan = document.createElement('span');
     this.autoSaveSpan.className = 'status-autosave';
-    this.autoSaveSpan.style.cssText = 'font-size:11px; color:var(--text-muted); margin-right:6px; white-space:nowrap;';
+    this.autoSaveSpan.style.cssText = 'font-size:10px; color:var(--text-muted); margin-right:4px; white-space:nowrap;';
     rightSide.appendChild(this.autoSaveSpan);
 
-    // Coords
+    // Coords pill
     this.coordsSpan = document.createElement('span');
     this.coordsSpan.className = 'status-coords';
-    this.coordsSpan.textContent = `X: 0.00 ${this.doc.unit}  Y: 0.00 ${this.doc.unit}`;
+    this.coordsSpan.innerHTML = `X: <b>0.00</b>  Y: <b>0.00</b> ${this.doc.unit}`;
     rightSide.appendChild(this.coordsSpan);
 
-    // Zoom
-    this.zoomSpan = document.createElement('span');
-    this.zoomSpan.className = 'status-zoom';
-    this.zoomSpan.textContent = 'Zoom: 100%';
-    rightSide.appendChild(this.zoomSpan);
+    const sep1 = document.createElement('div');
+    sep1.style.cssText = 'width:1px; height:14px; background:var(--border-subtle);';
+    rightSide.appendChild(sep1);
 
     // Unit selector
     const unitContainer = document.createElement('div');
     unitContainer.className = 'status-unit-container';
     this.unitLabel = document.createElement('span');
     this.unitLabel.className = 'status-label';
+    this.unitLabel.style.color = '#94A3B8';
     this.unitLabel.textContent = tr('Jednostka:', 'Unit:');
     unitContainer.appendChild(this.unitLabel);
 
@@ -87,7 +97,11 @@ export class StatusBar {
     unitContainer.appendChild(this.unitSelect);
     rightSide.appendChild(unitContainer);
 
-    // Snap button (F3)
+    const sep2 = document.createElement('div');
+    sep2.style.cssText = 'width:1px; height:14px; background:var(--border-subtle);';
+    rightSide.appendChild(sep2);
+
+    // Function Key Toggle Buttons: OSNAP (F3), ORTHO (F8), GRID (F7), HUD (F12)
     this.snapBtn = document.createElement('button');
     this.snapBtn.className = `status-toggle-btn ${this.snapEngine.enabled ? 'active' : ''}`;
     this.snapBtn.textContent = 'OSNAP (F3)';
@@ -98,7 +112,6 @@ export class StatusBar {
     });
     rightSide.appendChild(this.snapBtn);
 
-    // Ortho button (F8)
     this.orthoBtn = document.createElement('button');
     this.orthoBtn.className = `status-toggle-btn ${this.snapEngine.orthoEnabled ? 'active' : ''}`;
     this.orthoBtn.textContent = 'ORTHO (F8)';
@@ -109,9 +122,9 @@ export class StatusBar {
     });
     rightSide.appendChild(this.orthoBtn);
 
-    // Grid button (F7)
     this.gridBtn = document.createElement('button');
     this.gridBtn.className = `status-toggle-btn ${this.grid.visible ? 'active' : ''}`;
+    this.gridBtn.textContent = 'GRID (F7)';
     this.gridBtn.addEventListener('click', () => {
       this.grid.visible = !this.grid.visible;
       this.updateToggles();
@@ -119,29 +132,27 @@ export class StatusBar {
     });
     rightSide.appendChild(this.gridBtn);
 
-    // Fit view (Zoom Extents - Z)
-    this.fitBtn = document.createElement('button');
-    this.fitBtn.className = 'status-toggle-btn';
-    this.fitBtn.addEventListener('click', () => {
-      const bounds = Geometry.unionBounds(this.doc.entities);
-      if (bounds) {
-        this.transform.zoomToFit(bounds);
-      } else {
-        this.transform.resetView();
+    this.hudBtn = document.createElement('button');
+    this.hudBtn.className = `status-toggle-btn ${this.hud ? (this.hud.enabled ? 'active' : '') : 'active'}`;
+    this.hudBtn.textContent = 'HUD (F12)';
+    this.hudBtn.addEventListener('click', () => {
+      if (this.hud) {
+        this.hud.setEnabled(!this.hud.enabled);
       }
+      this.updateToggles();
       this.requestRender();
     });
-    rightSide.appendChild(this.fitBtn);
+    rightSide.appendChild(this.hudBtn);
 
-    // Reset view (Home)
-    this.resetBtn = document.createElement('button');
-    this.resetBtn.className = 'status-toggle-btn';
-    this.resetBtn.textContent = '0,0 (Home)';
-    this.resetBtn.addEventListener('click', () => {
-      this.transform.resetView();
-      this.requestRender();
-    });
-    rightSide.appendChild(this.resetBtn);
+    const sep3 = document.createElement('div');
+    sep3.style.cssText = 'width:1px; height:14px; background:var(--border-subtle);';
+    rightSide.appendChild(sep3);
+
+    // Zoom
+    this.zoomSpan = document.createElement('span');
+    this.zoomSpan.className = 'status-zoom';
+    this.zoomSpan.innerHTML = 'Zoom: <b>100%</b>';
+    rightSide.appendChild(this.zoomSpan);
 
     this.element.appendChild(rightSide);
     parent.appendChild(this.element);
@@ -157,21 +168,22 @@ export class StatusBar {
     i18n.onChange(() => this.updateLabels());
   }
 
+  public attachHud(hud: DynamicHud) {
+    this.hud = hud;
+    this.updateToggles();
+  }
+
   private updateLabels() {
     this.unitLabel.textContent = tr('Jednostka:', 'Unit:');
     this.snapBtn.title = tr(
-      'Przełącz przyciąganie obiektowe OSNAP (F3): Końce, Środki, Przecięcia, Prostopadłość (∟) i Styczność (TAN)',
-      'Toggle Object Snap OSNAP (F3): Endpoints, Midpoints, Intersections, Perpendicular (∟) & Tangent (TAN)'
+      'Przyciąganie obiektowe OSNAP (F3): Koniec, Środek, Przecięcie, Prostopadłość (∟), Styczność (TAN)',
+      'Object Snap OSNAP (F3): Endpoint, Midpoint, Intersection, Perpendicular (∟), Tangent (TAN)'
     );
-    this.orthoBtn.title = tr('Blokuj kąty proste 0°/90° (F8 lub Shift)', 'Lock Ortho angles 0°/90° (F8 or Shift)');
-    this.gridBtn.textContent = tr('SIATKA (F7)', 'GRID (F7)');
-    this.gridBtn.title = tr('Przełącz widoczność siatki (F7)', 'Toggle grid visibility (F7)');
-    this.fitBtn.textContent = tr('Dopasuj (Z)', 'Fit View (Z)');
-    this.fitBtn.title = tr('Dopasuj widok do wszystkich obiektów (Z lub 2x ŚPM)', 'Zoom to fit all objects (Z or Double MMB)');
-    this.resetBtn.title = tr('Wyśrodkuj widok na punkt 0,0 (Home)', 'Reset view to origin 0,0 (Home)');
-    if (this.hintSpan.textContent === 'Gotowy.' || this.hintSpan.textContent === 'Ready.') {
-      this.hintSpan.textContent = tr('Gotowy.', 'Ready.');
-    }
+    this.orthoBtn.title = tr('Tryb ortogonalny 90° (F8 lub Shift)', 'Orthogonal mode 90° (F8 or Shift)');
+    this.gridBtn.textContent = 'GRID (F7)';
+    this.gridBtn.title = tr('Siatka techniczna (F7)', 'Technical grid (F7)');
+    this.hudBtn.textContent = 'HUD (F12)';
+    this.hudBtn.title = tr('Wprowadzanie dynamiczne HUD przy kursorze (F12)', 'Dynamic input HUD near cursor (F12)');
     if (this.lastAutoSaveInfo) {
       this.updateAutoSaveStatus(this.lastAutoSaveInfo);
     }
@@ -181,37 +193,42 @@ export class StatusBar {
     this.lastAutoSaveInfo = info;
     if (info.status === 'saved' && info.savedAt) {
       const t = AutoSaveManager.formatTime(info.savedAt);
-      this.autoSaveSpan.textContent = tr(`💾 Auto-zapis ${t}`, `💾 Auto-saved ${t}`);
-      this.autoSaveSpan.style.color = '#66bb6a';
+      this.autoSaveSpan.textContent = tr(`Auto-zapis ${t}`, `Auto-saved ${t}`);
+      this.autoSaveSpan.style.color = '#10B981';
       this.autoSaveSpan.title = tr(
         'Stan rysunku jest automatycznie zapisywany w pamięci przeglądarki (localStorage)',
         'Drawing state is automatically saved in browser storage (localStorage)'
       );
     } else if (info.status === 'restored' && info.savedAt) {
       const t = AutoSaveManager.formatTime(info.savedAt);
-      this.autoSaveSpan.textContent = tr(`💾 Przywrócono (${t})`, `💾 Restored (${t})`);
-      this.autoSaveSpan.style.color = '#00e5ff';
+      this.autoSaveSpan.textContent = tr(`Przywrócono (${t})`, `Restored (${t})`);
+      this.autoSaveSpan.style.color = '#00E5FF';
     } else if (info.status === 'quota-exceeded') {
-      this.autoSaveSpan.textContent = tr('⚠️ Auto-zapis: limit pamięci', '⚠️ Auto-save: storage full');
-      this.autoSaveSpan.style.color = '#ffb74d';
+      this.autoSaveSpan.textContent = tr('⚠️ Limit pamięci', '⚠️ Storage full');
+      this.autoSaveSpan.style.color = '#F59E0B';
     } else {
       this.autoSaveSpan.textContent = '';
     }
   }
 
   setHint(text: string) {
-    this.hintSpan.textContent = text || tr('Gotowy.', 'Ready.');
+    this.hintSpan.textContent =
+      text || tr('Gotowy. Wskaż obiekt lub wybierz narzędzie kreślarskie.', 'Ready. Click an object or select a drafting tool.');
   }
 
   updateCursorCoords(worldPt: Point2D) {
-    this.coordsSpan.textContent = `X: ${VectorMath.round(worldPt.x)} ${this.doc.unit}  Y: ${VectorMath.round(worldPt.y)} ${this.doc.unit}`;
+    const xStr = VectorMath.round(worldPt.x).toFixed(2);
+    const yStr = VectorMath.round(worldPt.y).toFixed(2);
+    this.coordsSpan.innerHTML = `X: <b>${xStr}</b> &nbsp; Y: <b>${yStr}</b> ${this.doc.unit}`;
     const zoomPct = Math.round(this.transform.zoom * 50);
-    this.zoomSpan.textContent = `Zoom: ${zoomPct}%`;
+    this.zoomSpan.innerHTML = `Zoom: <b>${zoomPct}%</b>`;
   }
 
   updateToggles() {
     this.snapBtn.className = `status-toggle-btn ${this.snapEngine.enabled ? 'active' : ''}`;
     this.orthoBtn.className = `status-toggle-btn ${this.snapEngine.isOrthoActive() ? 'active' : ''}`;
     this.gridBtn.className = `status-toggle-btn ${this.grid.visible ? 'active' : ''}`;
+    const hudActive = this.hud ? this.hud.enabled : true;
+    this.hudBtn.className = `status-toggle-btn ${hudActive ? 'active' : ''}`;
   }
 }

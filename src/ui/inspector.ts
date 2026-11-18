@@ -5,17 +5,22 @@ import { VectorMath } from '../math/vector';
 import { Geometry } from '../math/geometry';
 import { LineEntity, CircleEntity, TextEntity, PolylineEntity, DimensionEntity, PointEntity, ImageEntity, CadEntity } from '../types/cad';
 import { UnderlayManager } from './underlay-modal';
+import { LayersModal } from './layers-modal';
+import { ToolManager } from '../tools/tool-manager';
+import { svgIcon } from './icons';
 import { i18n, tr } from '../i18n/lang';
 
 export class PropertyInspector {
   private element: HTMLDivElement;
+  private activeTab: 'properties' | 'layers' | 'history' = 'properties';
 
   constructor(
     private doc: CadDocument,
     private history: HistoryManager,
     parent: HTMLElement,
     private requestRender: () => void,
-    private transform?: ViewportTransform
+    private transform?: ViewportTransform,
+    private toolManager?: ToolManager
   ) {
     this.element = document.createElement('div');
     this.element.className = 'cad-inspector';
@@ -29,62 +34,155 @@ export class PropertyInspector {
 
   private render() {
     // Preserve focus if user is actively typing in an input
-    if (this.element.contains(document.activeElement)) {
+    if (this.element.contains(document.activeElement) && document.activeElement instanceof HTMLInputElement) {
       return;
     }
 
     this.element.innerHTML = '';
 
-    // History controls (Undo / Redo)
-    const historyHeader = document.createElement('div');
-    historyHeader.className = 'inspector-section-header';
-    historyHeader.innerHTML = `
-      <span>${tr('Historia', 'History')}</span>
+    // 1. Panel Header Tabs (Właściwości / Warstwy / Historia)
+    const tabsEl = document.createElement('div');
+    tabsEl.className = 'inspector-tabs';
+    tabsEl.innerHTML = `
+      <button type="button" class="inspector-tab-btn ${this.activeTab === 'properties' ? 'active' : ''}" data-tab="properties">
+        ${tr('Właściwości', 'Properties')}
+      </button>
+      <button type="button" class="inspector-tab-btn ${this.activeTab === 'layers' ? 'active' : ''}" data-tab="layers">
+        ${tr('Warstwy', 'Layers')} (${this.doc.layers.length})
+      </button>
+      <button type="button" class="inspector-tab-btn ${this.activeTab === 'history' ? 'active' : ''}" data-tab="history">
+        ${tr('Historia', 'History')}
+      </button>
+    `;
+    this.element.appendChild(tabsEl);
+
+    tabsEl.querySelectorAll('.inspector-tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        this.activeTab = (btn as HTMLElement).dataset.tab as any;
+        this.render();
+      });
+    });
+
+    // 2. Scrollable Body
+    const scrollBody = document.createElement('div');
+    scrollBody.className = 'inspector-scroll-body';
+    this.element.appendChild(scrollBody);
+
+    // Selected Entity / Undo-Redo Header Card
+    const selected = this.doc.getSelectedEntities();
+    const entityCard = document.createElement('div');
+    entityCard.className = 'inspector-entity-card';
+
+    const entityIconName =
+      selected.length === 1
+        ? selected[0].type === 'line'
+          ? 'horizontal_rule'
+          : selected[0].type === 'circle'
+          ? 'radio_button_unchecked'
+          : selected[0].type === 'polyline'
+          ? 'polyline'
+          : selected[0].type === 'dimension'
+          ? 'square_foot'
+          : selected[0].type === 'text'
+          ? 'title'
+          : selected[0].type === 'image'
+          ? 'image'
+          : 'scatter_plot'
+        : selected.length > 1
+        ? 'widgets'
+        : 'near_me';
+
+    const entityTitle =
+      selected.length === 1
+        ? `${selected[0].type.toUpperCase()}`
+        : selected.length > 1
+        ? `${tr('Zaznaczono', 'Selected')}: ${selected.length}`
+        : tr('Dokument CAD', 'CAD Document');
+
+    const activeLayerObj =
+      selected.length === 1
+        ? this.doc.layers.find(l => l.id === selected[0].layerId)
+        : this.doc.layers.find(l => l.id === this.doc.activeLayerId);
+
+    entityCard.innerHTML = `
+      <div style="display:flex; align-items:center; gap:8px; min-width:0;">
+        <div class="inspector-entity-icon">${svgIcon(entityIconName, 15)}</div>
+        <div style="min-width:0;">
+          <div style="font-size:11px; font-weight:600; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${entityTitle}</div>
+          <div style="font-size:10px; font-family:var(--font-mono); color:var(--text-muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">
+            ${tr('Warstwa:', 'Layer:')} ${activeLayerObj?.name || '0'}
+          </div>
+        </div>
+      </div>
       <div class="history-btns">
-        <button id="btn-undo" class="mini-btn" ${!this.history.canUndo() ? 'disabled' : ''} title="${tr('Cofnij (Ctrl+Z)', 'Undo (Ctrl+Z)')}">↶</button>
-        <button id="btn-redo" class="mini-btn" ${!this.history.canRedo() ? 'disabled' : ''} title="${tr('Ponów (Ctrl+Y)', 'Redo (Ctrl+Y)')}">↷</button>
+        <button id="btn-undo" class="mini-btn" ${!this.history.canUndo() ? 'disabled' : ''} title="${tr('Cofnij (Ctrl+Z)', 'Undo (Ctrl+Z)')}">${svgIcon('undo', 15)}</button>
+        <button id="btn-redo" class="mini-btn" ${!this.history.canRedo() ? 'disabled' : ''} title="${tr('Ponów (Ctrl+Y)', 'Redo (Ctrl+Y)')}">${svgIcon('redo', 15)}</button>
       </div>
     `;
-    this.element.appendChild(historyHeader);
+    scrollBody.appendChild(entityCard);
 
-    historyHeader.querySelector('#btn-undo')?.addEventListener('click', () => {
+    entityCard.querySelector('#btn-undo')?.addEventListener('click', () => {
       this.history.undo();
       this.requestRender();
     });
-    historyHeader.querySelector('#btn-redo')?.addEventListener('click', () => {
+    entityCard.querySelector('#btn-redo')?.addEventListener('click', () => {
       this.history.redo();
       this.requestRender();
     });
 
-    const selected = this.doc.getSelectedEntities();
-
-    if (selected.length === 0) {
+    if (this.activeTab === 'layers') {
+      const layWrap = document.createElement('div');
+      layWrap.className = 'inspector-details';
+      layWrap.innerHTML = `
+        <div class="inspector-section-header">${tr('Zarządzanie Warstwami DXF', 'DXF Layer Management')}</div>
+        <button id="insp-open-layers-modal" class="top-btn highlight" style="width:100%; justify-content:center; padding:7px;">
+          ${svgIcon('layers', 15)}
+          <span>${tr('Otwórz pełny Menedżer Warstw', 'Open Full Layer Manager')}</span>
+        </button>
+      `;
+      scrollBody.appendChild(layWrap);
+      layWrap.querySelector('#insp-open-layers-modal')?.addEventListener('click', () => {
+        LayersModal.open(this.doc, () => {
+          this.render();
+          this.requestRender();
+        });
+      });
+    } else if (this.activeTab === 'history') {
+      const histWrap = document.createElement('div');
+      histWrap.className = 'inspector-details';
+      histWrap.innerHTML = `
+        <div class="inspector-section-header">${tr('Historia Operacji CAD', 'CAD Undo/Redo Stack')}</div>
+        <div class="doc-stats">
+          <div>${tr('Możliwość cofnięcia (Ctrl+Z):', 'Can Undo (Ctrl+Z):')} <b>${this.history.canUndo() ? tr('TAK', 'YES') : tr('NIE', 'NO')}</b></div>
+          <div>${tr('Możliwość ponowienia (Ctrl+Y):', 'Can Redo (Ctrl+Y):')} <b>${this.history.canRedo() ? tr('TAK', 'YES') : tr('NIE', 'NO')}</b></div>
+          <div>${tr('Obiektów na rysunku:', 'Entities on canvas:')} <b>${this.doc.entities.length}</b></div>
+        </div>
+      `;
+      scrollBody.appendChild(histWrap);
+    } else if (selected.length === 0) {
       const emptyState = document.createElement('div');
       emptyState.className = 'inspector-empty';
       emptyState.innerHTML = `
         <p>${tr('Brak zaznaczenia', 'No Selection')}</p>
-        <small>${tr(
-          'Kliknij obiekt na płótnie lub zaznacz ramką, aby wyświetlić i edytować wymiary oraz kąt.',
-          'Click an object on canvas or drag a selection box to inspect and edit dimensions and angle.'
+        <small style="line-height:1.4;">${tr(
+          'Kliknij obiekt na płótnie lub przeciągnij okno zaznaczenia (L→P / P→L), aby edytować wymiary, kąt i warstwę.',
+          'Click an object on canvas or drag a selection window (L→R / R→L) to edit dimensions, angle and layer.'
         )}</small>
-        <hr/>
         <div class="doc-stats">
-          <div>${tr('Obiektów w dokumencie:', 'Entities in document:')} <b>${this.doc.entities.length}</b></div>
-          <div>${tr('Jednostka:', 'Unit:')} <b>${this.doc.unit.toUpperCase()}</b></div>
+          <div style="display:flex; justify-content:space-between;"><span>${tr('Elementów:', 'Entities:')}</span> <b style="color:var(--accent);">${this.doc.entities.length}</b></div>
+          <div style="display:flex; justify-content:space-between;"><span>${tr('Jednostka:', 'Unit:')}</span> <b>${this.doc.unit.toUpperCase()}</b></div>
+          <div style="display:flex; justify-content:space-between;"><span>${tr('Warstw:', 'Layers:')}</span> <b>${this.doc.layers.length}</b></div>
         </div>
       `;
-      this.element.appendChild(emptyState);
-      return;
-    }
-
-    if (selected.length === 1) {
+      scrollBody.appendChild(emptyState);
+    } else if (selected.length === 1) {
       const ent = selected[0];
       const details = document.createElement('div');
       details.className = 'inspector-details';
 
       const header = document.createElement('div');
       header.className = 'inspector-section-header';
-      header.textContent = `${tr('Właściwości', 'Properties')}: ${ent.type.toUpperCase()}`;
+      header.textContent = `${tr('Geometria i Styl', 'Geometry & Style')}`;
       details.appendChild(header);
 
       this.renderGeneralProperties(ent, details);
@@ -105,18 +203,29 @@ export class PropertyInspector {
         this.renderImageInspector(ent as ImageEntity, details);
       }
 
-      // Delete action button
+      // Quick Transform & Action Buttons
       const actions = document.createElement('div');
       actions.className = 'inspector-actions';
-      actions.innerHTML = `<button id="btn-del-single" class="danger-btn">${tr('Usuń obiekt (Del)', 'Delete Object (Del)')}</button>`;
+      actions.innerHTML = `
+        <div class="inspector-section-header" style="margin-top:4px;">${tr('Szybkie operacje', 'Quick Actions')}</div>
+        <div class="quick-ops-grid">
+          <button type="button" id="qop-copy" class="quick-op-btn">${svgIcon('content_copy', 14)} <span>${tr('Kopiuj [K]', 'Copy [K]')}</span></button>
+          <button type="button" id="qop-rotate" class="quick-op-btn">${svgIcon('rotate_right', 14)} <span>${tr('Obróć [O]', 'Rotate [O]')}</span></button>
+          <button type="button" id="qop-mirror" class="quick-op-btn">${svgIcon('flip', 14)} <span>${tr('Lustro [I]', 'Mirror [I]')}</span></button>
+          <button type="button" id="btn-del-single" class="danger-btn">${svgIcon('delete', 14)} <span>${tr('Usuń [Del]', 'Delete [Del]')}</span></button>
+        </div>
+      `;
       details.appendChild(actions);
 
+      actions.querySelector('#qop-copy')?.addEventListener('click', () => this.toolManager?.setActiveTool('copy'));
+      actions.querySelector('#qop-rotate')?.addEventListener('click', () => this.toolManager?.setActiveTool('rotate'));
+      actions.querySelector('#qop-mirror')?.addEventListener('click', () => this.toolManager?.setActiveTool('mirror'));
       actions.querySelector('#btn-del-single')?.addEventListener('click', () => {
         this.doc.deleteSelected();
         this.requestRender();
       });
 
-      this.element.appendChild(details);
+      scrollBody.appendChild(details);
     } else {
       // Multiple selection / Group selection
       const multi = document.createElement('div');
@@ -146,7 +255,7 @@ export class PropertyInspector {
             ? `
           <div class="prop-row">
             <span>${tr('Nazwa grupy:', 'Group name:')}</span>
-            <input id="inp-group-name" type="text" class="prop-input" style="width:120px; text-align:left;" value="${currentGroupName.replace(/"/g, '&quot;')}" />
+            <input id="inp-group-name" type="text" class="prop-input" style="width:125px; text-align:left;" value="${currentGroupName.replace(/"/g, '&quot;')}" />
           </div>
         `
             : ''
@@ -154,7 +263,7 @@ export class PropertyInspector {
         <div class="inspector-actions" style="margin-top:8px;">
           ${
             !isSingleGroup
-              ? `<button id="btn-group-sel" class="top-btn highlight" style="width:100%; justify-content:center;">🔗 ${tr('Połącz w grupę (Ctrl+G)', 'Group Selected (Ctrl+G)')}</button>`
+              ? `<button id="btn-group-sel" class="top-btn highlight" style="width:100%; justify-content:center;">${svgIcon('link', 14)} ${tr('Połącz w grupę (Ctrl+G)', 'Group Selected (Ctrl+G)')}</button>`
               : ''
           }
           ${
@@ -162,10 +271,14 @@ export class PropertyInspector {
               ? `<button id="btn-ungroup-sel" class="top-btn" style="width:100%; justify-content:center;">🔓 ${tr('Rozgrupuj elementy (Ctrl+U)', 'Ungroup Elements (Ctrl+U)')}</button>`
               : ''
           }
-          <button id="btn-del-multi" class="danger-btn">${tr('Usuń zaznaczone', 'Delete Selected')} (${selected.length})</button>
+          <div class="quick-ops-grid" style="margin-top:4px;">
+            <button type="button" id="qop-multi-copy" class="quick-op-btn">${svgIcon('content_copy', 14)} <span>${tr('Kopiuj [K]', 'Copy [K]')}</span></button>
+            <button type="button" id="qop-multi-move" class="quick-op-btn">${svgIcon('open_with', 14)} <span>${tr('Przesuń [M]', 'Move [M]')}</span></button>
+          </div>
+          <button id="btn-del-multi" class="danger-btn" style="width:100%;">${svgIcon('delete', 14)} ${tr('Usuń zaznaczone', 'Delete Selected')} (${selected.length})</button>
         </div>
       `;
-      this.element.appendChild(multi);
+      scrollBody.appendChild(multi);
 
       const grpInput = multi.querySelector('#inp-group-name') as HTMLInputElement | null;
       grpInput?.addEventListener('change', () => {
@@ -184,11 +297,98 @@ export class PropertyInspector {
         this.requestRender();
       });
 
+      multi.querySelector('#qop-multi-copy')?.addEventListener('click', () => this.toolManager?.setActiveTool('copy'));
+      multi.querySelector('#qop-multi-move')?.addEventListener('click', () => this.toolManager?.setActiveTool('move'));
+
       multi.querySelector('#btn-del-multi')?.addEventListener('click', () => {
         this.doc.deleteSelected();
         this.requestRender();
       });
     }
+
+    // 3. Bottom Docked Mini Layer Quick Manager Widget
+    this.renderMiniLayersDock();
+  }
+
+  private renderMiniLayersDock() {
+    const dock = document.createElement('div');
+    dock.className = 'inspector-layers-dock';
+    dock.innerHTML = `
+      <div style="display:flex; align-items:center; justify-content:space-between;">
+        <span style="font-size:11px; font-weight:600; color:#E2E8F0;">${tr('Warstwy projektu', 'Project Layers')}</span>
+        <button type="button" id="mini-add-layer-btn" style="background:transparent; border:none; color:var(--accent); font-family:var(--font-mono); font-size:10px; font-weight:600; cursor:pointer;">
+          + ${tr('Dodaj', 'Add')}
+        </button>
+      </div>
+      <div class="inspector-layers-list">
+        ${this.doc.layers
+          .map(
+            l => `
+          <div class="mini-layer-row ${l.id === this.doc.activeLayerId ? 'active' : ''}" data-layer-id="${l.id}">
+            <div style="display:flex; align-items:center; gap:7px; min-width:0;">
+              <span style="width:9px; height:9px; border-radius:50%; background:${l.color}; border:1px solid rgba(255,255,255,0.25); flex-shrink:0;"></span>
+              <span style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${l.name}</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:3px; flex-shrink:0;">
+              <button type="button" class="mini-layer-icon-btn ${l.visible ? 'active-cyan' : ''}" data-vis-id="${l.id}" title="${tr('Widoczność warstwy', 'Layer visibility')}">
+                ${svgIcon(l.visible ? 'visibility' : 'visibility_off', 14)}
+              </button>
+              <button type="button" class="mini-layer-icon-btn" data-lock-id="${l.id}" style="color:${l.locked ? '#F59E0B' : '#94A3B8'};" title="${tr('Blokada warstwy', 'Layer lock')}">
+                ${svgIcon(l.locked ? 'lock' : 'lock_open', 14)}
+              </button>
+            </div>
+          </div>
+        `
+          )
+          .join('')}
+      </div>
+    `;
+    this.element.appendChild(dock);
+
+    dock.querySelector('#mini-add-layer-btn')?.addEventListener('click', () => {
+      LayersModal.open(this.doc, () => {
+        this.render();
+        this.requestRender();
+      });
+    });
+
+    dock.querySelectorAll('.mini-layer-row').forEach(row => {
+      row.addEventListener('click', (e) => {
+        if ((e.target as HTMLElement).closest('button')) return;
+        const id = (row as HTMLElement).dataset.layerId;
+        if (id && id !== this.doc.activeLayerId) {
+          this.doc.activeLayerId = id;
+          this.doc.notifyChange();
+          this.requestRender();
+        }
+      });
+    });
+
+    dock.querySelectorAll('[data-vis-id]').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const id = (btn as HTMLElement).dataset.visId;
+        const l = this.doc.layers.find(x => x.id === id);
+        if (l) {
+          l.visible = !l.visible;
+          this.doc.notifyChange();
+          this.requestRender();
+        }
+      });
+    });
+
+    dock.querySelectorAll('[data-lock-id]').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const id = (btn as HTMLElement).dataset.lockId;
+        const l = this.doc.layers.find(x => x.id === id);
+        if (l) {
+          l.locked = !l.locked;
+          this.doc.notifyChange();
+          this.requestRender();
+        }
+      });
+    });
   }
 
   // --- LINE INSPECTOR ---

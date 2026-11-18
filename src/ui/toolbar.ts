@@ -4,13 +4,14 @@ import { HistoryManager } from '../model/history';
 import { ViewportTransform } from '../math/transform';
 import { BlocksManager } from './blocks-modal';
 import { BomManager } from './bom-modal';
+import { svgIcon } from './icons';
 import { i18n, tr } from '../i18n/lang';
 
 interface ToolButtonDef {
   id: string;
   name: string;
   key: string;
-  icon: string;
+  iconName: string;
   title?: string;
   onClick?: () => void;
 }
@@ -51,48 +52,60 @@ export class Toolbar {
         groupId: 'select',
         title: tr('Wybór', 'Select'),
         items: [
-          { id: 'select', name: tr('Zaznacz', 'Select'), key: 'S', icon: '↖' },
-          { id: 'measure', name: tr('Zmierz', 'Measure'), key: 'Q', icon: '📏' },
+          {
+            id: 'select',
+            name: tr('Zaznacz', 'Select'),
+            key: 'S',
+            iconName: 'near_me',
+            title: tr('Zaznacz obiekt / Uchwyty Grips [S]', 'Select object / Grips [S]'),
+          },
+          {
+            id: 'measure',
+            name: tr('Zmierz', 'Measure'),
+            key: 'Q',
+            iconName: 'straighten',
+            title: tr('Szybki pomiar odległości / pola m² [Q]', 'Quick distance / area m² measurement [Q]'),
+          },
         ],
       },
       {
         groupId: 'draw',
         title: tr('Rysowanie', 'Draw'),
         items: [
-          { id: 'line', name: tr('Linia', 'Line'), key: 'L', icon: '╱' },
-          { id: 'polyline', name: tr('Polilinia', 'Polyline'), key: 'W', icon: '⌇' },
-          { id: 'rect', name: tr('Prostokąt', 'Rect'), key: 'R', icon: '▭' },
-          { id: 'circle', name: tr('Okrąg', 'Circle'), key: 'C', icon: '○' },
-          { id: 'arc', name: tr('Łuk', 'Arc'), key: 'A', icon: '⌒' },
+          { id: 'line', name: tr('Linia', 'Line'), key: 'L', iconName: 'horizontal_rule' },
+          { id: 'polyline', name: tr('Polilinia', 'Polyline'), key: 'W', iconName: 'polyline' },
+          { id: 'rect', name: tr('Prostokąt', 'Rect'), key: 'R', iconName: 'rectangle' },
+          { id: 'circle', name: tr('Okrąg', 'Circle'), key: 'C', iconName: 'radio_button_unchecked' },
+          { id: 'arc', name: tr('Łuk', 'Arc'), key: 'A', iconName: 'gesture' },
           {
             id: 'polygon',
-            name: tr('Fasolka/Wlk', 'Slot/Poly'),
+            name: tr('Fasolka', 'Slot/Poly'),
             key: 'U',
-            icon: '⬡',
+            iconName: 'hexagon',
             title: tr('Otwór podłużny — Fasolka (Slot) oraz Wielokąt foremny (Polygon) [U]', 'Mounting Slot & Regular Polygon [U]'),
           },
-          { id: 'point', name: tr('Punkt', 'Point'), key: 'P', icon: '•' },
-          { id: 'hatch', name: tr('Kreskuj', 'Hatch'), key: 'H', icon: '▧' },
+          { id: 'point', name: tr('Punkt', 'Point'), key: 'P', iconName: 'scatter_plot' },
+          { id: 'hatch', name: tr('Kreskuj', 'Hatch'), key: 'H', iconName: 'texture' },
         ],
       },
       {
         groupId: 'modify',
         title: tr('Modyfikacja', 'Modify'),
         items: [
-          { id: 'move', name: tr('Przesuń', 'Move'), key: 'M', icon: '✥' },
-          { id: 'copy', name: tr('Kopiuj', 'Copy'), key: 'K', icon: '⧉' },
-          { id: 'rotate', name: tr('Obróć', 'Rotate'), key: 'O', icon: '↻' },
-          { id: 'mirror', name: tr('Lustro', 'Mirror'), key: 'I', icon: '◫' },
-          { id: 'scale', name: tr('Skaluj', 'Scale'), key: 'V', icon: '⤢' },
-          { id: 'offset', name: tr('Odsuń', 'Offset'), key: 'F', icon: '≋' },
-          { id: 'array', name: tr('Szyk', 'Array'), key: 'Y', icon: '▦' },
-          { id: 'fillet', name: tr('Zaokrąglij', 'Fillet'), key: 'G', icon: '◜' },
-          { id: 'trim', name: tr('Przytnij', 'Trim'), key: 'X', icon: '✂' },
+          { id: 'move', name: tr('Przesuń', 'Move'), key: 'M', iconName: 'open_with' },
+          { id: 'copy', name: tr('Kopiuj', 'Copy'), key: 'K', iconName: 'content_copy' },
+          { id: 'rotate', name: tr('Obróć', 'Rotate'), key: 'O', iconName: 'rotate_right' },
+          { id: 'mirror', name: tr('Lustro', 'Mirror'), key: 'I', iconName: 'flip' },
+          { id: 'scale', name: tr('Skaluj', 'Scale'), key: 'V', iconName: 'open_in_full' },
+          { id: 'offset', name: tr('Odsuń', 'Offset'), key: 'F', iconName: 'density_small' },
+          { id: 'array', name: tr('Szyk', 'Array'), key: 'Y', iconName: 'grid_view' },
+          { id: 'fillet', name: tr('Zaokrąglij', 'Fillet'), key: 'G', iconName: 'rounded_corner' },
+          { id: 'trim', name: tr('Przytnij', 'Trim'), key: 'X', iconName: 'content_cut' },
           {
             id: 'match-props',
             name: tr('Pędzel', 'Match'),
             key: 'J',
-            icon: '🖌️',
+            iconName: 'format_paint',
             title: tr(
               'Pędzel właściwości — kopiuj warstwę, kolor, grubość/styl linii i czcionkę na inne obiekty [J]',
               'Match Properties — copy layer, color, linetype, lineweight & font size to other objects [J]'
@@ -102,8 +115,8 @@ export class Toolbar {
             id: '__explode_action',
             name: tr('Rozbij', 'Explode'),
             key: 'E',
-            icon: '💥',
-            title: tr('Rozbij prostokąt/polilinię na pojedyncze odcinki (E)', 'Explode rectangle/polyline into individual line segments (E)'),
+            iconName: 'explosion',
+            title: tr('Rozbij prostokąt/polilinię na pojedyncze odcinki [E]', 'Explode rectangle/polyline into individual line segments [E]'),
             onClick: () => {
               if (!this.doc.explodeSelected(this.history)) {
                 alert(tr('Zaznacz prostokąt, polilinię lub grupę do rozbicia (E).', 'Select a rectangle, polyline or group to explode (E).'));
@@ -117,20 +130,20 @@ export class Toolbar {
         groupId: 'annotate',
         title: tr('Opis i Bloki', 'Annotate'),
         items: [
-          { id: 'dimension', name: tr('Wymiar', 'Dim'), key: 'D', icon: '↔' },
+          { id: 'dimension', name: tr('Wymiar', 'Dim'), key: 'D', iconName: 'square_foot' },
           {
             id: 'leader',
             name: tr('Odnośnik', 'Leader'),
             key: 'N',
-            icon: '↗',
+            iconName: 'call_made',
             title: tr('Odnośnik strzałkowy z półką tekstową (Leader / Callout) [N]', 'Leader Callout with landing shelf [N]'),
           },
-          { id: 'text', name: tr('Tekst', 'Text'), key: 'T', icon: 'T' },
+          { id: 'text', name: tr('Tekst', 'Text'), key: 'T', iconName: 'title' },
           {
             id: '__group_action',
             name: tr('Grupuj', 'Group'),
             key: '^G',
-            icon: '🔗',
+            iconName: 'link',
             title: tr('Połącz zaznaczone elementy w grupę (Ctrl+G) lub rozgrupuj (Ctrl+U)', 'Group selected elements (Ctrl+G) or ungroup (Ctrl+U)'),
             onClick: () => {
               const sel = this.doc.getSelectedEntities();
@@ -161,18 +174,18 @@ export class Toolbar {
             id: '__blocks_modal',
             name: tr('Bloki', 'Blocks'),
             key: 'B',
-            icon: '📦',
-            title: tr('Otwórz Bibliotekę Bloków i Symboli CAD (B)', 'Open CAD Blocks & Symbols Library (B)'),
+            iconName: 'widgets',
+            title: tr('Otwórz Bibliotekę Bloków i Symboli CAD [B]', 'Open CAD Blocks & Symbols Library [B]'),
             onClick: () => {
               BlocksManager.openModal(this.doc, this.history, this.transform, () => this.requestRender());
             },
           },
           {
             id: '__bom_modal',
-            name: tr('Zestaw. BOM', 'BOM'),
+            name: tr('BOM', 'BOM'),
             key: '',
-            icon: '📊',
-            title: tr('Automatyczne Zestawienie Bloków / Grup (BOM) i eksport CSV', 'Automatic Blocks / Groups Bill of Materials (BOM) & CSV Export'),
+            iconName: 'table_chart',
+            title: tr('Automatyczne Zestawienie Materiałowe (BOM) i eksport CSV', 'Automatic Bill of Materials (BOM) & CSV Export'),
             onClick: () => {
               BomManager.openModal(this.doc, this.history, this.transform, () => this.requestRender());
             },
@@ -206,10 +219,10 @@ export class Toolbar {
         for (const t of grp.items) {
           const btn = document.createElement('button');
           btn.className = `tool-btn ${activeTool.id === t.id ? 'active' : ''}`;
-          btn.title = t.title || `${t.name} (${tr('Skrót', 'Shortcut')}: ${t.key})`;
+          btn.title = t.title || `${t.name} ${t.key ? `[${t.key}]` : ''}`;
 
           btn.innerHTML = `
-            <span class="tool-icon">${t.icon}</span>
+            <span class="tool-icon">${svgIcon(t.iconName, 17)}</span>
             <span class="tool-name">${t.name}</span>
             <span class="tool-key">${t.key}</span>
           `;
